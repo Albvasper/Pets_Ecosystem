@@ -5,27 +5,26 @@ public class Animal : MonoBehaviour
 {
 
     [SerializeField] AnimalData animalData;
-    public AnimalBehavior animalBehavior;
-    public AnimalPhysics animalPhysics;
+    AnimalBehavior animalBehavior;
+    AnimalPhysics animalPhysics;
     Rigidbody2D rb2D;
     NavMeshAgent agent;
-
     // bumping state vars
-    const float limit = 4f;
-    float counter = limit;
+    const float cooldown = 5f;
+    float counter = cooldown;
 
     private void Awake()
     {
         animalBehavior = GetComponent<AnimalBehavior>();
+        animalPhysics = GetComponent<AnimalPhysics>();
         agent = GetComponent<NavMeshAgent>();
-        animalPhysics = GetComponentInChildren<AnimalPhysics>();
-        rb2D = GetComponentInChildren<Rigidbody2D>();
-        // Set IDLE state as the default state
-        animalBehavior.SetState(new State_IDLE(this));
+        rb2D = GetComponent<Rigidbody2D>();
     }
 
     private void Start()
     {
+        // Set IDLE state as the default state
+        animalBehavior.SetState(new State_IDLE(this));
 
     }
 
@@ -35,7 +34,7 @@ public class Animal : MonoBehaviour
         counter += Time.deltaTime;
         if (animalPhysics.IsTouchingAgent())
         {
-            if (counter >= limit)
+            if (counter >= cooldown)
             {
                 animalBehavior.SetState(new State_Bumping(this, animalPhysics.GetBumpingAnimal()));
                 counter = 0;
@@ -56,5 +55,20 @@ public class Animal : MonoBehaviour
     public void SetNavMeshAgent(NavMeshAgent _agent)
     {
         agent = _agent;
+    }
+
+    public AnimalBehavior GetAnimalBehavior()
+    {
+        return animalBehavior;
+    }
+
+    public AnimalPhysics GetAnimalPhysics()
+    {
+        return animalPhysics;
+    }
+
+    public float GetBumpingCooldown()
+    {
+        return cooldown;
     }
 }

@@ -4,8 +4,8 @@ using UnityEngine.AI;
 
 public class AnimalBehavior : MonoBehaviour
 {
-    public Animal animal;
-    protected State currentState;
+    Animal animal;
+    State currentState;
 
     void Awake()
     {
@@ -44,16 +44,23 @@ public class AnimalBehavior : MonoBehaviour
     // Move the agent to the target
     public void Walk(Vector2 target)
     {
-        animal.GetNavMeshAgent().SetDestination(target);
+        animal.GetNavMeshAgent().SetDestination(
+            Vector2.Lerp(
+                animal.transform.position,
+                target,
+                1f
+            ));
     }
 
     public void StopWalking()
     {
         animal.GetNavMeshAgent().isStopped = true;
+        animal.GetNavMeshAgent().enabled = false;
     }
 
     public void KeepWalking()
     {
+        animal.GetNavMeshAgent().enabled = true;
         animal.GetNavMeshAgent().isStopped = false;
 
     }

@@ -4,25 +4,20 @@ using UnityEngine.AI;
 
 public class AnimalPhysics : MonoBehaviour
 {
-    [SerializeField] public float rbMass = 100f;
-    [SerializeField] public float rbLinearDamping = 2f;
-    public Animal animal;
+    Animal animal;
     bool isTouchingAgent;
-    Rigidbody2D parentRB;
-    CircleCollider2D parentCollider;
     GameObject bumpingAnimal;
+    const float linearDamping = 2f;
 
     void Awake()
     {
+        animal = GetComponent<Animal>();
         isTouchingAgent = false;
-        animal = transform.parent.GetComponent<Animal>();
-        parentRB = animal.GetComponent<Rigidbody2D>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
     }
 
     // Update is called once per frame
@@ -51,47 +46,25 @@ public class AnimalPhysics : MonoBehaviour
 
     }
 
-    // Push character in a certain direction adding a temp collider and rb
+    // Push character in a certain direction
     public void PushAnimal(GameObject otherAnimal, float force)
     {
-        // Attach a rb to the animal
-        if (parentRB == null)
-            parentRB = animal.gameObject.AddComponent<Rigidbody2D>();
-        // Attach a collider to the animal
-        if (parentCollider == null)
-            parentCollider = animal.gameObject.AddComponent<CircleCollider2D>();
-        // collider properties
-        parentCollider.radius = 0.6f;
-        // rb properties
-        parentRB.bodyType = RigidbodyType2D.Dynamic;
-        parentRB.gravityScale = 0f;
-        parentRB.mass = rbMass;
-        parentRB.linearDamping = rbLinearDamping;
-        parentRB.freezeRotation = true;
-        // Stop nav mesh
-        animal.GetNavMeshAgent().isStopped = true;
-        animal.GetNavMeshAgent().ResetPath();
-        animal.GetNavMeshAgent().enabled = false;
-        // Apply force
+        animal.GetAnimalBehavior().StopWalking();
+        animal.GetRigidbody2D().gravityScale = 0;
+        animal.GetRigidbody2D().bodyType = RigidbodyType2D.Dynamic;
+        animal.GetRigidbody2D().linearDamping = linearDamping;
         Vector3 direction = animal.transform.position - otherAnimal.transform.position;
-        Debug.Log($"=== FINAL RB VALUES ===");
-        Debug.Log($"Mass: {parentRB.mass}");
-        Debug.Log($"LinearDamping: {parentRB.linearDamping}");
-        Debug.Log($"BodyType: {parentRB.bodyType}");
-        Debug.Log($"GravityScale: {parentRB.gravityScale}");
-        Debug.Log($"Force: {force}");
-        Debug.Log($"Velocity BEFORE any AddForce: {parentRB.linearVelocity}");
-        parentRB.AddForce(direction.normalized * force, ForceMode2D.Impulse);
-        Debug.Log($"Velocity after push: {parentRB.linearVelocity}");
-        Debug.Log($"Velocity magnitude: {parentRB.linearVelocity.magnitude}");
+        animal.GetRigidbody2D().AddForce(direction.normalized * force, ForceMode2D.Impulse); 
     }
 
     // Reset values post pushing animal
     public void CleanUpAfterPush()
     {
-        animal.GetNavMeshAgent().enabled = true;
-        Destroy(parentCollider);
-        Destroy(parentRB);
+        animal.GetRigidbody2D().linearVelocity = Vector2.zero;
+        animal.GetRigidbody2D().angularVelocity = 0f;
+        animal.GetRigidbody2D().bodyType = RigidbodyType2D.Kinematic;
+        animal.GetNavMeshAgent().Warp(transform.position);
+        animal.GetAnimalBehavior().KeepWalking();
     }
 
     public bool IsTouchingAgent()
