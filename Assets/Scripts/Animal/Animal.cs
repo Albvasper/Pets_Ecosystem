@@ -11,8 +11,8 @@ public class Animal : MonoBehaviour
     public Rigidbody2D Rb2D { get; private set; }
     public NavMeshAgent Agent { get; private set; }
     // bumping state vars
-    public const float Cooldown = 5f;
-    float counter = Cooldown;
+    public const float BumpingCooldown = 3f;
+    float counter = BumpingCooldown;
 
     private void Awake()
     {
@@ -36,7 +36,7 @@ public class Animal : MonoBehaviour
         counter += Time.deltaTime;
         if (AnimalPhysics.IsTouchingAgent)
         {
-            if (counter >= Cooldown)
+            if (counter >= BumpingCooldown)
             {
                 AnimalBehavior.SetState(new State_Bumping(this, AnimalPhysics.BumpingAnimal));
                 counter = 0;

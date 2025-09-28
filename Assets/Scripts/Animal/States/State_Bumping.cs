@@ -13,7 +13,7 @@ public class State_Bumping : State
 
     public override void OnStateEnter()
     {
-        Debug.Log("PUSHING!");
+        animal.AnimalAnimator.isBeingBumped = true;
         animal.AnimalPhysics.PushAnimal(otherAnimal, pushingForce);
     }
 
@@ -26,7 +26,7 @@ public class State_Bumping : State
     public override void Tick()
     {
         counter += Time.deltaTime;
-        if (counter >= Animal.Cooldown)
+        if (counter >= Animal.BumpingCooldown)
         {
             animal.AnimalBehavior.SetState(new State_IDLE(animal));
             counter = 0;
@@ -35,7 +35,7 @@ public class State_Bumping : State
 
     public override void OnStateExit()
     {
-        Debug.Log("BACK TO NORMAL!");
+        animal.AnimalAnimator.isBeingBumped = false;
         animal.AnimalPhysics.IsTouchingAgent = false;
         animal.AnimalPhysics.CleanUpAfterPush();
     }
