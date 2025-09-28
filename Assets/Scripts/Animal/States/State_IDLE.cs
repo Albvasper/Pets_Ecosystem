@@ -29,16 +29,16 @@ public class State_IDLE : State
         - move the animal there
         - wait for a couple of seconds
     */
+    // TODO: Check if that path is valid if not look for one
     public override void Tick()
     {
         counter += Time.deltaTime;
         if (counter >= cooldown)
         {
-            // cuurent pos + 
             target.x = animal.transform.position.x + Random.Range(-randRangeX, randRangeX);
             target.y = animal.transform.position.y + Random.Range(-randRangeY, randRangeY);
             cooldown = Random.Range(cooldownMin, cooldownMax);
-            animal.GetAnimalBehavior().Walk(target);
+            animal.AnimalBehavior.Walk(target);
             counter = 0;
         }
     }

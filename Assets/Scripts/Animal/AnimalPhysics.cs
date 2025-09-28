@@ -5,14 +5,14 @@ using UnityEngine.AI;
 public class AnimalPhysics : MonoBehaviour
 {
     Animal animal;
-    bool isTouchingAgent;
-    GameObject bumpingAnimal;
+    public bool IsTouchingAgent { get; set; }
+    public GameObject BumpingAnimal { get; set; }
     const float linearDamping = 2f;
 
     void Awake()
     {
         animal = GetComponent<Animal>();
-        isTouchingAgent = false;
+        IsTouchingAgent = false;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -30,8 +30,8 @@ public class AnimalPhysics : MonoBehaviour
     {
         if (collision.gameObject.tag == "Animal")
         {
-            isTouchingAgent = true;
-            bumpingAnimal = collision.gameObject;
+            IsTouchingAgent = true;
+            BumpingAnimal = collision.gameObject;
         }
 
     }
@@ -40,8 +40,8 @@ public class AnimalPhysics : MonoBehaviour
     {
         if (collision.gameObject.tag == "Animal")
         {
-            isTouchingAgent = false;
-            bumpingAnimal = null;
+            IsTouchingAgent = false;
+            BumpingAnimal = null;
         }
 
     }
@@ -49,36 +49,21 @@ public class AnimalPhysics : MonoBehaviour
     // Push character in a certain direction
     public void PushAnimal(GameObject otherAnimal, float force)
     {
-        animal.GetAnimalBehavior().StopWalking();
-        animal.GetRigidbody2D().gravityScale = 0;
-        animal.GetRigidbody2D().bodyType = RigidbodyType2D.Dynamic;
-        animal.GetRigidbody2D().linearDamping = linearDamping;
+        animal.AnimalBehavior.StopWalking();
+        animal.Rb2D.gravityScale = 0;
+        animal.Rb2D.bodyType = RigidbodyType2D.Dynamic;
+        animal.Rb2D.linearDamping = linearDamping;
         Vector3 direction = animal.transform.position - otherAnimal.transform.position;
-        animal.GetRigidbody2D().AddForce(direction.normalized * force, ForceMode2D.Impulse); 
+        animal.Rb2D.AddForce(direction.normalized * force, ForceMode2D.Impulse); 
     }
 
     // Reset values post pushing animal
     public void CleanUpAfterPush()
     {
-        animal.GetRigidbody2D().linearVelocity = Vector2.zero;
-        animal.GetRigidbody2D().angularVelocity = 0f;
-        animal.GetRigidbody2D().bodyType = RigidbodyType2D.Kinematic;
-        animal.GetNavMeshAgent().Warp(transform.position);
-        animal.GetAnimalBehavior().KeepWalking();
-    }
-
-    public bool IsTouchingAgent()
-    {
-        return isTouchingAgent;
-    }
-
-    public void IsNotTouchingAgent()
-    {
-        isTouchingAgent = false;
-    }
-
-    public GameObject GetBumpingAnimal()
-    {
-        return bumpingAnimal;
+        animal.Rb2D.linearVelocity = Vector2.zero;
+        animal.Rb2D.angularVelocity = 0f;
+        animal.Rb2D.bodyType = RigidbodyType2D.Kinematic;
+        animal.Agent.Warp(transform.position);
+        animal.AnimalBehavior.KeepWalking();
     }
 }

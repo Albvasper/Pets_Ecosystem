@@ -5,26 +5,28 @@ public class Animal : MonoBehaviour
 {
 
     [SerializeField] AnimalData animalData;
-    AnimalBehavior animalBehavior;
-    AnimalPhysics animalPhysics;
-    Rigidbody2D rb2D;
-    NavMeshAgent agent;
+    public AnimalBehavior AnimalBehavior { get; private set; }
+    public AnimalPhysics AnimalPhysics { get; private set; }
+    public AnimalAnimator AnimalAnimator { get; private set; }
+    public Rigidbody2D Rb2D { get; private set; }
+    public NavMeshAgent Agent { get; private set; }
     // bumping state vars
-    const float cooldown = 5f;
-    float counter = cooldown;
+    public const float Cooldown = 5f;
+    float counter = Cooldown;
 
     private void Awake()
     {
-        animalBehavior = GetComponent<AnimalBehavior>();
-        animalPhysics = GetComponent<AnimalPhysics>();
-        agent = GetComponent<NavMeshAgent>();
-        rb2D = GetComponent<Rigidbody2D>();
+        AnimalBehavior = GetComponent<AnimalBehavior>();
+        AnimalPhysics = GetComponent<AnimalPhysics>();
+        AnimalAnimator = GetComponent<AnimalAnimator>();
+        Agent = GetComponent<NavMeshAgent>();
+        Rb2D = GetComponent<Rigidbody2D>();
     }
 
     private void Start()
     {
         // Set IDLE state as the default state
-        animalBehavior.SetState(new State_IDLE(this));
+        AnimalBehavior.SetState(new State_IDLE(this));
 
     }
 
@@ -32,43 +34,13 @@ public class Animal : MonoBehaviour
     {
         // If an animal is touching another agent => cooldown from changing states
         counter += Time.deltaTime;
-        if (animalPhysics.IsTouchingAgent())
+        if (AnimalPhysics.IsTouchingAgent)
         {
-            if (counter >= cooldown)
+            if (counter >= Cooldown)
             {
-                animalBehavior.SetState(new State_Bumping(this, animalPhysics.GetBumpingAnimal()));
+                AnimalBehavior.SetState(new State_Bumping(this, AnimalPhysics.BumpingAnimal));
                 counter = 0;
             }
         }
-    }
-
-    public Rigidbody2D GetRigidbody2D()
-    {
-        return rb2D;
-    }
-
-    public NavMeshAgent GetNavMeshAgent()
-    {
-        return agent;
-    }
-
-    public void SetNavMeshAgent(NavMeshAgent _agent)
-    {
-        agent = _agent;
-    }
-
-    public AnimalBehavior GetAnimalBehavior()
-    {
-        return animalBehavior;
-    }
-
-    public AnimalPhysics GetAnimalPhysics()
-    {
-        return animalPhysics;
-    }
-
-    public float GetBumpingCooldown()
-    {
-        return cooldown;
     }
 }

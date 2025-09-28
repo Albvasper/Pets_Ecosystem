@@ -5,7 +5,7 @@ using UnityEngine.AI;
 public class AnimalBehavior : MonoBehaviour
 {
     Animal animal;
-    State currentState;
+    State CurrentState { get; set; }
 
     void Awake()
     {
@@ -15,36 +15,35 @@ public class AnimalBehavior : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        currentState.Tick();
+        CurrentState.Tick();
     }
 
     // Set a new state for the animal
     public void SetState(State state)
     {
-        if (currentState != null)
+        if (CurrentState != null)
         {
             // Get out of the current state
-            currentState.OnStateExit();
+            CurrentState.OnStateExit();
         }
         // Replace current state with new state
-        currentState = state;
-        if (currentState != null)
+        CurrentState = state;
+        if (CurrentState != null)
         {
             // Initialize new state
-            currentState.OnStateEnter();
+            CurrentState.OnStateEnter();
         }
     }
 
     // Move the agent to the target
     public void Walk(Vector2 target)
     {
-        animal.GetNavMeshAgent().SetDestination(
+        animal.Agent.SetDestination(
             Vector2.Lerp(
                 animal.transform.position,
                 target,
@@ -54,14 +53,14 @@ public class AnimalBehavior : MonoBehaviour
 
     public void StopWalking()
     {
-        animal.GetNavMeshAgent().isStopped = true;
-        animal.GetNavMeshAgent().enabled = false;
+        animal.Agent.isStopped = true;
+        animal.Agent.enabled = false;
     }
 
     public void KeepWalking()
     {
-        animal.GetNavMeshAgent().enabled = true;
-        animal.GetNavMeshAgent().isStopped = false;
+        animal.Agent.enabled = true;
+        animal.Agent.isStopped = false;
 
     }
 }
