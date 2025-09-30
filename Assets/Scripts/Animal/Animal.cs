@@ -3,18 +3,17 @@ using UnityEngine.AI;
 
 public class Animal : MonoBehaviour
 {
-
     [SerializeField] AnimalData animalData;
-    public AnimalBehavior AnimalBehavior { get; private set; }
-    public AnimalPhysics AnimalPhysics { get; private set; }
-    public AnimalAnimator AnimalAnimator { get; private set; }
-    public Rigidbody2D Rb2D { get; private set; }
-    public NavMeshAgent Agent { get; private set; }
+    public AnimalBehavior AnimalBehavior { get; protected set; }
+    public AnimalPhysics AnimalPhysics { get; protected set; }
+    public AnimalAnimator AnimalAnimator { get; protected set; }
+    public Rigidbody2D Rb2D { get; protected set; }
+    public NavMeshAgent Agent { get; protected set; }
     // bumping state vars
     public const float BumpingCooldown = 3f;
-    float counter = BumpingCooldown;
+    protected float counter = BumpingCooldown;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         AnimalBehavior = GetComponent<AnimalBehavior>();
         AnimalPhysics = GetComponent<AnimalPhysics>();
@@ -23,14 +22,13 @@ public class Animal : MonoBehaviour
         Rb2D = GetComponent<Rigidbody2D>();
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         // Set IDLE state as the default state
         AnimalBehavior.SetState(new State_IDLE(this));
-
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         // If an animal is touching another agent => cooldown from changing states
         counter += Time.deltaTime;

@@ -1,42 +1,29 @@
-using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class AnimalPhysics : MonoBehaviour
 {
-    Animal animal;
+    protected Animal animal;
     public bool IsTouchingAgent { get; set; }
     public GameObject BumpingAnimal { get; set; }
-    const float linearDamping = 2f;
+    protected const float linearDamping = 2f;
 
-    void Awake()
+    protected virtual void Awake()
     {
         animal = GetComponent<Animal>();
         IsTouchingAgent = false;
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
     // Hanldes collision with other Game Objects
-    void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Animal")
         {
             IsTouchingAgent = true;
             BumpingAnimal = collision.gameObject;
         }
-
     }
 
-    void OnCollisionExit2D(Collision2D collision)
+    protected virtual void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Animal")
         {
@@ -47,7 +34,7 @@ public class AnimalPhysics : MonoBehaviour
     }
 
     // Push character in a certain direction
-    public void PushAnimal(GameObject otherAnimal, float force)
+    public virtual void PushAnimal(GameObject otherAnimal, float force)
     {
         animal.AnimalBehavior.StopWalking();
         animal.Rb2D.gravityScale = 0;
@@ -58,7 +45,7 @@ public class AnimalPhysics : MonoBehaviour
     }
 
     // Reset values post pushing animal
-    public void CleanUpAfterPush()
+    public virtual void CleanUpAfterPush()
     {
         animal.Rb2D.linearVelocity = Vector2.zero;
         animal.Rb2D.angularVelocity = 0f;

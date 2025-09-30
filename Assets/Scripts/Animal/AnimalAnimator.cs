@@ -3,23 +3,23 @@ using UnityEngine;
 
 public class AnimalAnimator : MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer currentShadow;
-    [SerializeField] private Sprite shadowHorizontal; 
-    [SerializeField] private Sprite shadowVertical;
+    [SerializeField] protected SpriteRenderer currentShadow;
+    [SerializeField] protected Sprite shadowHorizontal; 
+    [SerializeField] protected Sprite shadowVertical;
     public bool isBeingBumped { get; set; }
-    public Animator animator { get; private set; }
-    Animal animal;
-    Vector2 lastVelocity;
-    const float MoveThreshold = 0.05f;
+    public Animator animator { get; protected set; }
+    protected Animal animal;
+    protected Vector2 lastVelocity;
+    protected const float MoveThreshold = 0.05f;
 
-    void Awake()
+    protected virtual void Awake()
     {
         animal = GetComponent<Animal>();
         animator = GetComponent<Animator>();
         isBeingBumped = false;
     }
 
-    void Update()
+    protected virtual void Update()
     {
         Vector2 vel = animal.Agent.velocity;
         bool isMoving = vel.magnitude > MoveThreshold;
