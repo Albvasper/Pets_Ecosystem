@@ -14,11 +14,11 @@ GameObject:
   - component: {fileID: 6057180378757221804}
   - component: {fileID: 8334375820644983593}
   - component: {fileID: 7632900182430483962}
+  - component: {fileID: 3181609807132184147}
   - component: {fileID: 6154875548794543196}
-  - component: {fileID: 2835163285099127736}
+  - component: {fileID: -843884136249541370}
   - component: {fileID: 715605062220135006}
   - component: {fileID: 6777406597251091198}
-  - component: {fileID: 3181609807132184147}
   m_Layer: 0
   m_Name: Cat
   m_TagString: Animal
@@ -35,7 +35,7 @@ Transform:
   m_GameObject: {fileID: 4005514976179572535}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.29, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -194,6 +194,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e39f6090724e4a4a8aadeb042afa2bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &3181609807132184147
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4005514976179572535}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7f30a653c57615a4caf06bd0186f16e4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &6154875548794543196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,8 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2917ea18c04bc504cb97f5d0d18d3646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animalData: {fileID: 11400000, guid: 5f3c9bacd1282c2499ad241df348150d, type: 2}
---- !u!114 &2835163285099127736
+--- !u!114 &-843884136249541370
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -216,7 +237,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4005514976179572535}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d671c80dfbf8784e80a60b8d44f491c, type: 3}
+  m_Script: {fileID: 11500000, guid: bda264635ed1e2941b62dec95d124e6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &715605062220135006
@@ -243,31 +264,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7437e4923ecfec849a2ac035af79a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentShadow: {fileID: 58300235589010593}
+  spriteRenderer: {fileID: 58300235589010593}
   shadowHorizontal: {fileID: -1507174889177632086, guid: 98d11264f58b40449bff503ccf645a94, type: 3}
   shadowVertical: {fileID: 21300000, guid: 6603a76c68d31f54daeb14f566b14d9e, type: 3}
---- !u!95 &3181609807132184147
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4005514976179572535}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7f30a653c57615a4caf06bd0186f16e4, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8023510424139945623
 GameObject:
   m_ObjectHideFlags: 0

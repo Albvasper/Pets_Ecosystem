@@ -1,20 +1,20 @@
 using UnityEngine;
 
-public class State_Bumping : State
+public class State_Bumping : StateTypePets
 {
     float counter = 0f;
     const float pushingForce = 2f;
     GameObject otherAnimal;
 
-    public State_Bumping(Animal _animal, GameObject other) : base(_animal)
+    public State_Bumping(Animal _animal, GameObject _otherAnimal) : base(_animal)
     {
-        this.otherAnimal = other;
+        otherAnimal =  _otherAnimal;
     }
 
     public override void OnStateEnter()
     {
-        animal.AnimalAnimator.isBeingBumped = true;
-        animal.AnimalPhysics.PushAnimal(otherAnimal, pushingForce);
+        animal.Animator.IsBeingBumped = true;
+        animal.Physics.PushAnimal(animal, otherAnimal, pushingForce);
     }
 
     // Behavior
@@ -28,15 +28,15 @@ public class State_Bumping : State
         counter += Time.deltaTime;
         if (counter >= Animal.BumpingCooldown)
         {
-            animal.AnimalBehavior.SetState(new State_IDLE(animal));
+            animal.Behavior.SetState(new State_IDLE(animal));
             counter = 0;
         }
     }
 
     public override void OnStateExit()
     {
-        animal.AnimalAnimator.isBeingBumped = false;
-        animal.AnimalPhysics.IsTouchingAgent = false;
-        animal.AnimalPhysics.CleanUpAfterPush();
+        animal.Animator.IsBeingBumped = false;
+        animal.Physics.IsTouchingAgent = false;
+        animal.Physics.CleanUpAfterPush(animal);
     }
 }

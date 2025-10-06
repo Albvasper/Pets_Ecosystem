@@ -1,15 +1,14 @@
-using System;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class AnimalBehavior : MonoBehaviour
+[RequireComponent(typeof(BaseAnimal))]
+public class BaseBehavior : MonoBehaviour
 {
-    protected Animal animal;
+    protected BaseAnimal animal;
     protected State CurrentState { get; set; }
 
     protected virtual void Awake()
     {
-        animal = GetComponent<Animal>();
+        animal = GetComponent<BaseAnimal>();
     }
 
     // Update is called once per frame
@@ -56,6 +55,5 @@ public class AnimalBehavior : MonoBehaviour
     {
         animal.Agent.enabled = true;
         animal.Agent.isStopped = false;
-
     }
 }

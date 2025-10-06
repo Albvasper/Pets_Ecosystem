@@ -1,11 +1,10 @@
 using UnityEngine;
 
-public class State_IDLE : State
+public class State_IDLE : StateTypeAnimal
 {
     // Random pos
     const int randRangeX = 5;
     const int randRangeY = 5;
-    int targetX, targetY;
     Vector2 target;
     // Timer
     const int cooldownMax = 1;
@@ -13,7 +12,7 @@ public class State_IDLE : State
     float cooldown;
     float counter;
 
-    public State_IDLE(Animal _animal) : base(_animal) { }
+    public State_IDLE(BaseAnimal _animal) : base(_animal) { }
 
     public override void OnStateEnter()
     {
@@ -38,7 +37,7 @@ public class State_IDLE : State
             target.x = animal.transform.position.x + Random.Range(-randRangeX, randRangeX);
             target.y = animal.transform.position.y + Random.Range(-randRangeY, randRangeY);
             cooldown = Random.Range(cooldownMin, cooldownMax);
-            animal.AnimalBehavior.Walk(target);
+            animal.Behavior.Walk(target);
             counter = 0;
         }
     }
