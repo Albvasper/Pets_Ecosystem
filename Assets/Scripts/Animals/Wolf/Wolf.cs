@@ -30,13 +30,20 @@ public class Wolf : BaseAnimal
     // Update is called once per frame
     protected virtual void Update()
     {
+        // FIX: OPTIMIZE THIS PLZ
         // If an animal is touching another agent => cooldown from changing states
-        counter += Time.deltaTime;
+        if (AllowBumping)
+        {
+            counter += Time.deltaTime;
+        }
+        else
+        {
+            counter = 0;
+        }
         if (!IsHunting && Physics.IsTouchingAgent)
         {
             if (counter >= BumpingCooldown)
             {
-                Debug.Log("just bumping");
                 Behavior.SetState(new State_WolfBumping(this));
                 counter = 0;
             }
@@ -45,7 +52,6 @@ public class Wolf : BaseAnimal
         {
             if (counter >= BumpingCooldown)
             {
-                Debug.Log("IS GOING TO ATTACK!");
                 Behavior.SetState(new State_AttackPrey(this));
                 counter = 0;
             }

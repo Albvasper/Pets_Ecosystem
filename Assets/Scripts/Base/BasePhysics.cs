@@ -1,9 +1,10 @@
+using System;
 using UnityEngine;
 
 public abstract class BasePhysics : MonoBehaviour
 {
     public bool IsTouchingAgent { get; set; }
-    public GameObject BumpingAnimal { get; set; }
+    public BaseAnimal BumpingAnimal { get; set; }
     protected const float linearDamping = 2f;
 
     protected virtual void Awake()
@@ -21,7 +22,7 @@ public abstract class BasePhysics : MonoBehaviour
     }
 
     // Push character in a certain direction
-    public virtual void PushAnimal(BaseAnimal animal, GameObject otherAnimal, float force)
+    public virtual void PushAnimal(BaseAnimal animal, BaseAnimal otherAnimal, float force)
     {
         animal.Behavior.StopWalking();
         animal.Rb2D.gravityScale = 0;

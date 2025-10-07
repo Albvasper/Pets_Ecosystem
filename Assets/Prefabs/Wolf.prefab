@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2917ea18c04bc504cb97f5d0d18d3646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animalData: {fileID: 11400000, guid: 5f3c9bacd1282c2499ad241df348150d, type: 2}
+  TypeOfPet: 3
 --- !u!114 &73115137527449183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,7 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7437e4923ecfec849a2ac035af79a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentShadow: {fileID: 6695863249034094767}
+  spriteRenderer: {fileID: 0}
   shadowHorizontal: {fileID: -1507174889177632086, guid: 98d11264f58b40449bff503ccf645a94, type: 3}
   shadowVertical: {fileID: 21300000, guid: 6603a76c68d31f54daeb14f566b14d9e, type: 3}
 --- !u!95 &5677416401444627655

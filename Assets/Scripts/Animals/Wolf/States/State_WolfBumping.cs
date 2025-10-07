@@ -12,7 +12,7 @@ public class State_WolfBumping : StateTypeWolf
         wolf.Animator.IsBeingBumped = true;
         if (wolf.CurrentPrey != null)
         {
-            wolf.Physics.PushAnimal(wolf, wolf.CurrentPrey.gameObject, pushingForce);
+            wolf.Physics.PushAnimal(wolf, wolf.CurrentPrey, pushingForce);
         }
         else
         {
@@ -29,7 +29,7 @@ public class State_WolfBumping : StateTypeWolf
     public override void Tick()
     {
         counter += Time.deltaTime;
-        if (counter >= Animal.BumpingCooldown)
+        if (counter >= BaseAnimal.BumpingCooldown)
         {
             wolf.Behavior.SetState(new State_HuntPrey(wolf));
             counter = 0;

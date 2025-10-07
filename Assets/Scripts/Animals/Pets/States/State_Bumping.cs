@@ -4,9 +4,9 @@ public class State_Bumping : StateTypePets
 {
     float counter = 0f;
     const float pushingForce = 2f;
-    GameObject otherAnimal;
+    BaseAnimal otherAnimal;
 
-    public State_Bumping(Animal _animal, GameObject _otherAnimal) : base(_animal)
+    public State_Bumping(Animal _animal, BaseAnimal _otherAnimal) : base(_animal)
     {
         otherAnimal =  _otherAnimal;
     }
@@ -26,10 +26,32 @@ public class State_Bumping : StateTypePets
     public override void Tick()
     {
         counter += Time.deltaTime;
-        if (counter >= Animal.BumpingCooldown)
+        // When the bumping cooldown has ended
+        if (counter >= BaseAnimal.BumpingCooldown)
         {
-            animal.Behavior.SetState(new State_IDLE(animal));
-            counter = 0;
+            // If the animal has a breeding partner take a chance
+            if (animal.BreedingPartner != null)
+            {
+                // Take a chance of breeding
+                if (Random.value < BaseAnimal.BreedingChance)
+                {
+                    // Breeding process
+                    animal.Behavior.SetState(new State_Breeding(animal, otherAnimal));
+                    counter = 0;
+                }
+                else
+                {
+                    // If breeding is not possible do IDLE
+                    animal.Behavior.SetState(new State_IDLE(animal));
+                    counter = 0;
+                }
+            }
+            else
+            {
+                // If breeding is not possible do IDLE
+                animal.Behavior.SetState(new State_IDLE(animal));
+                counter = 0;
+            }
         }
     }
 

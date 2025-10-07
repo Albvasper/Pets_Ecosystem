@@ -25,7 +25,14 @@ public class Animal : BaseAnimal
     protected virtual void Update()
     {
         // If an animal is touching another agent => cooldown from changing states
-        counter += Time.deltaTime;
+        if (AllowBumping)
+        {
+            counter += Time.deltaTime;
+        }
+        else
+        {
+            counter = 0;
+        }
         if (Physics.IsTouchingAgent)
         {
             if (counter >= BumpingCooldown)
