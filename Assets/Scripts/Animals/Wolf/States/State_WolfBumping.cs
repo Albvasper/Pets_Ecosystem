@@ -3,21 +3,19 @@ using UnityEngine;
 public class State_WolfBumping : StateTypeWolf
 {
     float counter = 0f;
-    const float pushingForce = 2f;
+    const float PushingForce = 2f;
+    const float BumpingCooldown = 3f;
+    BaseAnimal otherAnimal;
 
-    public State_WolfBumping(Wolf _wolf) : base(_wolf) { }
+    public State_WolfBumping(Wolf _wolf, BaseAnimal _otherAnimal) : base(_wolf)
+    {
+        otherAnimal = _otherAnimal;
+    }
 
     public override void OnStateEnter()
     {
         wolf.Animator.IsBeingBumped = true;
-        if (wolf.CurrentPrey != null)
-        {
-            wolf.Physics.PushAnimal(wolf, wolf.CurrentPrey, pushingForce);
-        }
-        else
-        {
-            Debug.Log("Current prey is null!");
-        }
+        wolf.Physics.PushAnimal(wolf, otherAnimal, PushingForce);
     }
 
     // Behavior
@@ -29,9 +27,24 @@ public class State_WolfBumping : StateTypeWolf
     public override void Tick()
     {
         counter += Time.deltaTime;
-        if (counter >= BaseAnimal.BumpingCooldown)
+        // When the bumping cooldown has ended
+        if (counter >= BumpingCooldown)
         {
-            wolf.Behavior.SetState(new State_HuntPrey(wolf));
+            // If the animal has a breeding partner: mate
+            if (wolf.BreedingPartner != null)
+            {
+                wolf.Behavior.SetState(new State_Breeding(wolf, otherAnimal));
+            }
+            // If wolf has a current prey
+            else if (wolf.CurrentPrey != null)
+            {
+                wolf.Behavior.SetState(new State_HuntPrey(wolf, wolf.CurrentPrey));
+            }
+            // If breeding is not possible do IDLE
+            else
+            {
+                wolf.Behavior.SetState(new State_IDLE(wolf));
+            }
             counter = 0;
         }
     }

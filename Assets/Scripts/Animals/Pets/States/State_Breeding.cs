@@ -13,7 +13,6 @@ public class State_Breeding : StateTypeAnimal
 
     public override void OnStateEnter()
     {
-        Debug.Log("START BREEDING");
         animal.AllowBumping = false;
     }
 
@@ -25,12 +24,12 @@ public class State_Breeding : StateTypeAnimal
         {
             animal.GiveBirth(otherAnimal);
             animal.Behavior.SetState(new State_IDLE(animal));
+            counter = 0;
         }
     }
 
     public override void OnStateExit()
     {
-        Debug.Log("EXITING BREEDING");
         animal.BreedingPartner = null;
         animal.AllowBumping = true;
     }

@@ -21,16 +21,10 @@ public class State_IDLE : StateTypeAnimal
         counter = cooldown;
     }
 
-    // Behavior
-    /*  IDLE:
-        - look for a random point on a certain range
-        - check if that point is valid
-        - move the animal there
-        - wait for a couple of seconds
-    */
     // TODO: Check if that path is valid if not look for one
     public override void Tick()
     {
+        // IDLE movement logic
         counter += Time.deltaTime;
         if (counter >= cooldown)
         {
@@ -39,6 +33,19 @@ public class State_IDLE : StateTypeAnimal
             cooldown = Random.Range(cooldownMin, cooldownMax);
             animal.Behavior.Walk(target);
             counter = 0;
+        }
+        // Transition to bumping state
+        if (animal.Physics.IsTouchingAgent)
+        {
+            // Filter if its a pet or a wolf
+            if (animal.TypeOfPet == TypeOfPet.Wolf)
+            {
+                animal.Behavior.SetState(new State_WolfBumping((Wolf)animal, animal.Physics.BumpingAnimal));
+            }
+            else
+            {
+                animal.Behavior.SetState(new State_Bumping((Animal)animal, animal.Physics.BumpingAnimal));
+            }
         }
     }
 }

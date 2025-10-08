@@ -3,18 +3,19 @@ using UnityEngine;
 public class State_Bumping : StateTypePets
 {
     float counter = 0f;
-    const float pushingForce = 2f;
+    const float PushingForce = 2f;
+    const float BumpingCooldown = 3f;
     BaseAnimal otherAnimal;
 
     public State_Bumping(Animal _animal, BaseAnimal _otherAnimal) : base(_animal)
     {
-        otherAnimal =  _otherAnimal;
+        otherAnimal = _otherAnimal;
     }
 
     public override void OnStateEnter()
     {
         animal.Animator.IsBeingBumped = true;
-        animal.Physics.PushAnimal(animal, otherAnimal, pushingForce);
+        animal.Physics.PushAnimal(animal, otherAnimal, PushingForce);
     }
 
     // Behavior
@@ -27,31 +28,20 @@ public class State_Bumping : StateTypePets
     {
         counter += Time.deltaTime;
         // When the bumping cooldown has ended
-        if (counter >= BaseAnimal.BumpingCooldown)
+        if (counter >= BumpingCooldown)
         {
-            // If the animal has a breeding partner take a chance
+            // If the animal has a breeding partner: mate
             if (animal.BreedingPartner != null)
             {
-                // Take a chance of breeding
-                if (Random.value < BaseAnimal.BreedingChance)
-                {
-                    // Breeding process
-                    animal.Behavior.SetState(new State_Breeding(animal, otherAnimal));
-                    counter = 0;
-                }
-                else
-                {
-                    // If breeding is not possible do IDLE
-                    animal.Behavior.SetState(new State_IDLE(animal));
-                    counter = 0;
-                }
+                // Breeding process
+                animal.Behavior.SetState(new State_Breeding(animal, otherAnimal));
             }
+            // If breeding is not possible do IDLE
             else
             {
-                // If breeding is not possible do IDLE
                 animal.Behavior.SetState(new State_IDLE(animal));
-                counter = 0;
             }
+            counter = 0;
         }
     }
 

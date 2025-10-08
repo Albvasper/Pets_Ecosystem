@@ -2,13 +2,17 @@ using UnityEngine;
 
 public class State_AttackPrey : StateTypeWolf
 {
+    Animal prey;
     float counter = 0f;
     const float coolDown = 2f;
 
-    public State_AttackPrey(Wolf _wolf) : base(_wolf) { }
+    public State_AttackPrey(Wolf _wolf, Animal _prey) : base(_wolf)
+    {
+        prey = _prey;
+    }
 
     public override void OnStateEnter()
-    {
+    {   
         wolf.Behavior.StopWalking();
         wolf.IsAttacking = true;
         wolf.IsHunting = false;

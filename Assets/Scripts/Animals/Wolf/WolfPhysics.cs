@@ -11,21 +11,28 @@ public class WolfPhysics : BasePhysics
         wolf = GetComponent<Wolf>();
     }
 
+    // Hanldes collision with other Game Objects
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        // If collided with the same type of pet
-        if (collision.collider.TryGetComponent(out BaseAnimal otherAnimal) && otherAnimal.TypeOfPet == wolf.TypeOfPet)
-            wolf.BreedingPartner = otherAnimal;
-
-        // FIX: OPTIMIZE COLLISION WITH OTHER ANIMALS. DO THIS MORE LIKE THIS IF ^
-        // If collided with other animal
-        if (collision.gameObject.tag == "Animal")
+        // If the other gameobject is an animal
+        if (collision.gameObject.TryGetComponent<BaseAnimal>(out var otherAnimal))
         {
             IsTouchingAgent = true;
-            BumpingAnimal = collision.gameObject.GetComponent<BaseAnimal>();
-            // FIX: IF A WOLF COLLIDES WITH A WOLF THERE WILL CAUSE AN ERROR
-            if (wolf.CurrentPrey == null)
-                wolf.CurrentPrey = collision.gameObject.GetComponent<Animal>();
+            BumpingAnimal = otherAnimal;
+            // If the other animal is the same species an the opposite sex
+            if (otherAnimal.TypeOfPet == wolf.TypeOfPet && otherAnimal.Sex != wolf.Sex)
+            {
+                // Take a chance
+                if (Random.value < BaseAnimal.BreedingChance)
+                {
+                    wolf.BreedingPartner = otherAnimal;
+                }
+            }
+            // If the other animal is not a wolf set the current prey
+            else if (otherAnimal.TypeOfPet != wolf.TypeOfPet)
+            {
+                wolf.CurrentPrey = (Animal)otherAnimal;
+            }
         }
     }
 }
