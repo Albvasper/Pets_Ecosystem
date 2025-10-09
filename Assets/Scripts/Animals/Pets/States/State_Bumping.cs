@@ -31,7 +31,7 @@ public class State_Bumping : StateTypePets
         if (counter >= BumpingCooldown)
         {
             // If the animal has a breeding partner: mate
-            if (animal.BreedingPartner != null)
+            if (animal.BreedingPartner != null && animal.CanHaveKids && otherAnimal.CanHaveKids)
             {
                 // Breeding process
                 animal.Behavior.SetState(new State_Breeding(animal, otherAnimal));

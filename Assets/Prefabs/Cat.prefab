@@ -228,6 +228,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2917ea18c04bc504cb97f5d0d18d3646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TypeOfPet: 0
+  Sex: 0
+  Baby: {fileID: 4005514976179572535}
+  CanHaveKids: 0
 --- !u!114 &-843884136249541370
 MonoBehaviour:
   m_ObjectHideFlags: 0

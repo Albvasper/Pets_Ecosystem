@@ -7824,7 +7824,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8761364901818605491, guid: 376dfc3cc27e2d242846b7a74ef3bf32, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7879,9 +7879,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3380943378637597864, guid: 1c398a3a8aa2a4b4595d068ebfc2a5e3, type: 3}
+      propertyPath: Sex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3380943378637597864, guid: 1c398a3a8aa2a4b4595d068ebfc2a5e3, type: 3}
+      propertyPath: Baby
+      value: 
+      objectReference: {fileID: 5226466502560531370, guid: 1c398a3a8aa2a4b4595d068ebfc2a5e3, type: 3}
     - target: {fileID: 5226466502560531370, guid: 1c398a3a8aa2a4b4595d068ebfc2a5e3, type: 3}
       propertyPath: m_Name
       value: Wolf V2 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5226466502560531370, guid: 1c398a3a8aa2a4b4595d068ebfc2a5e3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8065,7 +8077,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4005514976179572535, guid: b141cb5dbbdbb234b988c9acec136e04, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8308932935462229140, guid: b141cb5dbbdbb234b988c9acec136e04, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13170,15 +13182,23 @@ PrefabInstance:
     - target: {fileID: 1677249989871216170, guid: 727bc8dcaf1110d43a88b048a20afc7a, type: 3}
       propertyPath: Baby
       value: 
-      objectReference: {fileID: 8005998600063696035, guid: a95be71693ea55544bc77b1295842e39, type: 3}
+      objectReference: {fileID: 8005998600063696035, guid: 727bc8dcaf1110d43a88b048a20afc7a, type: 3}
     - target: {fileID: 1677249989871216170, guid: 727bc8dcaf1110d43a88b048a20afc7a, type: 3}
       propertyPath: baby
       value: 
       objectReference: {fileID: 8005998600063696035, guid: a95be71693ea55544bc77b1295842e39, type: 3}
     - target: {fileID: 1677249989871216170, guid: 727bc8dcaf1110d43a88b048a20afc7a, type: 3}
+      propertyPath: CanHaveKids
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677249989871216170, guid: 727bc8dcaf1110d43a88b048a20afc7a, type: 3}
       propertyPath: CanGiveBirth
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1677249989871216170, guid: 727bc8dcaf1110d43a88b048a20afc7a, type: 3}
+      propertyPath: babyGameObject
+      value: 
+      objectReference: {fileID: 8005998600063696035, guid: 727bc8dcaf1110d43a88b048a20afc7a, type: 3}
     - target: {fileID: 8005998600063696035, guid: 727bc8dcaf1110d43a88b048a20afc7a, type: 3}
       propertyPath: m_Name
       value: Dog
@@ -13241,13 +13261,25 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1677249989871216170, guid: 727bc8dcaf1110d43a88b048a20afc7a, type: 3}
+      propertyPath: Sex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677249989871216170, guid: 727bc8dcaf1110d43a88b048a20afc7a, type: 3}
       propertyPath: Baby
       value: 
-      objectReference: {fileID: 8005998600063696035, guid: a95be71693ea55544bc77b1295842e39, type: 3}
+      objectReference: {fileID: 8005998600063696035, guid: 727bc8dcaf1110d43a88b048a20afc7a, type: 3}
     - target: {fileID: 1677249989871216170, guid: 727bc8dcaf1110d43a88b048a20afc7a, type: 3}
       propertyPath: baby
       value: 
       objectReference: {fileID: 8005998600063696035, guid: a95be71693ea55544bc77b1295842e39, type: 3}
+    - target: {fileID: 1677249989871216170, guid: 727bc8dcaf1110d43a88b048a20afc7a, type: 3}
+      propertyPath: CanHaveKids
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677249989871216170, guid: 727bc8dcaf1110d43a88b048a20afc7a, type: 3}
+      propertyPath: babyGameObject
+      value: 
+      objectReference: {fileID: 8005998600063696035, guid: 727bc8dcaf1110d43a88b048a20afc7a, type: 3}
     - target: {fileID: 8005998600063696035, guid: 727bc8dcaf1110d43a88b048a20afc7a, type: 3}
       propertyPath: m_Name
       value: Dog (1)

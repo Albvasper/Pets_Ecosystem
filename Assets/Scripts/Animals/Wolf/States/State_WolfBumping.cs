@@ -31,7 +31,7 @@ public class State_WolfBumping : StateTypeWolf
         if (counter >= BumpingCooldown)
         {
             // If the animal has a breeding partner: mate
-            if (wolf.BreedingPartner != null)
+            if (wolf.BreedingPartner != null && wolf.CanHaveKids && otherAnimal.CanHaveKids)
             {
                 wolf.Behavior.SetState(new State_Breeding(wolf, otherAnimal));
             }

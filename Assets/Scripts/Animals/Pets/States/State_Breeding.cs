@@ -11,18 +11,16 @@ public class State_Breeding : StateTypeAnimal
         otherAnimal = _otherAnimal;
     }
 
-    public override void OnStateEnter()
-    {
-        animal.AllowBumping = false;
-    }
-
     public override void Tick()
     {
         counter += Time.deltaTime;
         animal.Behavior.Walk(otherAnimal.transform.position);
         if (counter >= timeForBreeding)
         {
-            animal.GiveBirth(otherAnimal);
+            if (animal.Sex == Sex.Female)
+            {
+                animal.GiveBirth(otherAnimal);
+            }
             animal.Behavior.SetState(new State_IDLE(animal));
             counter = 0;
         }
@@ -30,7 +28,7 @@ public class State_Breeding : StateTypeAnimal
 
     public override void OnStateExit()
     {
+        animal.CanHaveKids = false;
         animal.BreedingPartner = null;
-        animal.AllowBumping = true;
     }
 }

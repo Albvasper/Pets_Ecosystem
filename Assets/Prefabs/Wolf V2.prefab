@@ -229,6 +229,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TypeOfPet: 3
+  Sex: 0
+  Baby: {fileID: 5226466502560531370}
+  CanHaveKids: 0
 --- !u!114 &5846340496245325982
 MonoBehaviour:
   m_ObjectHideFlags: 0

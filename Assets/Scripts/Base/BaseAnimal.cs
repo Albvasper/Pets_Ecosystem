@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,6 +13,9 @@ public abstract class BaseAnimal : MonoBehaviour
     public TypeOfPet TypeOfPet;
     public Sex Sex;
     protected AnimalData animalData;
+    [SerializeField] protected GameObject Baby;
+    public BaseAnimal PackLeader { get; set; }
+    public bool CanHaveKids;
 
     public BaseBehavior Behavior { get; protected set; }
     public BasePhysics Physics { get; protected set; }
@@ -22,12 +26,12 @@ public abstract class BaseAnimal : MonoBehaviour
     public BaseAnimal BreedingPartner { get; set; }
     public const float BreedingChance = 1f; //100%
 
-    public bool AllowBumping { get; set; }
-    public GameObject Baby;
+    const float breedingCooldown = 30f;
+    float counter;
 
     protected virtual void Awake()
     {
-        AllowBumping = true;
+        CanHaveKids = false;
         Behavior = GetComponent<BaseBehavior>();
         Agent = GetComponent<NavMeshAgent>();
         Rb2D = GetComponent<Rigidbody2D>();
@@ -39,13 +43,25 @@ public abstract class BaseAnimal : MonoBehaviour
         Behavior.SetState(new State_IDLE(this));
     }
 
+    protected virtual void Update()
+    {
+        if (CanHaveKids == false)
+        {
+            counter += Time.deltaTime;
+            if (counter >= breedingCooldown)
+            {
+                CanHaveKids = true;
+                counter = 0;
+            }
+        }
+    }
+
     public virtual void GiveBirth(BaseAnimal breedingPartner)
     {
-        if (Sex == Sex.Female)
-        {
-            Vector2 midPoint = (transform.position + breedingPartner.transform.position) / 2f;
-            Instantiate(Baby, midPoint, Quaternion.identity);
-        }
+        PackLeader = breedingPartner;
+        Vector2 midPoint = (transform.position + breedingPartner.transform.position) / 2f;
+        BaseAnimal b = Instantiate(Baby, midPoint, Quaternion.identity).GetComponent<BaseAnimal>();
+        b.PackLeader = breedingPartner;
     }
 }
 

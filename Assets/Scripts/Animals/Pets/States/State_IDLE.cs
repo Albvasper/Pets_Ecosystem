@@ -3,8 +3,8 @@ using UnityEngine;
 public class State_IDLE : StateTypeAnimal
 {
     // Random pos
-    const int randRangeX = 5;
-    const int randRangeY = 5;
+    const int randRangeX = 3;
+    const int randRangeY = 3;
     Vector2 target;
     // Timer
     const int cooldownMax = 1;
@@ -28,11 +28,22 @@ public class State_IDLE : StateTypeAnimal
         counter += Time.deltaTime;
         if (counter >= cooldown)
         {
-            target.x = animal.transform.position.x + Random.Range(-randRangeX, randRangeX);
-            target.y = animal.transform.position.y + Random.Range(-randRangeY, randRangeY);
-            cooldown = Random.Range(cooldownMin, cooldownMax);
-            animal.Behavior.Walk(target);
-            counter = 0;
+            if (animal.PackLeader)
+            {
+                target.x = animal.PackLeader.transform.position.x + Random.Range(-randRangeX, randRangeX);
+                target.y = animal.PackLeader.transform.position.y + Random.Range(-randRangeY, randRangeY);
+                cooldown = Random.Range(cooldownMin, cooldownMax);
+                animal.Behavior.Walk(target);
+                counter = 0;
+            }
+            else
+            {
+                target.x = animal.transform.position.x + Random.Range(-randRangeX, randRangeX);
+                target.y = animal.transform.position.y + Random.Range(-randRangeY, randRangeY);
+                cooldown = Random.Range(cooldownMin, cooldownMax);
+                animal.Behavior.Walk(target);
+                counter = 0;
+            }
         }
         // Transition to bumping state
         if (animal.Physics.IsTouchingAgent)
