@@ -20,7 +20,10 @@ public class State_Breeding : StateTypeAnimal
             if (animal.Sex == Sex.Female)
             {
                 animal.GiveBirth(otherAnimal);
+                animal.Behavior.AddSentience(5);
             }
+            animal.Behavior.AddHappiness(15);
+            animal.Behavior.AddSentience(10);
             animal.Behavior.SetState(new State_IDLE(animal));
             counter = 0;
         }

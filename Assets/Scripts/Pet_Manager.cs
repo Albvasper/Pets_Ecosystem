@@ -1,0 +1,128 @@
+using System.Collections.Generic;
+using UnityEngine;
+using System;
+
+public class Pet_Manager : MonoBehaviour
+{
+    public static Pet_Manager Instance { get; private set; }
+
+    public List<BaseAnimal> Pets { get; private set; }
+    // Actions
+    public event Action OnPopulationChanged;
+    public event Action OnHappinessChanged;
+    public event Action OnSentienceChanged;
+    public event Action OnBirthRateChanged;
+    // Stats
+    public int Population { get; private set; }
+    public int PopulationDogs { get; private set; }
+    public int PopulationCats { get; private set; }
+    public int PopulationDeers { get; private set; }
+    public int PopulationWolves { get; private set; }
+    public int PopulationZombies { get; private set; }
+    public float BirthRate { get; private set; }
+    private float birthTimer = 0f;
+    private int birthsInWindow = 0;
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+        Pets = new List<BaseAnimal>();
+        Population = 0;
+        PopulationDogs = 0;
+        PopulationCats = 0;
+        PopulationDeers = 0;
+        PopulationWolves = 0;
+        BirthRate = 0;
+        PopulationZombies = 0;
+    }
+
+    void Update()
+    {
+        birthTimer += Time.deltaTime;
+        if (birthTimer >= 60f)
+        {
+            BirthRate = birthsInWindow; // total births in last 5 min
+            birthsInWindow = 0;
+            birthTimer = 0f;
+            OnBirthRateChanged?.Invoke();
+        }
+    }
+
+    public void AddToPopulation()
+    {
+        Population++;
+        OnPopulationChanged?.Invoke();
+    }
+
+    public void AddToDogPopulation()
+    {
+        PopulationDogs++;
+        AddToPopulation();
+    }
+
+    public void AddToCatPopulation()
+    {
+        PopulationCats++;
+        AddToPopulation();
+    }
+
+    public void AddToDeerPopulation()
+    {
+        PopulationDeers++;
+        AddToPopulation();
+    }
+
+    public void AddToWolfPopulation()
+    {
+        PopulationWolves++;
+        AddToPopulation();
+    }
+
+    public void AddToZombiePopulation()
+    {
+        PopulationZombies++;
+        AddToPopulation();
+    }
+
+    public void NotifyHappinessChanged()
+    {
+        OnHappinessChanged?.Invoke();
+    }
+
+    public void NotifySentienceChanged()
+    {
+        OnSentienceChanged?.Invoke();
+    }
+
+    public float GetAverageHappiness()
+    {
+        if (Pets.Count == 0)
+            return 0;
+        float total = 0;
+        foreach (BaseAnimal pet in Pets)
+            total += pet.Happiness;
+        return total / Pets.Count;
+    }
+
+    public float GetAverageSentience()
+    {
+        if (Pets.Count == 0)
+            return 0;
+        float total = 0;
+        foreach (BaseAnimal pet in Pets)
+            total += pet.Sentience;
+        return total / Pets.Count;
+    }
+    
+    public void RegisterBirth()
+    {
+        birthsInWindow++;
+    }
+}

@@ -30,6 +30,7 @@ public class State_Bumping : StateTypePets
         // When the bumping cooldown has ended
         if (counter >= BumpingCooldown)
         {
+            animal.Behavior.SubstractHappiness(1);
             // TODO: IF ANIMAL IS ALSO TOUCHGING BREEDING PARTNER OR JUST COLLIDED WITH IT THEN MATES
             // If the animal has a breeding partner: mate
             if (animal.BreedingPartner != null && animal.CanHaveKids && otherAnimal.CanHaveKids)

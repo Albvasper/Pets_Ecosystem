@@ -23,14 +23,18 @@ public abstract class BaseAnimal : MonoBehaviour
 
     public Rigidbody2D Rb2D { get; protected set; }
     public NavMeshAgent Agent { get; protected set; }
+    
     public BaseAnimal BreedingPartner { get; set; }
+    public float Happiness { get; set; } // 0-100
+    public float Sentience { get; set; } // 0-100
     public const float BreedingChance = 1f; //100%
-
     const float breedingCooldown = 30f;
     float counter;
 
     protected virtual void Awake()
     {
+        Happiness = 50f;
+        Sentience = 10f;
         CanHaveKids = false;
         Behavior = GetComponent<BaseBehavior>();
         Agent = GetComponent<NavMeshAgent>();
@@ -39,27 +43,29 @@ public abstract class BaseAnimal : MonoBehaviour
 
     protected virtual void Start()
     {
+        // Add this to the animals list
+        Pet_Manager.Instance.Pets.Add(this);
+        Pet_Manager.Instance.RegisterBirth();
         // Set IDLE state as the default state
         Behavior.SetState(new State_IDLE(this));
         // Add animal to population count
         switch (TypeOfPet)
         {
             case TypeOfPet.Dog:
-                Player.Instance.AddToDogPopulation();
+                Pet_Manager.Instance.AddToDogPopulation();
             break;
             
             case TypeOfPet.Cat:
-                Player.Instance.AddToCatPopulation();
+                Pet_Manager.Instance.AddToCatPopulation();
             break;
             
             case TypeOfPet.Deer:
-                Player.Instance.AddToDeerPopulation();
+                Pet_Manager.Instance.AddToDeerPopulation();
             break;
             
             case TypeOfPet.Wolf:
-                Player.Instance.AddToWolfPopulation();
+                Pet_Manager.Instance.AddToWolfPopulation();
             break;
-            
         }
 
     }
@@ -76,13 +82,15 @@ public abstract class BaseAnimal : MonoBehaviour
             }
         }
     }
-
+    
+    //TODO: MOVE THIS TO THE BASE BEHAVIOR CLASS
     public virtual void GiveBirth(BaseAnimal breedingPartner)
     {
         PackLeader = breedingPartner;
         Vector2 midPoint = (transform.position + breedingPartner.transform.position) / 2f;
         BaseAnimal b = Instantiate(Baby, midPoint, Quaternion.identity).GetComponent<BaseAnimal>();
         b.PackLeader = breedingPartner;
+        b.Behavior.AddSentience(11);
     }
 }
 

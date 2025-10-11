@@ -1,19 +1,20 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_Manager : MonoBehaviour
 {
     public static UI_Manager Instance { get; private set; }
 
-    public int Happiness { get; set; }
-    public int Sentience { get; set; }
+    public Image HappinessBar;
+    public Image SentienceBar;
     [SerializeField] private TextMeshProUGUI TextPopulation;
     [SerializeField] private TextMeshProUGUI TextPopulationDogs;
     [SerializeField] private TextMeshProUGUI TextPopulationCats;
     [SerializeField] private TextMeshProUGUI TextPopulationDeers;
     [SerializeField] private TextMeshProUGUI TextPopulationWolves;
     [SerializeField] private TextMeshProUGUI TextPopulationZombies;
-    public int BirthRate { get; set; }
+    [SerializeField] private TextMeshProUGUI TextBirthRate;
     public int Time { get; set; }
     public int Weather { get; set; }
 
@@ -29,25 +30,46 @@ public class UI_Manager : MonoBehaviour
         }
     }
 
+    void OnEnable()
+    {
+        Pet_Manager.Instance.OnPopulationChanged += UpdatePopulation;
+        Pet_Manager.Instance.OnHappinessChanged += UpdateHappinessBar;
+        Pet_Manager.Instance.OnSentienceChanged += UpdateSentienceBar;
+        Pet_Manager.Instance.OnBirthRateChanged += UpdateBirthRate;
+        UpdateHappinessBar();
+    }
+    
     void Start()
     {
-        Player.Instance.OnPopulationChanged += UpdatePopulation;
-    }
-
-    void OnDisable()
-    {
-        Player.Instance.OnPopulationChanged -= UpdatePopulation;
+        UpdatePopulation();
+        UpdateHappinessBar();
+        UpdateSentienceBar();
+        UpdateBirthRate();
     }
 
     void UpdatePopulation()
     {
-        Debug.Log("Update UI!");
-        Player player = Player.Instance;
-        TextPopulation.text = player.Population.ToString();
-        TextPopulationDogs.text = player.PopulationDogs.ToString();
-        TextPopulationCats.text = player.PopulationCats.ToString();
-        TextPopulationDeers.text = player.PopulationDeers.ToString();
-        TextPopulationWolves.text = player.PopulationWolves.ToString();
-        TextPopulationZombies.text = player.PopulationZombies.ToString();
+        Pet_Manager pet_Manager = Pet_Manager.Instance;
+        TextPopulation.text = pet_Manager.Population.ToString();
+        TextPopulationDogs.text = pet_Manager.PopulationDogs.ToString();
+        TextPopulationCats.text = pet_Manager.PopulationCats.ToString();
+        TextPopulationDeers.text = pet_Manager.PopulationDeers.ToString();
+        TextPopulationWolves.text = pet_Manager.PopulationWolves.ToString();
+        TextPopulationZombies.text = pet_Manager.PopulationZombies.ToString();
+    }
+
+    void UpdateHappinessBar()
+    {
+        HappinessBar.fillAmount = Pet_Manager.Instance.GetAverageHappiness() / 100f;
+    }
+
+    void UpdateSentienceBar()
+    {
+        SentienceBar.fillAmount = Pet_Manager.Instance.GetAverageSentience() / 100f;
+    }
+
+    void UpdateBirthRate()
+    {
+        TextBirthRate.text = Pet_Manager.Instance.BirthRate.ToString();
     }
 }   

@@ -30,6 +30,7 @@ public class State_WolfBumping : StateTypeWolf
         // When the bumping cooldown has ended
         if (counter >= BumpingCooldown)
         {
+            wolf.Behavior.SubstractHappiness(1);
             // If the animal has a breeding partner: mate
             if (wolf.BreedingPartner != null && wolf.CanHaveKids && otherAnimal.CanHaveKids)
             {

@@ -23,6 +23,7 @@ public class State_AttackPrey : StateTypeWolf
         counter += Time.deltaTime;
         if (counter >= coolDown)
         { 
+            wolf.Behavior.AddHappiness(20);
             wolf.Behavior.SetState(new State_IDLE(wolf));
             counter = 0;
         }
