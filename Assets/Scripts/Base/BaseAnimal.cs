@@ -12,7 +12,7 @@ public abstract class BaseAnimal : MonoBehaviour
 {
     public TypeOfPet TypeOfPet;
     public Sex Sex;
-    protected AnimalData animalData;
+    //protected AnimalData animalData;
     [SerializeField] protected GameObject Baby;
     public BaseAnimal PackLeader { get; set; }
     public bool CanHaveKids;
@@ -43,6 +43,8 @@ public abstract class BaseAnimal : MonoBehaviour
 
     protected virtual void Start()
     {
+        // Set the animal sex randomly
+        Sex = Random.value < 0.5f ? Sex.Male : Sex.Female;
         // Add this to the animals list
         Pet_Manager.Instance.Pets.Add(this);
         Pet_Manager.Instance.RegisterBirth();
