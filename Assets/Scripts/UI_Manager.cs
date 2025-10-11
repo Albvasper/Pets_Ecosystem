@@ -15,8 +15,8 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI TextPopulationWolves;
     [SerializeField] private TextMeshProUGUI TextPopulationZombies;
     [SerializeField] private TextMeshProUGUI TextBirthRate;
+    [SerializeField] private TextMeshProUGUI TextWeather;
     public int Time { get; set; }
-    public int Weather { get; set; }
 
     void Awake()
     {
@@ -36,6 +36,7 @@ public class UI_Manager : MonoBehaviour
         Pet_Manager.Instance.OnHappinessChanged += UpdateHappinessBar;
         Pet_Manager.Instance.OnSentienceChanged += UpdateSentienceBar;
         Pet_Manager.Instance.OnBirthRateChanged += UpdateBirthRate;
+        Weather_Manager.Instance.OnWeatherChanged += UpdateWeatherUI;
         UpdateHappinessBar();
     }
     
@@ -71,5 +72,17 @@ public class UI_Manager : MonoBehaviour
     void UpdateBirthRate()
     {
         TextBirthRate.text = Pet_Manager.Instance.BirthRate.ToString();
+    }
+
+    void UpdateWeatherUI(bool isRaining)
+    {
+        if (isRaining)
+        {
+            TextWeather.text = "Raining";
+        }
+        else
+        {
+            TextWeather.text = "Sunny";
+        }
     }
 }   
