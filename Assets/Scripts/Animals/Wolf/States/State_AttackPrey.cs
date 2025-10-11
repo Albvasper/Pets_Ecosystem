@@ -4,7 +4,7 @@ public class State_AttackPrey : StateTypeWolf
 {
     Animal prey;
     float counter = 0f;
-    const float coolDown = 2f;
+    const float coolDown = 1f;
 
     public State_AttackPrey(Wolf _wolf, Animal _prey) : base(_wolf)
     {

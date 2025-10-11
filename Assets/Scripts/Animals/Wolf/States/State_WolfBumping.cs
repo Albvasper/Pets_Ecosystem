@@ -4,7 +4,7 @@ public class State_WolfBumping : StateTypeWolf
 {
     float counter = 0f;
     const float PushingForce = 2f;
-    const float BumpingCooldown = 3f;
+    const float BumpingCooldown = 1.5f;
     BaseAnimal otherAnimal;
 
     public State_WolfBumping(Wolf _wolf, BaseAnimal _otherAnimal) : base(_wolf)

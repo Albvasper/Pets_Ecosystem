@@ -41,6 +41,27 @@ public abstract class BaseAnimal : MonoBehaviour
     {
         // Set IDLE state as the default state
         Behavior.SetState(new State_IDLE(this));
+        // Add animal to population count
+        switch (TypeOfPet)
+        {
+            case TypeOfPet.Dog:
+                Player.Instance.AddToDogPopulation();
+            break;
+            
+            case TypeOfPet.Cat:
+                Player.Instance.AddToCatPopulation();
+            break;
+            
+            case TypeOfPet.Deer:
+                Player.Instance.AddToDeerPopulation();
+            break;
+            
+            case TypeOfPet.Wolf:
+                Player.Instance.AddToWolfPopulation();
+            break;
+            
+        }
+
     }
 
     protected virtual void Update()

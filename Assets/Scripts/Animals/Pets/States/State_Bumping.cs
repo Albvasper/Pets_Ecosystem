@@ -4,7 +4,7 @@ public class State_Bumping : StateTypePets
 {
     float counter = 0f;
     const float PushingForce = 2f;
-    const float BumpingCooldown = 3f;
+    const float BumpingCooldown = 1.5f;
     BaseAnimal otherAnimal;
 
     public State_Bumping(Animal _animal, BaseAnimal _otherAnimal) : base(_animal)
@@ -30,6 +30,7 @@ public class State_Bumping : StateTypePets
         // When the bumping cooldown has ended
         if (counter >= BumpingCooldown)
         {
+            // TODO: IF ANIMAL IS ALSO TOUCHGING BREEDING PARTNER OR JUST COLLIDED WITH IT THEN MATES
             // If the animal has a breeding partner: mate
             if (animal.BreedingPartner != null && animal.CanHaveKids && otherAnimal.CanHaveKids)
             {

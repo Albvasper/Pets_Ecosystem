@@ -19,6 +19,7 @@ public class State_IDLE : StateTypeAnimal
         // First time move position instantly
         cooldown = 0f;
         counter = cooldown;
+        animal.BreedingPartner = null;
     }
 
     // TODO: Check if that path is valid if not look for one
