@@ -49,7 +49,7 @@ public class Spawner_Manager : MonoBehaviour
         }
     }
     
-    void SpawnRandomPet()
+    public void SpawnRandomPet()
     {
         switch (Random.Range(0, 4))
         {

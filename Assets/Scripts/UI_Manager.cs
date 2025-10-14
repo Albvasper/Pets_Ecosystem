@@ -1,6 +1,3 @@
-using System.Globalization;
-using Solana.Unity.SDK;
-using Solana.Unity.Wallet;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,8 +16,6 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI TextPopulationZombies;
     [SerializeField] private TextMeshProUGUI TextBirthRate;
     [SerializeField] private TextMeshProUGUI TextWeather;
-    [SerializeField] private TextMeshProUGUI TextPublicKey;
-    [SerializeField] private TextMeshProUGUI TextBalance;
     public int Time { get; set; }
 
     void Awake()
@@ -42,8 +37,6 @@ public class UI_Manager : MonoBehaviour
         Pet_Manager.Instance.OnSentienceChanged += UpdateSentienceBar;
         Pet_Manager.Instance.OnBirthRateChanged += UpdateBirthRate;
         Weather_Manager.Instance.OnWeatherChanged += UpdateWeatherUI;
-        Web3.OnBalanceChange += OnBalanceChange;
-        Web3.OnLogin += OnLogin;
         UpdateHappinessBar();
     }
 
@@ -54,8 +47,6 @@ public class UI_Manager : MonoBehaviour
         Pet_Manager.Instance.OnSentienceChanged -= UpdateSentienceBar;
         Pet_Manager.Instance.OnBirthRateChanged -= UpdateBirthRate;
         Weather_Manager.Instance.OnWeatherChanged -= UpdateWeatherUI;
-        Web3.OnBalanceChange -= OnBalanceChange;
-        Web3.OnLogin -= OnLogin;
     }
     
     void Start()
@@ -102,15 +93,5 @@ public class UI_Manager : MonoBehaviour
         {
             TextWeather.text = "Sunny";
         }
-    }
-
-    void OnLogin(Account account)
-    {
-        TextPublicKey.text = account.PublicKey;
-    }
-
-    void OnBalanceChange(double amount)
-    {
-        TextBalance.text = amount.ToString(CultureInfo.InvariantCulture);
     }
 }   
