@@ -3371,7 +3371,7 @@ MonoBehaviour:
   loginButton: {fileID: 664836140}
   publicKeyText: {fileID: 2043273210}
   balanceText: {fileID: 2066947917}
-  editorTestMode: 1
+  editorTestMode: 0
   testPublicKey: HzUEcLTkpKVmk3eL25HYJrzT6nZSMDAvyo22SXuXRg5y
   testBalance: 201
 --- !u!1 &359136573
