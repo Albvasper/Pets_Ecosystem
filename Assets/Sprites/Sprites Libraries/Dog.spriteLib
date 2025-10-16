@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e6fedc2472449cead18ef23b5cb30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library:
+  - m_Name: IDLE
+    m_Hash: 716265633
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Dog_Sprite_Sheet_Front_0
+      m_Hash: 442070525
+      m_Sprite: {fileID: 5480102110241629326, guid: 15613a14f68dfcf4b8dec137b15aaa8b, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 5480102110241629326, guid: 15613a14f68dfcf4b8dec137b15aaa8b, type: 3}
+    - m_Name: Dog_Sprite_Sheet_Front_1
+      m_Hash: 761152875
+      m_Sprite: {fileID: 8883392833293685265, guid: 15613a14f68dfcf4b8dec137b15aaa8b, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 8883392833293685265, guid: 15613a14f68dfcf4b8dec137b15aaa8b, type: 3}
+    - m_Name: Dog_Sprite_Sheet_Front_2
+      m_Hash: 878122193
+      m_Sprite: {fileID: -2586195179047818642, guid: 15613a14f68dfcf4b8dec137b15aaa8b, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -2586195179047818642, guid: 15613a14f68dfcf4b8dec137b15aaa8b, type: 3}
+    - m_Name: Dog_Sprite_Sheet_Front_3
+      m_Hash: 55583815
+      m_Sprite: {fileID: -4949147104866788924, guid: 15613a14f68dfcf4b8dec137b15aaa8b, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -4949147104866788924, guid: 15613a14f68dfcf4b8dec137b15aaa8b, type: 3}
+    - m_Name: Dog_Sprite_Sheet_Side_0
+      m_Hash: 44401030
+      m_Sprite: {fileID: -975841209393837728, guid: f972764dd89485a4a8d80d174c50c19c, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -975841209393837728, guid: f972764dd89485a4a8d80d174c50c19c, type: 3}
+    - m_Name: Dog_Sprite_Sheet_Side_1
+      m_Hash: 899854608
+      m_Sprite: {fileID: -4678441200537963912, guid: f972764dd89485a4a8d80d174c50c19c, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -4678441200537963912, guid: f972764dd89485a4a8d80d174c50c19c, type: 3}
+    - m_Name: Dog_Sprite_Sheet_Side_2
+      m_Hash: 749461674
+      m_Sprite: {fileID: 6085027940924626339, guid: f972764dd89485a4a8d80d174c50c19c, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 6085027940924626339, guid: f972764dd89485a4a8d80d174c50c19c, type: 3}
+    - m_Name: Dog_Sprite_Sheet_Side_3
+      m_Hash: 464310332
+      m_Sprite: {fileID: -3727523743809260187, guid: f972764dd89485a4a8d80d174c50c19c, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -3727523743809260187, guid: f972764dd89485a4a8d80d174c50c19c, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 8
+  - m_Name: Walk
+    m_Hash: 765711723
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Dog_Sprite_Sheet_Front_4
+      m_Hash: 489992676
+      m_Sprite: {fileID: -4634103677094517878, guid: 15613a14f68dfcf4b8dec137b15aaa8b, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -4634103677094517878, guid: 15613a14f68dfcf4b8dec137b15aaa8b, type: 3}
+    - m_Name: Dog_Sprite_Sheet_Front_5
+      m_Hash: 708018546
+      m_Sprite: {fileID: -770125955367687353, guid: 15613a14f68dfcf4b8dec137b15aaa8b, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -770125955367687353, guid: 15613a14f68dfcf4b8dec137b15aaa8b, type: 3}
+    - m_Name: Dog_Sprite_Sheet_Front_6
+      m_Hash: 859492552
+      m_Sprite: {fileID: 777402619995456430, guid: 15613a14f68dfcf4b8dec137b15aaa8b, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 777402619995456430, guid: 15613a14f68dfcf4b8dec137b15aaa8b, type: 3}
+    - m_Name: Dog_Sprite_Sheet_Front_7
+      m_Hash: 71163998
+      m_Sprite: {fileID: 4369651980701493757, guid: 15613a14f68dfcf4b8dec137b15aaa8b, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 4369651980701493757, guid: 15613a14f68dfcf4b8dec137b15aaa8b, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 4
+  - m_Name: Attacking
+    m_Hash: 24021925
+    m_CategoryList: []
+    m_OverrideEntries: []
+    m_FromMain: 0
+    m_EntryOverrideCount: 0
+  - m_Name: Bumping
+    m_Hash: 807695937
+    m_CategoryList: []
+    m_OverrideEntries: []
+    m_FromMain: 0
+    m_EntryOverrideCount: 0
+  m_PrimaryLibraryGUID: 
+  m_ModificationHash: 638962334192316666
+  m_Version: 1

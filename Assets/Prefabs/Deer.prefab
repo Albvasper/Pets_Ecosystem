@@ -373,10 +373,10 @@ GameObject:
   - component: {fileID: 1583447243444510063}
   - component: {fileID: 4314323142057549406}
   - component: {fileID: 9196889337219842285}
-  - component: {fileID: 4715668087293753792}
-  - component: {fileID: 4533101386470878198}
-  - component: {fileID: 2490196388522941891}
-  - component: {fileID: 2803777281721986707}
+  - component: {fileID: 2605488442394617853}
+  - component: {fileID: 6587327364973327851}
+  - component: {fileID: 4059516774950038215}
+  - component: {fileID: 3341351614053591835}
   m_Layer: 0
   m_Name: Deer
   m_TagString: Animal
@@ -575,7 +575,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4715668087293753792
+--- !u!114 &2605488442394617853
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -584,14 +584,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 8761364901818605491}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2917ea18c04bc504cb97f5d0d18d3646, type: 3}
+  m_Script: {fileID: 11500000, guid: 135270cc6fd81ba42a224cf06dcd8186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TypeOfPet: 2
+  Friendliness: 0
   Sex: 0
   Baby: {fileID: 8761364901818605491}
   CanHaveKids: 0
---- !u!114 &4533101386470878198
+--- !u!114 &6587327364973327851
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -600,10 +601,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8761364901818605491}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bda264635ed1e2941b62dec95d124e6e, type: 3}
+  m_Script: {fileID: 11500000, guid: c869d2685e3ec144090aa1d3cef4255f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2490196388522941891
+--- !u!114 &4059516774950038215
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -612,10 +613,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8761364901818605491}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14d13d58050f5a34abc110d6c49c43d3, type: 3}
+  m_Script: {fileID: 11500000, guid: 5fd4abff041c33e42b8628f9c9c88b11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2803777281721986707
+--- !u!114 &3341351614053591835
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -624,7 +625,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8761364901818605491}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7437e4923ecfec849a2ac035af79a915, type: 3}
+  m_Script: {fileID: 11500000, guid: cb031417a4ba08d45ab08722e550ab12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 8493550743165330215}

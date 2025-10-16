@@ -29,6 +29,7 @@ public class State_IDLE : StateTypeAnimal
         counter += Time.deltaTime;
         if (counter >= cooldown)
         {
+            // IDLE around pack leader is there is one, if not wander around
             if (animal.PackLeader)
             {
                 target.x = animal.PackLeader.transform.position.x + Random.Range(-randRangeX, randRangeX);
@@ -49,14 +50,14 @@ public class State_IDLE : StateTypeAnimal
         // Transition to bumping state
         if (animal.Physics.IsTouchingAgent)
         {
-            // Filter if its a pet or a wolf
-            if (animal.TypeOfPet == TypeOfPet.Wolf)
+            // Filter if its a passive pet or a hostile pet
+            if (animal.Friendliness == Friendliness.Hostile)
             {
-                animal.Behavior.SetState(new State_WolfBumping((Wolf)animal, animal.Physics.BumpingAnimal));
+                animal.Behavior.SetState(new State_HostileBumping((HostilePet)animal, animal.Physics.BumpingAnimal));
             }
             else
             {
-                animal.Behavior.SetState(new State_Bumping((Animal)animal, animal.Physics.BumpingAnimal));
+                animal.Behavior.SetState(new State_Bumping((Pet)animal, animal.Physics.BumpingAnimal));
             }
         }
     }

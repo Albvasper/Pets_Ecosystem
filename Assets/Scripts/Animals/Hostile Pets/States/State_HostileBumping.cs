@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class State_Bumping : StateTypePets
+public class State_HostileBumping : StateTypeHostilePet
 {
     float counter = 0f;
     const float PushingForce = 2f;
     const float BumpingCooldown = 1.5f;
     BaseAnimal otherAnimal;
 
-    public State_Bumping(Pet _pet, BaseAnimal _otherAnimal) : base(_pet)
+    public State_HostileBumping(HostilePet _pet, BaseAnimal _otherAnimal) : base(_pet)
     {
         otherAnimal = _otherAnimal;
     }
@@ -31,12 +31,15 @@ public class State_Bumping : StateTypePets
         if (counter >= BumpingCooldown)
         {
             pet.Behavior.SubstractHappiness(1);
-            // TODO: IF ANIMAL IS ALSO TOUCHGING BREEDING PARTNER OR JUST COLLIDED WITH IT THEN MATES
             // If the animal has a breeding partner: mate
             if (pet.BreedingPartner != null && pet.CanHaveKids && otherAnimal.CanHaveKids)
             {
-                // Breeding process
                 pet.Behavior.SetState(new State_Breeding(pet, otherAnimal));
+            }
+            // If pet has a current prey
+            else if (pet.CurrentPrey != null)
+            {
+                pet.Behavior.SetState(new State_Hunt(pet, pet.CurrentPrey));
             }
             // If breeding is not possible do IDLE
             else
