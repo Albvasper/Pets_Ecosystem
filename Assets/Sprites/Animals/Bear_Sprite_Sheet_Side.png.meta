@@ -1,31 +1,31 @@
 fileFormatVersion: 2
-guid: 020149447b614ec4d81f27d87a1d4bd5
+guid: 53cf5b0105997ba4ab035977cb81acb2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8476533286923904317
-    second: Cat_Sprite_Sheet_Side_0
+      213: -3062750451535233581
+    second: Bear_Sprite_Sheet_Side_0
   - first:
-      213: -4446577521967895453
-    second: Cat_Sprite_Sheet_Side_1
+      213: -6088468198519258525
+    second: Bear_Sprite_Sheet_Side_1
   - first:
-      213: -3745218252086260122
-    second: Cat_Sprite_Sheet_Side_2
+      213: -4343566083558676752
+    second: Bear_Sprite_Sheet_Side_2
   - first:
-      213: -2717602460669445199
-    second: Cat_Sprite_Sheet_Side_3
+      213: 6544436317963710088
+    second: Bear_Sprite_Sheet_Side_3
   - first:
-      213: 8379171273285095182
-    second: Cat_Sprite_Sheet_Side_4
+      213: -7083853176837248968
+    second: Bear_Sprite_Sheet_Side_4
   - first:
-      213: -6504128083472894886
-    second: Cat_Sprite_Sheet_Side_5
+      213: 6754404814839208827
+    second: Bear_Sprite_Sheet_Side_5
   - first:
-      213: -8931293431623881161
-    second: Cat_Sprite_Sheet_Side_6
+      213: 3795198801869485569
+    second: Bear_Sprite_Sheet_Side_6
   - first:
-      213: 8238448630461192514
-    second: Cat_Sprite_Sheet_Side_7
+      213: -4411675660524808767
+    second: Bear_Sprite_Sheet_Side_7
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -122,7 +122,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -134,7 +134,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cat_Sprite_Sheet_Side_0
+      name: Bear_Sprite_Sheet_Side_0
       rect:
         serializedVersion: 2
         x: 0
@@ -149,14 +149,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d35afd52d12b2a570800000000000000
-      internalID: 8476533286923904317
+      spriteID: 3dd339401bcee75d0800000000000000
+      internalID: -3062750451535233581
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cat_Sprite_Sheet_Side_1
+      name: Bear_Sprite_Sheet_Side_1
       rect:
         serializedVersion: 2
         x: 32
@@ -171,14 +171,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 36cedd08d459a42c0800000000000000
-      internalID: -4446577521967895453
+      spriteID: 3624ff87e6a618ba0800000000000000
+      internalID: -6088468198519258525
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cat_Sprite_Sheet_Side_2
+      name: Bear_Sprite_Sheet_Side_2
       rect:
         serializedVersion: 2
         x: 64
@@ -193,14 +193,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 66ec61eb7df460cc0800000000000000
-      internalID: -3745218252086260122
+      spriteID: 0f6ec0309ad88b3c0800000000000000
+      internalID: -4343566083558676752
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cat_Sprite_Sheet_Side_3
+      name: Bear_Sprite_Sheet_Side_3
       rect:
         serializedVersion: 2
         x: 96
@@ -215,14 +215,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1bbf113e5f2294ad0800000000000000
-      internalID: -2717602460669445199
+      spriteID: 88e6463482282da50800000000000000
+      internalID: 6544436317963710088
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cat_Sprite_Sheet_Side_4
+      name: Bear_Sprite_Sheet_Side_4
       rect:
         serializedVersion: 2
         x: 0
@@ -237,14 +237,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e0fc058d0ebc84470800000000000000
-      internalID: 8379171273285095182
+      spriteID: 838e799411911bd90800000000000000
+      internalID: -7083853176837248968
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cat_Sprite_Sheet_Side_5
+      name: Bear_Sprite_Sheet_Side_5
       rect:
         serializedVersion: 2
         x: 32
@@ -259,14 +259,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a54b4fae7f1bcb5a0800000000000000
-      internalID: -6504128083472894886
+      spriteID: b7bdda984677cbd50800000000000000
+      internalID: 6754404814839208827
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cat_Sprite_Sheet_Side_6
+      name: Bear_Sprite_Sheet_Side_6
       rect:
         serializedVersion: 2
         x: 64
@@ -281,14 +281,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 73e6747a1fbad0480800000000000000
-      internalID: -8931293431623881161
+      spriteID: 1063b65d3314ba430800000000000000
+      internalID: 3795198801869485569
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cat_Sprite_Sheet_Side_7
+      name: Bear_Sprite_Sheet_Side_7
       rect:
         serializedVersion: 2
         x: 96
@@ -303,8 +303,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 24951f65169d45270800000000000000
-      internalID: 8238448630461192514
+      spriteID: 1c59e2e5c5496c2c0800000000000000
+      internalID: -4411675660524808767
       vertices: []
       indices: 
       edges: []
@@ -313,7 +313,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 1c0085fa30fd87a42805e459a9ffa5fe
+    spriteID: a5b777bf172539141bb125ae025ca201
     internalID: 0
     vertices: []
     indices: 
@@ -323,14 +323,14 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Cat_Sprite_Sheet_Side_0: 8476533286923904317
-      Cat_Sprite_Sheet_Side_1: -4446577521967895453
-      Cat_Sprite_Sheet_Side_2: -3745218252086260122
-      Cat_Sprite_Sheet_Side_3: -2717602460669445199
-      Cat_Sprite_Sheet_Side_4: 8379171273285095182
-      Cat_Sprite_Sheet_Side_5: -6504128083472894886
-      Cat_Sprite_Sheet_Side_6: -8931293431623881161
-      Cat_Sprite_Sheet_Side_7: 8238448630461192514
+      Bear_Sprite_Sheet_Side_0: -3062750451535233581
+      Bear_Sprite_Sheet_Side_1: -6088468198519258525
+      Bear_Sprite_Sheet_Side_2: -4343566083558676752
+      Bear_Sprite_Sheet_Side_3: 6544436317963710088
+      Bear_Sprite_Sheet_Side_4: -7083853176837248968
+      Bear_Sprite_Sheet_Side_5: 6754404814839208827
+      Bear_Sprite_Sheet_Side_6: 3795198801869485569
+      Bear_Sprite_Sheet_Side_7: -4411675660524808767
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

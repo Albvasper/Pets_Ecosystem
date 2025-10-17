@@ -8,7 +8,7 @@ public class HostilePetAnimator : PetAnimator
     protected override void Awake()
     {
         base.Awake();
-        pet.GetComponent<HostilePet>();
+        pet = GetComponent<HostilePet>();
     }
 
     protected override void Update()

@@ -1,31 +1,46 @@
 fileFormatVersion: 2
-guid: 020149447b614ec4d81f27d87a1d4bd5
+guid: 0746d57e490698c458a29e29ed468110
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8476533286923904317
-    second: Cat_Sprite_Sheet_Side_0
+      213: -5164359762705032478
+    second: Bear_Sprite_Sheet_Front_0
   - first:
-      213: -4446577521967895453
-    second: Cat_Sprite_Sheet_Side_1
+      213: -357365185286716788
+    second: Bear_Sprite_Sheet_Front_1
   - first:
-      213: -3745218252086260122
-    second: Cat_Sprite_Sheet_Side_2
+      213: 4354105741555275685
+    second: Bear_Sprite_Sheet_Front_2
   - first:
-      213: -2717602460669445199
-    second: Cat_Sprite_Sheet_Side_3
+      213: 4293417360391216735
+    second: Bear_Sprite_Sheet_Front_3
   - first:
-      213: 8379171273285095182
-    second: Cat_Sprite_Sheet_Side_4
+      213: 1850897887472570185
+    second: Bear_Sprite_Sheet_Front_4
   - first:
-      213: -6504128083472894886
-    second: Cat_Sprite_Sheet_Side_5
+      213: -8965548786008921425
+    second: Bear_Sprite_Sheet_Front_5
   - first:
-      213: -8931293431623881161
-    second: Cat_Sprite_Sheet_Side_6
+      213: -1652843527895262060
+    second: Bear_Sprite_Sheet_Front_6
   - first:
-      213: 8238448630461192514
-    second: Cat_Sprite_Sheet_Side_7
+      213: -7272749921993128147
+    second: Bear_Sprite_Sheet_Front_7
+  - first:
+      213: -5053977872336859070
+    second: Bear_Sprite_Sheet_Front_8
+  - first:
+      213: 1925958701671487546
+    second: Bear_Sprite_Sheet_Front_9
+  - first:
+      213: 5619892844289372304
+    second: Bear_Sprite_Sheet_Front_10
+  - first:
+      213: 6722252541135269362
+    second: Bear_Sprite_Sheet_Front_11
+  - first:
+      213: 6571879638244379971
+    second: Bear_Sprite_Sheet_Front_12
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -122,7 +137,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -134,12 +149,232 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cat_Sprite_Sheet_Side_0
+      name: Bear_Sprite_Sheet_Front_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ea55a368228458b0800000000000000
+      internalID: -5164359762705032478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bear_Sprite_Sheet_Front_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c82c4e3e1426a0bf0800000000000000
+      internalID: -357365185286716788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bear_Sprite_Sheet_Front_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a714e75a14ec6c30800000000000000
+      internalID: 4354105741555275685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bear_Sprite_Sheet_Front_3
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5e1d9e7758459b30800000000000000
+      internalID: 4293417360391216735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bear_Sprite_Sheet_Front_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94fc25a72d5bfa910800000000000000
+      internalID: 1850897887472570185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bear_Sprite_Sheet_Front_5
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: faae08171e8f39380800000000000000
+      internalID: -8965548786008921425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bear_Sprite_Sheet_Front_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49cdf7a819bef09e0800000000000000
+      internalID: -1652843527895262060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bear_Sprite_Sheet_Front_7
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2789578a70021b90800000000000000
+      internalID: -7272749921993128147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bear_Sprite_Sheet_Front_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2405da8f6e9acd9b0800000000000000
+      internalID: -5053977872336859070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bear_Sprite_Sheet_Front_9
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3893392c316aba10800000000000000
+      internalID: 1925958701671487546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bear_Sprite_Sheet_Front_10
       rect:
         serializedVersion: 2
         x: 0
         y: 16
-        width: 32
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -149,19 +384,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d35afd52d12b2a570800000000000000
-      internalID: 8476533286923904317
+      spriteID: 090b0a334ceddfd40800000000000000
+      internalID: 5619892844289372304
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cat_Sprite_Sheet_Side_1
+      name: Bear_Sprite_Sheet_Front_11
       rect:
         serializedVersion: 2
-        x: 32
+        x: 16
         y: 16
-        width: 32
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -171,63 +406,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 36cedd08d459a42c0800000000000000
-      internalID: -4446577521967895453
+      spriteID: 2fda5d4f11d3a4d50800000000000000
+      internalID: 6722252541135269362
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cat_Sprite_Sheet_Side_2
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 16
-        width: 32
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 66ec61eb7df460cc0800000000000000
-      internalID: -3745218252086260122
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Cat_Sprite_Sheet_Side_3
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 16
-        width: 32
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1bbf113e5f2294ad0800000000000000
-      internalID: -2717602460669445199
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Cat_Sprite_Sheet_Side_4
+      name: Bear_Sprite_Sheet_Front_12
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -237,74 +428,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e0fc058d0ebc84470800000000000000
-      internalID: 8379171273285095182
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Cat_Sprite_Sheet_Side_5
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a54b4fae7f1bcb5a0800000000000000
-      internalID: -6504128083472894886
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Cat_Sprite_Sheet_Side_6
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 32
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 73e6747a1fbad0480800000000000000
-      internalID: -8931293431623881161
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Cat_Sprite_Sheet_Side_7
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 0
-        width: 32
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 24951f65169d45270800000000000000
-      internalID: 8238448630461192514
+      spriteID: 34dcd2036b1043b50800000000000000
+      internalID: 6571879638244379971
       vertices: []
       indices: 
       edges: []
@@ -313,7 +438,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 1c0085fa30fd87a42805e459a9ffa5fe
+    spriteID: 9400b8f7d85bff94cb9180ba3aac3482
     internalID: 0
     vertices: []
     indices: 
@@ -323,14 +448,19 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Cat_Sprite_Sheet_Side_0: 8476533286923904317
-      Cat_Sprite_Sheet_Side_1: -4446577521967895453
-      Cat_Sprite_Sheet_Side_2: -3745218252086260122
-      Cat_Sprite_Sheet_Side_3: -2717602460669445199
-      Cat_Sprite_Sheet_Side_4: 8379171273285095182
-      Cat_Sprite_Sheet_Side_5: -6504128083472894886
-      Cat_Sprite_Sheet_Side_6: -8931293431623881161
-      Cat_Sprite_Sheet_Side_7: 8238448630461192514
+      Bear_Sprite_Sheet_Front_0: -5164359762705032478
+      Bear_Sprite_Sheet_Front_1: -357365185286716788
+      Bear_Sprite_Sheet_Front_10: 5619892844289372304
+      Bear_Sprite_Sheet_Front_11: 6722252541135269362
+      Bear_Sprite_Sheet_Front_12: 6571879638244379971
+      Bear_Sprite_Sheet_Front_2: 4354105741555275685
+      Bear_Sprite_Sheet_Front_3: 4293417360391216735
+      Bear_Sprite_Sheet_Front_4: 1850897887472570185
+      Bear_Sprite_Sheet_Front_5: -8965548786008921425
+      Bear_Sprite_Sheet_Front_6: -1652843527895262060
+      Bear_Sprite_Sheet_Front_7: -7272749921993128147
+      Bear_Sprite_Sheet_Front_8: -5053977872336859070
+      Bear_Sprite_Sheet_Front_9: 1925958701671487546
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
