@@ -1,14 +1,13 @@
 using UnityEngine;
 
-[RequireComponent(typeof(HostilePet))]
 public class HostilePetPhysics : PetPhysics
 {
-    HostilePet pet;
+    private HostilePet HostilePet;
 
     protected override void Awake()
     {
         base.Awake();
-        pet = GetComponent<HostilePet>();
+        HostilePet = GetComponent<HostilePet>();
     }
 
     // Hanldes collision with other Game Objects
@@ -20,18 +19,18 @@ public class HostilePetPhysics : PetPhysics
             IsTouchingAgent = true;
             BumpingAnimal = otherAnimal;
             // If the other animal is the same species an the opposite sex
-            if (otherAnimal.TypeOfPet == pet.TypeOfPet && otherAnimal.Sex != pet.Sex)
+            if (otherAnimal.TypeOfPet == HostilePet.TypeOfPet && otherAnimal.Sex != HostilePet.Sex)
             {
                 // Take a chance
                 if (Random.value < BaseAnimal.BreedingChance)
                 {
-                    pet.BreedingPartner = otherAnimal;
+                    HostilePet.BreedingPartner = otherAnimal;
                 }
             }
             // If the other animal is not a wolf set the current prey
-            else if (otherAnimal.TypeOfPet != pet.TypeOfPet)
+            else if (otherAnimal.TypeOfPet != HostilePet.TypeOfPet)
             {
-                pet.CurrentPrey = (Pet)otherAnimal;
+                HostilePet.CurrentPrey = (Pet)otherAnimal;
             }
         }
     }

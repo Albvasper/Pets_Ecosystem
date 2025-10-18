@@ -1,26 +1,29 @@
 using UnityEngine;
 
-[RequireComponent(typeof(HostilePet))]
 public class HostilePetAnimator : PetAnimator
 {
-    HostilePet pet;
+    private HostilePet HostilePet => animal as HostilePet;
 
     protected override void Awake()
     {
         base.Awake();
-        pet = GetComponent<HostilePet>();
+        if (animal == null)
+            animal = GetComponent<HostilePet>();
     }
 
     protected override void Update()
     {
         base.Update();
-        if (pet.IsAttacking)
+        if (HostilePet != null)
         {
-            Animator.SetBool("IsAttacking", true);
-        }
-        else
-        {
-            Animator.SetBool("IsAttacking", false);
+            if (HostilePet.IsAttacking)
+            {
+                Animator.SetBool("IsAttacking", true);
+            }
+            else
+            {
+                Animator.SetBool("IsAttacking", false);
+            }
         }
     }
 }

@@ -13,6 +13,8 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI TextPopulationCats;
     [SerializeField] private TextMeshProUGUI TextPopulationDeers;
     [SerializeField] private TextMeshProUGUI TextPopulationWolves;
+    [SerializeField] private TextMeshProUGUI TextPopulationTigers;
+    [SerializeField] private TextMeshProUGUI TextPopulationBears;
     [SerializeField] private TextMeshProUGUI TextPopulationZombies;
     [SerializeField] private TextMeshProUGUI TextBirthRate;
     [SerializeField] private TextMeshProUGUI TextWeather;
@@ -65,6 +67,8 @@ public class UI_Manager : MonoBehaviour
         TextPopulationCats.text = pet_Manager.PopulationCats.ToString();
         TextPopulationDeers.text = pet_Manager.PopulationDeers.ToString();
         TextPopulationWolves.text = pet_Manager.PopulationWolves.ToString();
+        TextPopulationTigers.text = pet_Manager.PopulationTigers.ToString();
+        TextPopulationBears.text = pet_Manager.PopulationBears.ToString();
         TextPopulationZombies.text = pet_Manager.PopulationZombies.ToString();
     }
 

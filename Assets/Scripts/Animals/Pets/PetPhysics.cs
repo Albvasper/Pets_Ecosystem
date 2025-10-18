@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Pet))]
 public class PetPhysics : BasePhysics
 {
     Pet pet;

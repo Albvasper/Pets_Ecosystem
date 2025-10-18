@@ -441,6 +441,7 @@ MonoBehaviour:
   Sex: 0
   Baby: {fileID: 8352837743444415190}
   CanHaveKids: 0
+  IsZombie: 0
 --- !u!114 &5453546569184602919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -477,6 +478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb031417a4ba08d45ab08722e550ab12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ZombieAnimator: {fileID: 9100000, guid: beddce8073262144d87bfbfba29d544a, type: 2}
   spriteRenderer: {fileID: 5350501165634648105}
   shadowHorizontal: {fileID: -1507174889177632086, guid: 98d11264f58b40449bff503ccf645a94, type: 3}
   shadowVertical: {fileID: 21300000, guid: 6603a76c68d31f54daeb14f566b14d9e, type: 3}

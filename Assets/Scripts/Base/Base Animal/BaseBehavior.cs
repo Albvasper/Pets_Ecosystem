@@ -5,6 +5,9 @@ public class BaseBehavior : MonoBehaviour
 {
     protected BaseAnimal animal;
     protected State CurrentState { get; set; }
+    const float zombieCheckInterval = 5f; // every 5 seconds
+    const float chanceOfBecomingZombie = 0.01f; //1%
+    float counter;
 
     protected virtual void Awake()
     {
@@ -17,6 +20,16 @@ public class BaseBehavior : MonoBehaviour
         CurrentState.Tick();
         UpdateHappiness();
         UpdateSentience();
+        if (!animal.IsZombie)
+        {
+            counter += Time.deltaTime;
+            if (counter >= zombieCheckInterval)
+            {
+                counter = 0f;
+                if (Random.value <= chanceOfBecomingZombie)
+                    animal.Animator.TurnIntoZombie();
+            }
+        }
     }
 
     // Set a new state for the animal
@@ -84,7 +97,7 @@ public class BaseBehavior : MonoBehaviour
         Pet_Manager.Instance.NotifySentienceChanged();
         animal.Sentience = Mathf.Min(animal.Sentience + amount, 100f);
     }
-    
+
     public virtual void UpdateSentience()
     {
         Pet_Manager.Instance.NotifySentienceChanged();

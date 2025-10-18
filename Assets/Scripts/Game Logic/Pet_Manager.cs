@@ -18,6 +18,8 @@ public class Pet_Manager : MonoBehaviour
     public int PopulationCats { get; private set; }
     public int PopulationDeers { get; private set; }
     public int PopulationWolves { get; private set; }
+    public int PopulationTigers { get; private set; }
+    public int PopulationBears { get; private set; }
     public int PopulationZombies { get; private set; }
     public float BirthRate { get; private set; }
     private float birthTimer = 0f;
@@ -39,6 +41,8 @@ public class Pet_Manager : MonoBehaviour
         PopulationCats = 0;
         PopulationDeers = 0;
         PopulationWolves = 0;
+        PopulationTigers = 0;
+        PopulationBears = 0;
         BirthRate = 0;
         PopulationZombies = 0;
     }
@@ -85,10 +89,22 @@ public class Pet_Manager : MonoBehaviour
         AddToPopulation();
     }
 
+    public void AddToTigerPopulation()
+    {
+        PopulationTigers++;
+        AddToPopulation();
+    }
+
+    public void AddToBearPopulation()
+    {
+        PopulationBears++;
+        AddToPopulation();
+    }
+
     public void AddToZombiePopulation()
     {
         PopulationZombies++;
-        AddToPopulation();
+        OnPopulationChanged?.Invoke();
     }
 
     public void NotifyHappinessChanged()

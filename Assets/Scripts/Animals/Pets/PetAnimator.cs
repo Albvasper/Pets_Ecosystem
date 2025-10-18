@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Pet))]
 public class PetAnimator : BaseAnimator
 {
     Pet pet;

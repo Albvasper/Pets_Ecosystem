@@ -29,6 +29,8 @@ public abstract class BaseAnimal : MonoBehaviour
     public float Happiness { get; set; } // 0-100
     public float Sentience { get; set; } // 0-100
 
+    public bool IsZombie { get; set;  } // 0-100
+
     public const float BreedingChance = 1f; //100%
     const float breedingCooldown = 30f;
     float counter;
@@ -40,6 +42,7 @@ public abstract class BaseAnimal : MonoBehaviour
         Happiness = 50f;
         Sentience = 10f;
         CanHaveKids = false;
+        IsZombie = false;
     }
 
     protected virtual void Start()
@@ -69,8 +72,15 @@ public abstract class BaseAnimal : MonoBehaviour
             case TypeOfPet.Wolf:
                 Pet_Manager.Instance.AddToWolfPopulation();
             break;
-        }
 
+            case TypeOfPet.Tiger:
+                Pet_Manager.Instance.AddToTigerPopulation();
+            break;
+
+            case TypeOfPet.Bear:
+                Pet_Manager.Instance.AddToBearPopulation();
+            break;
+        }
     }
 
     protected virtual void Update()

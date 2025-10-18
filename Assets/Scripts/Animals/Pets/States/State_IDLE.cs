@@ -25,8 +25,8 @@ public class State_IDLE : StateTypeAnimal
     // TODO: Check if that path is valid if not look for one
     public override void Tick()
     {
-        // IDLE movement logic
         counter += Time.deltaTime;
+        // IDLE movement logic
         if (counter >= cooldown)
         {
             // IDLE around pack leader is there is one, if not wander around
