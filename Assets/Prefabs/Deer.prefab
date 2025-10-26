@@ -80,7 +80,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Deer
+  m_text: Cat
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -177,7 +177,7 @@ Transform:
   m_GameObject: {fileID: 1239191551049906021}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -397,8 +397,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 444682332281875553}
   - {fileID: 71875590354810093}
+  - {fileID: 444682332281875553}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5674579998009995933
@@ -590,9 +590,9 @@ MonoBehaviour:
   TypeOfPet: 2
   Friendliness: 0
   Sex: 0
+  nameTag: {fileID: 7034335509336438126}
   Baby: {fileID: 8761364901818605491}
   CanHaveKids: 0
-  IsZombie: 0
 --- !u!114 &6587327364973327851
 MonoBehaviour:
   m_ObjectHideFlags: 0

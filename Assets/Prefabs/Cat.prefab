@@ -246,8 +246,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 960156765840936064}
   - {fileID: 1868341926617876136}
+  - {fileID: 960156765840936064}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1523000320483673256
@@ -439,9 +439,9 @@ MonoBehaviour:
   TypeOfPet: 0
   Friendliness: 0
   Sex: 0
+  nameTag: {fileID: 531500899044191774}
   Baby: {fileID: 8352837743444415190}
   CanHaveKids: 0
-  IsZombie: 0
 --- !u!114 &5453546569184602919
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -232,9 +232,9 @@ MonoBehaviour:
   TypeOfPet: 1
   Friendliness: 0
   Sex: 0
+  nameTag: {fileID: 5915114591293283911}
   Baby: {fileID: 2368060205393142884}
   CanHaveKids: 0
-  IsZombie: 0
 --- !u!114 &4327985124184128375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,7 +355,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Dog
+  m_text: Cat
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

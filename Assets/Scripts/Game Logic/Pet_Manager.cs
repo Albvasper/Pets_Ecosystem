@@ -7,6 +7,7 @@ public class Pet_Manager : MonoBehaviour
     public static Pet_Manager Instance { get; private set; }
 
     public List<BaseAnimal> Pets { get; private set; }
+    int maxPets = 20;
     // Actions
     public event Action OnPopulationChanged;
     public event Action OnHappinessChanged;
@@ -52,7 +53,7 @@ public class Pet_Manager : MonoBehaviour
         birthTimer += Time.deltaTime;
         if (birthTimer >= 60f)
         {
-            BirthRate = birthsInWindow; // total births in last 5 min
+            BirthRate = birthsInWindow;
             birthsInWindow = 0;
             birthTimer = 0f;
             OnBirthRateChanged?.Invoke();
@@ -62,6 +63,12 @@ public class Pet_Manager : MonoBehaviour
     public void AddToPopulation()
     {
         Population++;
+        OnPopulationChanged?.Invoke();
+    }
+
+    public void RemoveFromPopulation()
+    {
+        Population--;
         OnPopulationChanged?.Invoke();
     }
 
@@ -107,6 +114,48 @@ public class Pet_Manager : MonoBehaviour
         OnPopulationChanged?.Invoke();
     }
 
+    public void RemoveFromDogPopulation()
+    {
+        PopulationDogs--;
+        RemoveFromPopulation();
+    }
+
+    public void RemoveFromCatPopulation()
+    {
+        PopulationCats--;
+        RemoveFromPopulation();
+    }
+
+    public void RemoveFromDeerPopulation()
+    {
+        PopulationDeers--;
+        RemoveFromPopulation();
+    }
+
+    public void RemoveFromWolfPopulation()
+    {
+        PopulationWolves--;
+        RemoveFromPopulation();
+    }
+
+    public void RemoveFromTigerPopulation()
+    {
+        PopulationTigers--;
+        RemoveFromPopulation();
+    }
+
+    public void RemoveFromBearPopulation()
+    {
+        PopulationBears--;
+        RemoveFromPopulation();
+    }
+
+    public void RemoveFromZombiePopulation()
+    {
+        PopulationZombies--;
+        OnPopulationChanged?.Invoke();
+    }
+
     public void NotifyHappinessChanged()
     {
         OnHappinessChanged?.Invoke();
@@ -136,9 +185,14 @@ public class Pet_Manager : MonoBehaviour
             total += pet.Sentience;
         return total / Pets.Count;
     }
-    
+
     public void RegisterBirth()
     {
         birthsInWindow++;
+    }
+
+    public bool HasFreeSpace()
+    {
+        return Pets.Count < maxPets;
     }
 }
