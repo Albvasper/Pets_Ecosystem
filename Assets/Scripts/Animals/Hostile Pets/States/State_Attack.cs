@@ -16,6 +16,8 @@ public class State_Attack : StateTypeHostilePet
         pet.Behavior.StopWalking();
         pet.IsAttacking = true;
         pet.IsHunting = false;
+        pet.Heal();
+        prey.TakeDamage();
     }
 
     public override void Tick()

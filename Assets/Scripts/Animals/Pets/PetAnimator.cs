@@ -57,6 +57,9 @@ public class PetAnimator : BaseAnimator
         {
             Animator.SetBool("IsStunned", false);
         }
+
+        if (pet.isDead)
+            spriteRenderer.sprite = shadowHorizontal;
     }
 }
 

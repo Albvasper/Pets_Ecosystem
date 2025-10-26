@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using TMPro;
 using Firebase.Extensions;
+using System.Collections;
 
 public enum TypeOfPet { Cat, Dog, Deer, Wolf, Bear, Tiger }
 public enum Friendliness { Passive, Hostile }
@@ -18,12 +19,23 @@ public abstract class BaseAnimal : MonoBehaviour
     public Friendliness Friendliness;
     public Sex Sex;
 
+    float minLifetime = 240f;
+    float maxLifetime = 360f;
+    float lifetime ;
+    public int HP { get; protected set; }
+    protected const int MaxHp = 3;
+    public bool isDead = false;
+    [SerializeField] float corpseLifetime = 2f;
+    [SerializeField] bool disablePhysicsOnDeath = true;
+    [SerializeField] bool disableCollidersOnDeath = true;
+
     public BaseBehavior Behavior { get; protected set; }
     public BasePhysics Physics { get; protected set; }
     public BaseAnimator Animator { get; protected set; }
     
     public Rigidbody2D Rb2D { get; protected set; }
     public NavMeshAgent Agent { get; protected set; }
+    public Collider2D Collider { get; protected set; }
     public TextMeshProUGUI nameTag;
    
     //protected AnimalData animalData;
@@ -45,6 +57,7 @@ public abstract class BaseAnimal : MonoBehaviour
     {
         Agent = GetComponent<NavMeshAgent>();
         Rb2D = GetComponent<Rigidbody2D>();
+        Collider = GetComponent<Collider2D>();
         Happiness = 50f;
         Sentience = 10f;
         CanHaveKids = false;
@@ -53,6 +66,8 @@ public abstract class BaseAnimal : MonoBehaviour
     
     protected virtual void Start()
     {
+        lifetime = Random.Range(minLifetime, maxLifetime);
+        HP = MaxHp;
         // Set the animal sex randomly
         Sex = Random.value < 0.5f ? Sex.Male : Sex.Female;
         // Add this to the animals list
@@ -91,7 +106,14 @@ public abstract class BaseAnimal : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (CanHaveKids == false)
+        lifetime -= Time.deltaTime;
+        if (lifetime <= 0 && !isDead)
+        {
+            TakeDamage();
+            lifetime = maxLifetime;
+        }
+
+        if (CanHaveKids == false && !isDead)
         {
             counter += Time.deltaTime;
             if (counter >= breedingCooldown)
@@ -112,7 +134,7 @@ public abstract class BaseAnimal : MonoBehaviour
         name = _name;
         nameTag.text = _name;
     }
-    
+
     //TODO: MOVE THIS TO THE BASE BEHAVIOR CLASS
     public virtual void GiveBirth(BaseAnimal breedingPartner)
     {
@@ -123,11 +145,46 @@ public abstract class BaseAnimal : MonoBehaviour
         b.Behavior.AddSentience(11);
     }
 
-    void OnDestroy()
+    public void Heal()
     {
+        if (HP < MaxHp)
+            HP--;
+    }
+
+    public void TakeDamage()
+    {
+        HP--;
+        if (HP <= 0)
+            Die();
+    }
+
+    private void HandlePhysics()
+    {
+        if (Rb2D != null && disablePhysicsOnDeath)
+        {
+            Rb2D.bodyType = RigidbodyType2D.Kinematic;
+            Rb2D.linearVelocity = Vector3.zero;
+        }
+        
+        if (disableCollidersOnDeath)
+        {
+            Collider.enabled = false;
+        }
+    }
+
+    public void Die()
+    {
+        if (isDead) return;
+        isDead = true;
+        Agent.enabled = false;
+        HandlePhysics();
+        Animator.DeathAnimation();
+
+        // Schedule cleanup
+        StartCoroutine(CleanUpCorpse());
 
         Pet_Manager.Instance.Pets.Remove(this);
-
+        
         switch (TypeOfPet)
         {
             case TypeOfPet.Dog:
@@ -154,7 +211,8 @@ public abstract class BaseAnimal : MonoBehaviour
                 Pet_Manager.Instance.RemoveFromBearPopulation();
                 break;
         }
-        
+
+        // Remove from data base
         if (FirebaseInit.db == null || string.IsNullOrEmpty(petID)) return;
 
         FirebaseInit.db.Child("ecosystem").Child("pets").Child(petID)
@@ -164,6 +222,37 @@ public abstract class BaseAnimal : MonoBehaviour
                 Debug.Log($"Removed pet {petName} ({petID}) from Firebase");
         });
     }
+
+    IEnumerator CleanUpCorpse()
+    {
+        yield return new WaitForSeconds(corpseLifetime);
+        yield return StartCoroutine(FadeOut());
+        Destroy(gameObject);
+    }
+
+    private IEnumerator FadeOut(float duration = 1f)
+    {
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float alpha = 1f - (elapsed / duration);
+
+            foreach (var renderer in renderers)
+            {
+                foreach (var mat in renderer.materials)
+                {
+                    if (mat.HasProperty("_Color"))
+                    {
+                        Color color = mat.color;
+                        color.a = alpha;
+                        mat.color = color;
+                    }
+                }
+            }
+            yield return null;
+        }
+    }
 }
-
-

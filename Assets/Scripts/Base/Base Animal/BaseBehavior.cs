@@ -17,17 +17,20 @@ public class BaseBehavior : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        CurrentState.Tick();
-        UpdateHappiness();
-        UpdateSentience();
-        if (!animal.IsZombie)
+        if (!animal.isDead)
         {
-            counter += Time.deltaTime;
-            if (counter >= zombieCheckInterval)
+            CurrentState.Tick();
+            UpdateHappiness();
+            UpdateSentience();
+            if (!animal.IsZombie)
             {
-                counter = 0f;
-                if (Random.value <= chanceOfBecomingZombie)
-                    animal.Animator.TurnIntoZombie();
+                counter += Time.deltaTime;
+                if (counter >= zombieCheckInterval)
+                {
+                    counter = 0f;
+                    if (Random.value <= chanceOfBecomingZombie)
+                        animal.Animator.TurnIntoZombie();
+                }
             }
         }
     }

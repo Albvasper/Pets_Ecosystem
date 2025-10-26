@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -50,7 +51,7 @@ public class UI_Manager : MonoBehaviour
         Pet_Manager.Instance.OnBirthRateChanged -= UpdateBirthRate;
         Weather_Manager.Instance.OnWeatherChanged -= UpdateWeatherUI;
     }
-    
+
     void Start()
     {
         UpdatePopulation();
@@ -87,11 +88,15 @@ public class UI_Manager : MonoBehaviour
         TextBirthRate.text = Pet_Manager.Instance.BirthRate.ToString();
     }
 
-    void UpdateWeatherUI(bool isRaining)
+    void UpdateWeatherUI()
     {
-        if (isRaining)
+        if (Weather_Manager.Instance.Raining)
         {
             TextWeather.text = "Raining";
+        }
+        if (Weather_Manager.Instance.Snowing)
+        {
+            TextWeather.text = "Snowing";
         }
         else
         {
