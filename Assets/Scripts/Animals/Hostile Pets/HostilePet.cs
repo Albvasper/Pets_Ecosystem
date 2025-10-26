@@ -7,7 +7,7 @@ public class HostilePet : Pet
 {
     public bool IsHunting { get; set; }
     public bool IsAttacking { get; set; }
-    public Pet CurrentPrey { get; set; }
+    public BaseAnimal CurrentPrey { get; set; }
 
     protected override void Awake()
     {
@@ -22,5 +22,10 @@ public class HostilePet : Pet
     protected override void OnEnable()
     {
         Friendliness = Friendliness.Hostile;
+    }
+
+    protected override void SetMaxHP()
+    {
+        maxHp = 5; 
     }
 }

@@ -23,7 +23,7 @@ public abstract class BaseAnimal : MonoBehaviour
     float maxLifetime = 360f;
     float lifetime ;
     public int HP { get; protected set; }
-    protected const int MaxHp = 3;
+    protected int maxHp;
     public bool isDead = false;
     [SerializeField] float corpseLifetime = 2f;
     [SerializeField] bool disablePhysicsOnDeath = true;
@@ -47,7 +47,8 @@ public abstract class BaseAnimal : MonoBehaviour
     public float Happiness { get; set; } // 0-100
     public float Sentience { get; set; } // 0-100
 
-    public bool IsZombie { get; set;  } // 0-100
+    float zombieChance = 0.01f; // 1% chance
+    public bool IsZombie { get; set;  }
 
     public const float BreedingChance = 1f; //100%
     const float breedingCooldown = 30f;
@@ -66,8 +67,9 @@ public abstract class BaseAnimal : MonoBehaviour
     
     protected virtual void Start()
     {
+        SetMaxHP();
+        HP = maxHp;
         lifetime = Random.Range(minLifetime, maxLifetime);
-        HP = MaxHp;
         // Set the animal sex randomly
         Sex = Random.value < 0.5f ? Sex.Male : Sex.Female;
         // Add this to the animals list
@@ -80,27 +82,33 @@ public abstract class BaseAnimal : MonoBehaviour
         {
             case TypeOfPet.Dog:
                 Pet_Manager.Instance.AddToDogPopulation();
-            break;
-            
+                break;
+
             case TypeOfPet.Cat:
                 Pet_Manager.Instance.AddToCatPopulation();
-            break;
-            
+                break;
+
             case TypeOfPet.Deer:
                 Pet_Manager.Instance.AddToDeerPopulation();
-            break;
-            
+                break;
+
             case TypeOfPet.Wolf:
                 Pet_Manager.Instance.AddToWolfPopulation();
-            break;
+                break;
 
             case TypeOfPet.Tiger:
                 Pet_Manager.Instance.AddToTigerPopulation();
-            break;
+                break;
 
             case TypeOfPet.Bear:
                 Pet_Manager.Instance.AddToBearPopulation();
-            break;
+                break;
+        }
+
+        // 1% chance to be zombie on spawn
+        if (Random.value <= zombieChance)
+        {
+            Animator.TurnIntoZombie();
         }
     }
 
@@ -145,9 +153,13 @@ public abstract class BaseAnimal : MonoBehaviour
         b.Behavior.AddSentience(11);
     }
 
+    protected virtual void SetMaxHP()
+    {
+        maxHp = 3;
+    }
     public void Heal()
     {
-        if (HP < MaxHp)
+        if (HP < maxHp)
             HP--;
     }
 

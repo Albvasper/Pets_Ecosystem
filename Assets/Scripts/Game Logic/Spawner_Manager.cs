@@ -13,7 +13,7 @@ public class Spawner_Manager : MonoBehaviour
     [SerializeField] int maxPets = 20;
 
     [Header("Spawn References")]
-    [SerializeField] Transform SpawnPoint;
+    [SerializeField] List<Transform> spawnPoints = new List<Transform>();
     [SerializeField] GameObject[] petPrefabsArray;
 
     private Dictionary<string, GameObject> petPrefabs;
@@ -87,7 +87,7 @@ public class Spawner_Manager : MonoBehaviour
 
     public void SpawnPet(string petName, string petType)
     {
-        if (petPrefabs == null || !petPrefabs.ContainsKey(petType) || SpawnPoint == null)
+        if (petPrefabs == null || !petPrefabs.ContainsKey(petType) || spawnPoints == null)
         {
             Debug.LogError($"Missing prefab or spawn point for {petType}");
             return;
@@ -102,7 +102,8 @@ public class Spawner_Manager : MonoBehaviour
         );
 
         // Spawn prefab
-        GameObject instance = Instantiate(petPrefabs[petType], SpawnPoint.position, Quaternion.identity);
+        Transform randomPoint = spawnPoints[Random.Range(0, spawnPoints.Count)];
+        GameObject instance = Instantiate(petPrefabs[petType], randomPoint.position, Quaternion.identity);
         var animal = instance.GetComponent<BaseAnimal>();
         animal.SetPetName(petName);
         animal.SetPetID(petID);

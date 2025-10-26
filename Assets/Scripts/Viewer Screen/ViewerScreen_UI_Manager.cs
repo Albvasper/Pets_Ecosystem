@@ -13,7 +13,10 @@ public class ViewerScreenUIManager : MonoBehaviour
     [SerializeField] GameObject successScreen;
 
     [Header("UI Elements")]
+    public TMP_InputField publicKeyInput;
+    public TMP_Text publicKeyFeedbackText;
     public TMP_InputField nameInput;
+    public GameObject feedbackBox;
     public TMP_Text feedbackText;
     public TMP_Text queuePositionText;
     public Animator petPreviewAnimator;
@@ -64,10 +67,12 @@ public class ViewerScreenUIManager : MonoBehaviour
             if (currentPetCount < 20 && isInQueue)
             {
                 spawnScreen.SetActive(true);
+                AssignRandomPet();
+                feedbackBox.SetActive(false);
+                feedbackText.text = "";
+                nameInput.text = "";
                 queueScreen.SetActive(false);
                 isInQueue = false;
-
-                AssignRandomPet();
 
                 db.Child("ecosystem").Child("queue").Child(viewerID).RemoveValueAsync();
             }
@@ -80,13 +85,19 @@ public class ViewerScreenUIManager : MonoBehaviour
     public void ConnectToEcosystem()
     {
         if (db == null) return;
-
-        welcomeScreen.SetActive(false);
-        queueScreen.SetActive(false);
-        spawnScreen.SetActive(false);
-        successScreen.SetActive(false);
-
-        CheckEcosystemCapacity();
+        if (string.IsNullOrEmpty(publicKeyInput.text))
+        {
+            publicKeyFeedbackText.text = "Introduce a key!";
+            return;
+        }
+        else
+        {
+            welcomeScreen.SetActive(false);
+            queueScreen.SetActive(false);
+            spawnScreen.SetActive(false);
+            successScreen.SetActive(false);
+            CheckEcosystemCapacity();
+        }
     }
 
     void CheckEcosystemCapacity()
@@ -101,6 +112,9 @@ public class ViewerScreenUIManager : MonoBehaviour
             {
                 AssignRandomPet();
                 spawnScreen.SetActive(true);
+                feedbackText.text = "";
+                nameInput.text = "";
+                feedbackBox.SetActive(false);
             }
             else
             {
@@ -128,10 +142,13 @@ public class ViewerScreenUIManager : MonoBehaviour
             if (args.Snapshot.Exists && args.Snapshot.Value.ToString() == "ready")
             {
                 spawnScreen.SetActive(true);
+                AssignRandomPet();
+                feedbackText.text = "";
+                nameInput.text = "";
+                feedbackBox.SetActive(false);
                 queueScreen.SetActive(false);
                 viewerRef.RemoveValueAsync();
                 isInQueue = false;
-                AssignRandomPet();
             }
         };
 
@@ -215,10 +232,10 @@ public class ViewerScreenUIManager : MonoBehaviour
     public void NameAndSpawnPet()
     {
         if (db == null) return;
-
         string petName = nameInput.text.Trim();
         if (string.IsNullOrEmpty(petName))
         {
+            feedbackBox.SetActive(true);
             feedbackText.text = "Enter a name!";
             return;
         }
@@ -233,6 +250,7 @@ public class ViewerScreenUIManager : MonoBehaviour
             }
             else
             {
+                feedbackBox.SetActive(true);
                 feedbackText.text = "Failed to send request!";
             }
         });

@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class State_Hunt : StateTypeHostilePet
 {
-    Pet prey;
+    BaseAnimal prey;
 
-    public State_Hunt(HostilePet _pet, Pet _prey) : base(_pet)
+    public State_Hunt(HostilePet _pet, BaseAnimal _prey) : base(_pet)
     {
         prey = _prey;
     }

@@ -7,7 +7,7 @@ public class Pet_Manager : MonoBehaviour
     public static Pet_Manager Instance { get; private set; }
 
     public List<BaseAnimal> Pets { get; private set; }
-    int maxPets = 20;
+    public int maxPets = 20;
     // Actions
     public event Action OnPopulationChanged;
     public event Action OnHappinessChanged;

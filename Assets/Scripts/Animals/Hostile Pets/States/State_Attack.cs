@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class State_Attack : StateTypeHostilePet
 {
-    Pet prey;
+    BaseAnimal prey;
     float counter = 0f;
     const float coolDown = 1f;
 
-    public State_Attack(HostilePet _pet, Pet _prey) : base(_pet)
+    public State_Attack(HostilePet _pet, BaseAnimal _prey) : base(_pet)
     {
         prey = _prey;
     }
