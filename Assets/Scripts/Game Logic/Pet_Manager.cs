@@ -2,18 +2,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+/// <summary>
+/// Tracks every pet on the ecosystem and passes updated data to
+/// the UI manager to display it properly.
+/// </summary>
 public class Pet_Manager : MonoBehaviour
 {
     public static Pet_Manager Instance { get; private set; }
-
+    /// <summary>
+    /// Collection of all the pets that are alive on the ecosystem currently.
+    /// </summary>
     public List<BaseAnimal> Pets { get; private set; }
+    /// <summary>
+    /// Limit of pets on the ecosystem
+    /// </summary>
     public int maxPets = 20;
-    // Actions
+    /// <summary>
+    /// Indicates a change on the population.
+    /// </summary>
     public event Action OnPopulationChanged;
+    /// <summary>
+    /// Indicates a change on the population happiness.
+    /// </summary>
     public event Action OnHappinessChanged;
+    /// <summary>
+    /// Indicates a change on the sentience of the population.
+    /// </summary>
     public event Action OnSentienceChanged;
+    /// <summary>
+    /// Indicates that a new birth occured.
+    /// </summary>
     public event Action OnBirthRateChanged;
-    // Stats
     public int Population { get; private set; }
     public int PopulationDogs { get; private set; }
     public int PopulationCats { get; private set; }
@@ -23,8 +42,8 @@ public class Pet_Manager : MonoBehaviour
     public int PopulationBears { get; private set; }
     public int PopulationZombies { get; private set; }
     public float BirthRate { get; private set; }
-    private float birthTimer = 0f;
-    private int birthsInWindow = 0;
+    float birthTimer = 0f;
+    int birthsInWindow = 0;
 
     void Awake()
     {
@@ -50,6 +69,7 @@ public class Pet_Manager : MonoBehaviour
 
     void Update()
     {
+        // Measure the birth rate with birthInWindow.
         birthTimer += Time.deltaTime;
         if (birthTimer >= 60f)
         {

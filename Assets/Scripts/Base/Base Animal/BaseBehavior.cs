@@ -1,20 +1,20 @@
 using UnityEngine;
 
+/// <summary>
+/// Handles the state machine and general behavior for all pets. 
+/// Changes states and walking behavior.
+/// </summary>
 [RequireComponent(typeof(BaseAnimal))]
 public class BaseBehavior : MonoBehaviour
 {
     protected BaseAnimal animal;
     protected State CurrentState { get; set; }
-    //const float zombieCheckInterval = 5f; // every 5 seconds
-    //const float chanceOfBecomingZombie = 0.01f; //1%
-    //float counter;
 
     protected virtual void Awake()
     {
         animal = GetComponent<BaseAnimal>();
     }
 
-    // Update is called once per frame
     protected virtual void Update()
     {
         if (!animal.isDead)
@@ -22,22 +22,13 @@ public class BaseBehavior : MonoBehaviour
             CurrentState.Tick();
             UpdateHappiness();
             UpdateSentience();
-            /*
-            if (!animal.IsZombie)
-            {
-                counter += Time.deltaTime;
-                if (counter >= zombieCheckInterval)
-                {
-                    counter = 0f;
-                    if (Random.value <= chanceOfBecomingZombie)
-                        animal.Animator.TurnIntoZombie();
-                }
-            }
-            */
         }
     }
 
-    // Set a new state for the animal
+    /// <summary>
+    /// Set a new state for the animal.
+    /// </summary>
+    /// <param name="state">New state</param>
     public virtual void SetState(State state)
     {
         if (CurrentState != null)
@@ -54,7 +45,10 @@ public class BaseBehavior : MonoBehaviour
         }
     }
 
-    // Move the agent to the target
+    /// <summary>
+    /// Move the pet using pathfinding to a destination.
+    /// </summary>
+    /// <param name="target">Destination</param>
     public virtual void Walk(Vector2 target)
     {
         animal.Agent.SetDestination(
@@ -65,12 +59,18 @@ public class BaseBehavior : MonoBehaviour
             ));
     }
 
+    /// <summary>
+    /// Disable nav mesh agent
+    /// </summary>
     public virtual void StopWalking()
     {
         animal.Agent.isStopped = true;
         animal.Agent.enabled = false;
     }
 
+    /// <summary>
+    /// Enables nav mesh agent
+    /// </summary>
     public virtual void KeepWalking()
     {
         animal.Agent.enabled = true;

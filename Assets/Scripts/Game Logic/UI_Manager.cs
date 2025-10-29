@@ -3,10 +3,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Updates the UI with fresh and accurate data. 
+/// Listens to changes and displays it on the UI.
+/// </summary>
 public class UI_Manager : MonoBehaviour
 {
     public static UI_Manager Instance { get; private set; }
-
     public Image HappinessBar;
     public Image SentienceBar;
     [SerializeField] private TextMeshProUGUI TextPopulation;

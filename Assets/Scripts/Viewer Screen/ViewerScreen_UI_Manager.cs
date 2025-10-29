@@ -1,11 +1,15 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
-using Firebase.Database;
-using Firebase.Extensions;
+using System.Collections.Generic;
 
+/// <summary>
+/// Manages viewer UI flow for connecting to ecosystem, queueing, and spawning pets.
+/// Handles capacity checking, queue position tracking, and pet assignment.
+/// </summary>
 public class ViewerScreenUIManager : MonoBehaviour
 {
+    const int MaxPets = 20;
     [Header("UI Screens")]
     [SerializeField] GameObject welcomeScreen;
     [SerializeField] GameObject queueScreen;
@@ -29,10 +33,11 @@ public class ViewerScreenUIManager : MonoBehaviour
     public RuntimeAnimatorController bearAnimator;
     public RuntimeAnimatorController tigerAnimator;
 
-    private DatabaseReference db;
-    private string viewerID;
-    private string assignedPet;
-    private bool isInQueue = false;
+    // Unique ID for each viewer.
+    string viewerID;
+    // Randomly assigned pet.
+    string assignedPet;
+    bool isInQueue = false;
 
     void Awake()
     {
@@ -45,70 +50,138 @@ public class ViewerScreenUIManager : MonoBehaviour
     void Start()
     {
         viewerID = System.Guid.NewGuid().ToString();
-        StartCoroutine(WaitForFirebase());
+        StartCoroutine(PollEcosystemForQueue());
     }
 
-    IEnumerator WaitForFirebase()
-    {
-        while (!FirebaseInit.Ready) yield return null;
-        db = FirebaseInit.db;
-
-        ListenForPetCountChanges();
-    }
-
-    void ListenForPetCountChanges()
-    {
-        db.Child("ecosystem").Child("pets").ValueChanged += (sender, args) =>
-        {
-            if (args.Snapshot == null) return;
-
-            int currentPetCount = (int)args.Snapshot.ChildrenCount;
-
-            if (currentPetCount < 20 && isInQueue)
-            {
-                spawnScreen.SetActive(true);
-                AssignRandomPet();
-                feedbackBox.SetActive(false);
-                feedbackText.text = "";
-                nameInput.text = "";
-                queueScreen.SetActive(false);
-                isInQueue = false;
-
-                db.Child("ecosystem").Child("queue").Child(viewerID).RemoveValueAsync();
-            }
-        };
-    }
-
-    // -------------------------------
-    // CONNECT TO ECOSYSTEM
-    // -------------------------------
+    /// <summary>
+    /// Validates public key and initiates connection to ecosystem.
+    /// Checks capacity and either shows spawn screen or adds viewer to queue.
+    /// </summary>
     public void ConnectToEcosystem()
     {
-        if (db == null) return;
         if (string.IsNullOrEmpty(publicKeyInput.text))
         {
             publicKeyFeedbackText.text = "Introduce a key!";
             return;
         }
-        else
+
+        welcomeScreen.SetActive(false);
+        queueScreen.SetActive(false);
+        spawnScreen.SetActive(false);
+        successScreen.SetActive(false);
+
+        CheckEcosystemCapacity();
+    }
+    
+    /// <summary>
+    /// Validates pet name and submits spawn request to Firebase.
+    /// Creates a spawn request entry for the spawner manager to process.
+    /// </summary>
+    public void NameAndSpawnPet()
+    {
+        string petName = nameInput.text.Trim();
+        if (string.IsNullOrEmpty(petName))
         {
-            welcomeScreen.SetActive(false);
-            queueScreen.SetActive(false);
-            spawnScreen.SetActive(false);
-            successScreen.SetActive(false);
-            CheckEcosystemCapacity();
+            feedbackBox.SetActive(true);
+            feedbackText.text = "Enter a name!";
+            return;
+        }
+
+        // Push spawn request
+        string json = $"{{\"name\":\"{petName}\",\"type\":\"{assignedPet}\"}}";
+        FirebaseREST.Instance.PushData("ecosystem/spawnRequests", json);
+
+        GoToSuccessScreen();
+    }
+
+    /// <summary>
+    /// Displays success screen after pet spawn request is submitted.
+    /// </summary>
+    public void GoToSuccessScreen()
+    {
+        welcomeScreen.SetActive(false);
+        queueScreen.SetActive(false);
+        spawnScreen.SetActive(false);
+        successScreen.SetActive(true);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+    }
+    
+    /// <summary>
+    /// Removes viewer from queue and returns to welcome screen.
+    /// </summary>
+    public void CancelQueue()
+    {
+        welcomeScreen.SetActive(true);
+        queueScreen.SetActive(false);
+        spawnScreen.SetActive(false);
+        successScreen.SetActive(false);
+
+        isInQueue = false;
+        FirebaseREST.Instance.DeleteData($"ecosystem/queue/{viewerID}");
+    }
+    
+    /// <summary>
+    /// Continuously monitors ecosystem capacity while viewer is in queue.
+    /// Automatically moves viewer to spawn screen when space becomes available.
+    /// </summary>
+    IEnumerator PollEcosystemForQueue()
+    {
+        while (true)
+        {
+            if (isInQueue)
+            {
+                FirebaseREST.Instance.GetData($"ecosystem/pets", json =>
+                {
+                    int petCount = 0;
+                    if (!string.IsNullOrEmpty(json) && json != "null")
+                    {
+                        var dict = MiniJSON.Json.Deserialize(json) as Dictionary<string, object>;
+                        if (dict != null) petCount = dict.Count;
+                    }
+                    // Check if ecosystem has space
+                    if (petCount < MaxPets)
+                    {
+                        // Move from queue to spawn screen
+                        spawnScreen.SetActive(true);
+                        AssignRandomPet();
+                        feedbackBox.SetActive(false);
+                        feedbackText.text = "";
+                        nameInput.text = "";
+                        queueScreen.SetActive(false);
+                        isInQueue = false;
+
+                        FirebaseREST.Instance.DeleteData($"ecosystem/queue/{viewerID}");
+                    }
+                });
+            }
+
+            yield return new WaitForSeconds(2f);
         }
     }
 
+    /// <summary>
+    /// Checks current ecosystem pet count and routes viewer accordingly.
+    /// Shows spawn screen if under capacity, otherwise adds to queue.
+    /// </summary>
     void CheckEcosystemCapacity()
     {
-        db.Child("ecosystem").Child("pets").GetValueAsync().ContinueWithOnMainThread(task =>
+        FirebaseREST.Instance.GetData("ecosystem/pets", json =>
         {
-            if (task.IsFaulted || task.Result == null) return;
+            int petCount = 0;
+            if (!string.IsNullOrEmpty(json) && json != "null")
+            {
+                var dict = MiniJSON.Json.Deserialize(json) as Dictionary<string, object>;
+                if (dict != null) petCount = dict.Count;
+            }
 
-            int petCount = (int)task.Result.ChildrenCount;
-
-            if (petCount < 20)
+            if (petCount < MaxPets)
             {
                 AssignRandomPet();
                 spawnScreen.SetActive(true);
@@ -123,79 +196,79 @@ public class ViewerScreenUIManager : MonoBehaviour
         });
     }
 
-    // -------------------------------
-    // QUEUE SYSTEM
-    // -------------------------------
+    /// <summary>
+    /// Adds viewer to Firebase queue and starts monitoring queue status and position.
+    /// </summary>
     void AddViewerToQueue()
     {
-        if (db == null) return;
-
         isInQueue = true;
-        var viewerRef = db.Child("ecosystem").Child("queue").Child(viewerID);
-        viewerRef.Child("status").SetValueAsync("waiting");
+        string json = $"{{\"status\":\"waiting\"}}";
+        FirebaseREST.Instance.SetData($"ecosystem/queue/{viewerID}", json);
 
         queueScreen.SetActive(true);
         spawnScreen.SetActive(false);
 
-        viewerRef.Child("status").ValueChanged += (sender, args) =>
-        {
-            if (args.Snapshot.Exists && args.Snapshot.Value.ToString() == "ready")
-            {
-                spawnScreen.SetActive(true);
-                AssignRandomPet();
-                feedbackText.text = "";
-                nameInput.text = "";
-                feedbackBox.SetActive(false);
-                queueScreen.SetActive(false);
-                viewerRef.RemoveValueAsync();
-                isInQueue = false;
-            }
-        };
-
-        UpdateQueuePosition();
+        StartCoroutine(PollQueueStatus());
         StartCoroutine(UpdateQueuePositionRealtime());
     }
 
+    /// <summary>
+    /// Monitors viewer's queue entry for status changes.
+    /// Moves to spawn screen when marked as ready.
+    /// </summary>
+    IEnumerator PollQueueStatus()
+    {
+        while (isInQueue)
+        {
+            FirebaseREST.Instance.GetData($"ecosystem/queue/{viewerID}", json =>
+            {
+                if (!string.IsNullOrEmpty(json) && json.Contains("ready"))
+                {
+                    spawnScreen.SetActive(true);
+                    AssignRandomPet();
+                    feedbackText.text = "";
+                    nameInput.text = "";
+                    feedbackBox.SetActive(false);
+                    queueScreen.SetActive(false);
+
+                    FirebaseREST.Instance.DeleteData($"ecosystem/queue/{viewerID}");
+                    isInQueue = false;
+                }
+            });
+
+            yield return new WaitForSeconds(2f);
+        }
+    }
+
+    /// <summary>
+    /// Updates displayed queue position in real time by counting entries before viewer.
+    /// </summary>
     IEnumerator UpdateQueuePositionRealtime()
     {
         while (isInQueue)
         {
-            UpdateQueuePosition();
+            FirebaseREST.Instance.GetData("ecosystem/queue", json =>
+            {
+                int position = 1;
+                if (!string.IsNullOrEmpty(json) && json != "null")
+                {
+                    var dict = MiniJSON.Json.Deserialize(json) as Dictionary<string, object>;
+                    foreach (var kv in dict.Keys)
+                    {
+                        if (kv == viewerID) break;
+                        position++;
+                    }
+                }
+                queuePositionText.text = "Position: " + position;
+            });
+
             yield return new WaitForSeconds(3f);
         }
     }
 
-    void UpdateQueuePosition()
-    {
-        db.Child("ecosystem").Child("queue").GetValueAsync().ContinueWithOnMainThread(task =>
-        {
-            if (task.IsFaulted || !task.IsCompleted) return;
-
-            int position = 1;
-            foreach (var child in task.Result.Children)
-            {
-                if (child.Key == viewerID) break;
-                position++;
-            }
-            queuePositionText.text = "Position: " + position;
-        });
-    }
-
-    public void CancelQueue()
-    {
-        welcomeScreen.SetActive(true);
-        queueScreen.SetActive(false);
-        spawnScreen.SetActive(false);
-        successScreen.SetActive(false);
-
-        isInQueue = false;
-        if (db != null)
-            db.Child("ecosystem").Child("queue").Child(viewerID).RemoveValueAsync();
-    }
-
-    // -------------------------------
-    // PET ASSIGNMENT
-    // -------------------------------
+    /// <summary>
+    /// Randomly selects a pet type and updates preview animator.
+    /// </summary>
     void AssignRandomPet()
     {
         string[] petTypes = { "Cat", "Dog", "Wolf", "Deer", "Tiger", "Bear" };
@@ -203,64 +276,14 @@ public class ViewerScreenUIManager : MonoBehaviour
 
         switch (assignedPet)
         {
-            case "Cat":
-                petPreviewAnimator.runtimeAnimatorController = catAnimator;
-                break;
-            case "Dog":
-                petPreviewAnimator.runtimeAnimatorController = dogAnimator;
-                break;
-            case "Wolf":
-                petPreviewAnimator.runtimeAnimatorController = wolfAnimator;
-                break;
-            case "Deer":
-                petPreviewAnimator.runtimeAnimatorController = deerAnimator;
-                break;
-            case "Bear":
-                petPreviewAnimator.runtimeAnimatorController = bearAnimator;
-                break;
-            case "Tiger":
-                petPreviewAnimator.runtimeAnimatorController = tigerAnimator;
-                break;
+            case "Cat": petPreviewAnimator.runtimeAnimatorController = catAnimator; break;
+            case "Dog": petPreviewAnimator.runtimeAnimatorController = dogAnimator; break;
+            case "Wolf": petPreviewAnimator.runtimeAnimatorController = wolfAnimator; break;
+            case "Deer": petPreviewAnimator.runtimeAnimatorController = deerAnimator; break;
+            case "Bear": petPreviewAnimator.runtimeAnimatorController = bearAnimator; break;
+            case "Tiger": petPreviewAnimator.runtimeAnimatorController = tigerAnimator; break;
         }
 
         Debug.Log($"Assigned pet: {assignedPet}");
-    }
-
-    // -------------------------------
-    // SPAWN PET
-    // -------------------------------
-    public void NameAndSpawnPet()
-    {
-        if (db == null) return;
-        string petName = nameInput.text.Trim();
-        if (string.IsNullOrEmpty(petName))
-        {
-            feedbackBox.SetActive(true);
-            feedbackText.text = "Enter a name!";
-            return;
-        }
-
-        db.Child("ecosystem").Child("spawnRequests").Push().SetRawJsonValueAsync(
-            $"{{\"name\":\"{petName}\",\"type\":\"{assignedPet}\"}}"
-        ).ContinueWithOnMainThread(task =>
-        {
-            if (task.IsCompleted)
-            {
-                GoToSuccessScreen();
-            }
-            else
-            {
-                feedbackBox.SetActive(true);
-                feedbackText.text = "Failed to send request!";
-            }
-        });
-    }
-
-    public void GoToSuccessScreen()
-    {
-        welcomeScreen.SetActive(false);
-        queueScreen.SetActive(false);
-        spawnScreen.SetActive(false);
-        successScreen.SetActive(true);
     }
 }

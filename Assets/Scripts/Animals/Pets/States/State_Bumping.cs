@@ -1,10 +1,15 @@
 using UnityEngine;
 
+/// <summary>
+/// Bumping state for animals. When two pets collide they will be stunned for
+/// a couple of seconds.
+/// Transitions to breeding state and IDLE state.
+/// </summary>
 public class State_Bumping : StateTypePets
 {
-    float counter = 0f;
     const float PushingForce = 2f;
     const float BumpingCooldown = 1.5f;
+    float counter = 0f;                     // Bumping cooldown counter.
     BaseAnimal otherAnimal;
 
     public State_Bumping(Pet _pet, BaseAnimal _otherAnimal) : base(_pet)
@@ -15,15 +20,10 @@ public class State_Bumping : StateTypePets
     public override void OnStateEnter()
     {
         pet.Animator.IsBeingBumped = true;
-        pet.Physics.PushAnimal(pet, otherAnimal, PushingForce);
+        if (otherAnimal != null && !otherAnimal.isDead)
+            pet.Physics.PushAnimal(pet, otherAnimal, PushingForce);
     }
 
-    // Behavior
-    /*  Dizzy:
-        - Make a dizzy animation
-        - Wait n seconds
-        - Go back to IDLE
-    */
     public override void Tick()
     {
         counter += Time.deltaTime;
@@ -33,7 +33,8 @@ public class State_Bumping : StateTypePets
             pet.Behavior.SubstractHappiness(1);
             // TODO: IF ANIMAL IS ALSO TOUCHGING BREEDING PARTNER OR JUST COLLIDED WITH IT THEN MATES
             // If the animal has a breeding partner: mate
-            if (pet.BreedingPartner != null && pet.CanHaveKids && otherAnimal.CanHaveKids)
+            if (pet.BreedingPartner != null && !pet.BreedingPartner.isDead
+                && pet.CanHaveKids && otherAnimal.CanHaveKids)
             {
                 // Breeding process
                 pet.Behavior.SetState(new State_Breeding(pet, otherAnimal));

@@ -1,10 +1,19 @@
 using UnityEngine;
 
+/// <summary>
+/// Base class for all animals that handles collisions, physics and pathfinfing.
+/// </summary>
 public abstract class BasePhysics : MonoBehaviour
 {
-    public bool IsTouchingAgent { get; set; }
-    public BaseAnimal BumpingAnimal { get; set; }
     protected const float linearDamping = 2f;
+    /// <summary>
+    /// Stores a pet that the current pet is touching.
+    /// </summary>
+    public BaseAnimal BumpingAnimal { get; set; }
+    /// <summary>
+    /// Indicates if the pet is touching anther one
+    /// </summary>
+    public bool IsTouchingAgent { get; set; }
 
     protected virtual void Awake()
     {
@@ -13,14 +22,19 @@ public abstract class BasePhysics : MonoBehaviour
 
     protected virtual void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Animal")
+        if (collision.gameObject.CompareTag("Animal"))
         {
             IsTouchingAgent = false;
             BumpingAnimal = null;
         }
     }
 
-    // Push character in a certain direction
+    /// <summary>
+    /// Push character in a certain direction.
+    /// </summary>
+    /// <param name="animal">Animal that will be pushed.</param>
+    /// <param name="otherAnimal">Oppostie direction that the animal will be pushed.</param>
+    /// <param name="force">Pushing force.</param>
     public virtual void PushAnimal(BaseAnimal animal, BaseAnimal otherAnimal, float force)
     {
         animal.Behavior.StopWalking();
@@ -31,7 +45,10 @@ public abstract class BasePhysics : MonoBehaviour
         animal.Rb2D.AddForce(direction.normalized * force, ForceMode2D.Impulse);
     }
 
-    // Reset values post pushing animal
+    /// <summary>
+    /// Reset values post pushing animal
+    /// </summary>
+    /// <param name="animal">Pet that will be cleaned up.</param>
     public virtual void CleanUpAfterPush(BaseAnimal animal)
     {
         animal.Rb2D.linearVelocity = Vector2.zero;

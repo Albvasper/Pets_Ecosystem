@@ -3,33 +3,36 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using System.Collections;
 
+/// <summary>
+/// Responsible for changing current weather (Sunny, raining or snowing).
+/// </summary>
 public class Weather_Manager : MonoBehaviour
 {
     public static Weather_Manager Instance { get; private set; }
-
+    /// <summary>
+    /// Indicates that weather has changed and needs an update.
+    /// </summary>
     public event Action OnWeatherChanged;
-    
     [SerializeField] GameObject RainGameObject;
     [SerializeField] Light2D Light2D;
     [SerializeField] GameObject OverWorld;
     [SerializeField] GameObject SnowyWorld;
-
     [Header("Rain Event Settings")]
-    const float RainLightIntensity = 0.57f;
-    const float NormalLightIntensity = 1f;
-    float minRainInterval = 300f; // 5 min
-    float maxRainInterval = 600f; // 10 min
-    float rainDuration = 300f; /// 5 min
-    float rainTimer;
     public bool Raining { get; set; }
     [Header("Snow Event Settings")]
-    [SerializeField] float minTimeBetweenSnow = 600f; // 10 minutes
-    [SerializeField] float maxTimeBetweenSnow = 1200f; // 20 minutes
-    [SerializeField] float minSnowDuration = 180f; // 3 minutes
-    [SerializeField] float maxSnowDuration = 300f; // 5 minutes
-    [SerializeField] float snowEventChance = 0.3f; // 30% chance when timer triggers
     public bool Snowing { get; set; }
-
+    const float RainLightIntensity = 0.57f;
+    const float NormalLightIntensity = 1f;
+    float minRainInterval = 300f;           // Set to 5 min.
+    float maxRainInterval = 600f;           // Set to 10 min.
+    float rainDuration = 300f;              // Set to 5 min.
+    float rainTimer;
+    float minTimeBetweenSnow = 600f;        // Set to 10 min.
+    float maxTimeBetweenSnow = 1200f;       // Set to 20 min.
+    float minSnowDuration = 180f;           // Set to 3 min.
+    float maxSnowDuration = 300f;           // Set to 5 min.
+    float snowEventChance = 0.3f;           // 30% chance of snowing.
+    
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -71,7 +74,7 @@ public class Weather_Manager : MonoBehaviour
     {
         rainTimer = UnityEngine.Random.Range(minRainInterval, maxRainInterval);
     }
-    
+
     void StartRaining()
     {
         Raining = true;

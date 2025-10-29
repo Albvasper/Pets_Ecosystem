@@ -1,29 +1,23 @@
 using UnityEngine;
 
+/// <summary>
+/// Updates hostile pet animation and sprite rendering based on current state.
+/// Called every frame to synchronize visuals.
+/// </summary>
 public class HostilePetAnimator : PetAnimator
 {
-    private HostilePet HostilePet => animal as HostilePet;
+    HostilePet HostilePet => animal as HostilePet;
+    public const string IsAttacking = "IsAttacking";
 
     protected override void Awake()
     {
         base.Awake();
-        if (animal == null)
-            animal = GetComponent<HostilePet>();
     }
 
     protected override void Update()
     {
         base.Update();
-        if (HostilePet != null)
-        {
-            if (HostilePet.IsAttacking)
-            {
-                Animator.SetBool("IsAttacking", true);
-            }
-            else
-            {
-                Animator.SetBool("IsAttacking", false);
-            }
-        }
+        if (HostilePet == null) return;
+        Animator.SetBool(IsAttacking, HostilePet.IsAttacking);
     }
 }

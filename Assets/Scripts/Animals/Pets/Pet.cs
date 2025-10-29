@@ -1,5 +1,10 @@
 using UnityEngine;
 
+/// <summary>
+/// Class that manages all the funtionalities of a peaceful pet.
+/// Inherits form BaseAnimal and requires PetBehavior, PetAnimator, 
+/// PetPhysics, rigidbody, 2D collider and a navmesh components.
+/// </summary>
 [RequireComponent(typeof(PetBehavior))]
 [RequireComponent(typeof(PetPhysics))]
 [RequireComponent(typeof(PetAnimator))]

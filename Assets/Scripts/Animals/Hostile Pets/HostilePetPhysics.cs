@@ -1,5 +1,9 @@
 using UnityEngine;
 
+/// <summary>
+/// Class for hostile pets that handles collisions, physics and 
+/// pathfinfing.
+/// </summary>
 public class HostilePetPhysics : PetPhysics
 {
     private HostilePet HostilePet;
@@ -23,8 +27,11 @@ public class HostilePetPhysics : PetPhysics
         {
             IsTouchingAgent = true;
             BumpingAnimal = otherAnimal;
-            // If the other animal is the same species an the opposite sex AND there is space on the ecosystem
-            if (Pet_Manager.Instance.Pets.Count < Pet_Manager.Instance.maxPets && otherAnimal.TypeOfPet == HostilePet.TypeOfPet && otherAnimal.Sex != HostilePet.Sex)
+            /* If the other animal is the same species an the opposite 
+                sex AND there is space on the ecosystem. */
+            if (Pet_Manager.Instance.Pets.Count < Pet_Manager.Instance.maxPets 
+                && otherAnimal.TypeOfPet == HostilePet.TypeOfPet && otherAnimal.Sex !=
+                HostilePet.Sex)
             {
                 // Take a chance
                 if (Random.value < BaseAnimal.BreedingChance)

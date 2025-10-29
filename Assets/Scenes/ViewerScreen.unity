@@ -2937,6 +2937,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1586649860}
   - component: {fileID: 1586649861}
+  - component: {fileID: 1586649862}
   m_Layer: 0
   m_Name: Firebase
   m_TagString: Untagged
@@ -2971,6 +2972,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77cb1e814b8b05a40ad6bb9b0037dae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1586649862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1586649859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80752ae0fc487f34ba75fad573f158cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  databaseURL: https://pet-ecosystem-default-rtdb.firebaseio.com/
 --- !u!1 &1629372845
 GameObject:
   m_ObjectHideFlags: 0

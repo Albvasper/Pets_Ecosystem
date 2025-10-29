@@ -1,5 +1,9 @@
 using UnityEngine;
 
+/// <summary>
+/// Class for peaceful pets that handles collisions, physics and 
+/// pathfinfing.
+/// </summary>
 public class PetPhysics : BasePhysics
 {
     Pet pet;
