@@ -1,4 +1,4 @@
-![Pet Ecosystem Banner](.github/banner.png)
+![Pet Ecosystem Banner](.github/Cover.png)
 
 # 🐾 Pet Ecosystem - Multiplayer Pet Simulation
 
@@ -198,11 +198,11 @@ git clone https://github.com/Albvasper/Pets_Ecosystem.git
 
 ## Screenshots
 
-![Screenshot 1](.github/Screenshot (1).png)
+![Screenshot 1](.github/Screenshot1.png)
 
-![Screenshot 2](.github/Screenshot (1).png)
+![Screenshot 2](.github/Screenshot2.png)
 
-![Screenshot 3](.github/Screenshot (1).png)
+![Screenshot 3](.github/Screenshot3.png)
 
 ## Technical Highlights
 
