@@ -137,10 +137,10 @@ public abstract class BaseAnimal : MonoBehaviour
             case TypeOfPet.Tiger: Pet_Manager.Instance.AddToTigerPopulation(); break;
             case TypeOfPet.Bear: Pet_Manager.Instance.AddToBearPopulation(); break;
         }
-        // 1% chance to be zombie on spawn
-        if (Random.value <= zombieChance)
+        // 1% chance to be zombie on spawn (only if not already a zombie from restore)
+        if (!IsZombie && Random.value <= zombieChance)
         {
-            Animator.TurnIntoZombie();
+            BecomeZombie();
         }
     }
 
@@ -187,11 +187,25 @@ public abstract class BaseAnimal : MonoBehaviour
         BaseAnimal b = Instantiate(Baby, midPoint, Quaternion.identity).GetComponent<BaseAnimal>();
         b.PackLeader = breedingPartner;
         b.Behavior.AddSentience(11);
-    }
 
-    protected virtual void SetMaxHP()
-    {
-        maxHp = 3;
+        // Register baby in Firebase
+        string babyID = System.Guid.NewGuid().ToString();
+        string babyType = TypeOfPet.ToString();
+        string babyName = $"Baby {petName}";
+        bool babyIsZombie = IsZombie || breedingPartner.IsZombie;
+        
+        string json = $"{{\"name\":\"{babyName}\",\"type\":\"{babyType}\",\"status\":\"active\",\"isZombie\":{babyIsZombie.ToString().ToLower()}}}";
+        FirebaseREST.Instance.SetData($"ecosystem/pets/{babyID}", json);
+        
+        b.SetPetName(babyName);
+        b.SetPetID(babyID);
+        
+        if (babyIsZombie)
+        {
+            b.IsZombie = true;
+            Pet_Manager.Instance.AddToZombiePopulation();
+            b.Animator.TurnIntoZombie();
+        }
     }
 
     public void Heal()
@@ -207,20 +221,9 @@ public abstract class BaseAnimal : MonoBehaviour
             Die();
     }
 
-    private void HandleCorpsePhysics()
-    {
-        if (Rb2D != null && disablePhysicsOnDeath)
-        {
-            Rb2D.bodyType = RigidbodyType2D.Kinematic;
-            Rb2D.linearVelocity = Vector3.zero;
-        }
-        
-        if (disableCollidersOnDeath)
-        {
-            Collider.enabled = false;
-        }
-    }
-
+    /// <summary>
+    /// Kill pet: Remove it from database, disable navmesh and collider & play death animation.
+    /// </summary>
     public void Die()
     {
         if (isDead) return;
@@ -261,6 +264,44 @@ public abstract class BaseAnimal : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Turn pet into a zombie by changing spritesheet and updating it on database.
+    /// </summary>
+    public void BecomeZombie()
+    {
+        if (IsZombie) return;
+
+        IsZombie = true;
+        Pet_Manager.Instance.AddToZombiePopulation();
+        Animator.TurnIntoZombie();
+
+        // Update Firebase
+        if (!string.IsNullOrEmpty(petID))
+        {
+            string json = $"{{\"name\":\"{petName}\",\"type\":\"{TypeOfPet}\",\"status\":\"active\",\"isZombie\":true}}";
+            FirebaseREST.Instance.SetData($"ecosystem/pets/{petID}", json);
+        }
+    }
+
+    protected virtual void SetMaxHP()
+    {
+        maxHp = 3;
+    }
+    
+    void HandleCorpsePhysics()
+    {
+        if (Rb2D != null && disablePhysicsOnDeath)
+        {
+            Rb2D.bodyType = RigidbodyType2D.Kinematic;
+            Rb2D.linearVelocity = Vector3.zero;
+        }
+        
+        if (disableCollidersOnDeath)
+        {
+            Collider.enabled = false;
+        }
+    }
+
     IEnumerator CleanUpCorpse()
     {
         yield return new WaitForSeconds(corpseLifetime);
@@ -268,7 +309,7 @@ public abstract class BaseAnimal : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private IEnumerator FadeOutCorpse(float duration = 1f)
+    IEnumerator FadeOutCorpse(float duration = 1f)
     {
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
         float elapsed = 0f;

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Unity.VisualScripting;
 
 /// <summary>
 /// Tracks every pet on the ecosystem and passes updated data to
@@ -214,5 +215,13 @@ public class Pet_Manager : MonoBehaviour
     public bool HasFreeSpace()
     {
         return Pets.Count < maxPets;
+    }
+
+    public void KillAllPets()
+    {
+        for (int i = Pets.Count - 1; i >= 0; i--)
+        {
+            Pets[i].Die();
+        }
     }
 }

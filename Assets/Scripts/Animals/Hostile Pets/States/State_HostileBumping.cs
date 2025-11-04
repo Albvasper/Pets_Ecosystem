@@ -43,8 +43,8 @@ public class State_HostileBumping : StateTypeHostilePet
         if (counter >= BumpingCooldown)
         {
             pet.Behavior.SubstractHappiness(1);
-            // If the animal has a breeding partner: mate
-            if (pet.BreedingPartner != null && !pet.CurrentPrey.isDead
+            // If the animal has a breeding partner -> mate
+            if (pet.BreedingPartner != null && !pet.BreedingPartner.isDead
                 && pet.CanHaveKids && otherAnimal.CanHaveKids)
             {
                 pet.Behavior.SetState(new State_Breeding(pet, otherAnimal));

@@ -47,8 +47,6 @@ public abstract class BaseAnimator : MonoBehaviour
     
     public void TurnIntoZombie()
     {
-        animal.IsZombie = true;
-        Pet_Manager.Instance.AddToZombiePopulation();
         Animator.runtimeAnimatorController = ZombieAnimator;
     }
 

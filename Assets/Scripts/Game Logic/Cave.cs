@@ -1,13 +1,15 @@
 using UnityEngine;
 using System.Collections;
 
-
 /// <summary>
 /// Manages cave object functionalities for hiding pets and changing sprite
 /// dependig on weather.
 /// </summary>
 public class Cave : MonoBehaviour
 {
+    /// <summary>
+    /// Time that pets will be inside the cave.
+    /// </summary>
     const float InsideCaveCooldown = 15f;
     [SerializeField] Transform SpawnPoint;
     /// <summary>
@@ -22,15 +24,12 @@ public class Cave : MonoBehaviour
     /// Standard cave sprite.
     /// </summary>
     [SerializeField] Sprite normalCave;
-    /// <summary>
-    /// Time that pets will be inside the cave.
-    /// </summary>
-
+    
     void Awake()
     {
         currentSprite.sprite = normalCave;
     }
-
+    
     void Start()
     {
         Weather_Manager.Instance.OnWeatherChanged += UpdateSprite;
@@ -41,7 +40,7 @@ public class Cave : MonoBehaviour
         pet.gameObject.SetActive(false);
         StartCoroutine(ExitCave(pet));
     }
-
+    
     void UpdateSprite()
     {
         if (Weather_Manager.Instance.Snowing)
@@ -49,10 +48,14 @@ public class Cave : MonoBehaviour
         else
             currentSprite.sprite = normalCave;
     }
-
+    
     IEnumerator ExitCave(BaseAnimal pet)
     {
         yield return new WaitForSeconds(InsideCaveCooldown);
+        
+        if (pet == null || pet.isDead)
+            yield break;
+
         pet.transform.position = SpawnPoint.position;
         pet.gameObject.SetActive(true);
     }

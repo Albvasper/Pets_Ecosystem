@@ -87,11 +87,7 @@ public class ViewerScreenUIManager : MonoBehaviour
             return;
         }
 
-        // Push spawn request
-        string json = $"{{\"name\":\"{petName}\",\"type\":\"{assignedPet}\"}}";
-        FirebaseREST.Instance.PushData("ecosystem/spawnRequests", json);
-
-        GoToSuccessScreen();
+        CheckCapacityBeforeSpawn(petName);
     }
 
     /// <summary>
@@ -172,29 +168,42 @@ public class ViewerScreenUIManager : MonoBehaviour
     /// </summary>
     void CheckEcosystemCapacity()
     {
-        FirebaseREST.Instance.GetData("ecosystem/pets", json =>
+        FirebaseREST.Instance.GetData("ecosystem/pets", petsJson =>
         {
-            int petCount = 0;
-            if (!string.IsNullOrEmpty(json) && json != "null")
+            FirebaseREST.Instance.GetData("ecosystem/spawnRequests", requestsJson =>
             {
-                var dict = MiniJSON.Json.Deserialize(json) as Dictionary<string, object>;
-                if (dict != null) petCount = dict.Count;
-            }
+                int petCount = 0;
+                int requestCount = 0;
 
-            if (petCount < MaxPets)
-            {
-                AssignRandomPet();
-                spawnScreen.SetActive(true);
-                feedbackText.text = "";
-                nameInput.text = "";
-                feedbackBox.SetActive(false);
-            }
-            else
-            {
-                AddViewerToQueue();
-            }
+                if (!string.IsNullOrEmpty(petsJson) && petsJson != "null")
+                {
+                    var dict = MiniJSON.Json.Deserialize(petsJson) as Dictionary<string, object>;
+                    if (dict != null) petCount = dict.Count;
+                }
+
+                if (!string.IsNullOrEmpty(requestsJson) && requestsJson != "null")
+                {
+                    var dict = MiniJSON.Json.Deserialize(requestsJson) as Dictionary<string, object>;
+                    if (dict != null) requestCount = dict.Count;
+                }
+
+                int totalCount = petCount + requestCount;
+
+                if (totalCount >= MaxPets)
+                {
+                    AddViewerToQueue();
+                }
+                else
+                {
+                    AssignRandomPet();
+                    spawnScreen.SetActive(true);
+                    feedbackText.text = "";
+                    nameInput.text = "";
+                    feedbackBox.SetActive(false);
+                }
+            });
         });
-    }
+}
 
     /// <summary>
     /// Adds viewer to Firebase queue and starts monitoring queue status and position.
@@ -205,8 +214,10 @@ public class ViewerScreenUIManager : MonoBehaviour
         string json = $"{{\"status\":\"waiting\"}}";
         FirebaseREST.Instance.SetData($"ecosystem/queue/{viewerID}", json);
 
+        welcomeScreen.SetActive(false);
         queueScreen.SetActive(true);
         spawnScreen.SetActive(false);
+        successScreen.SetActive(false);
 
         StartCoroutine(PollQueueStatus());
         StartCoroutine(UpdateQueuePositionRealtime());
@@ -285,5 +296,44 @@ public class ViewerScreenUIManager : MonoBehaviour
         }
 
         Debug.Log($"Assigned pet: {assignedPet}");
+    }
+
+    void CheckCapacityBeforeSpawn(string petName)
+    {
+        FirebaseREST.Instance.GetData("ecosystem/pets", petsJson =>
+        {
+            FirebaseREST.Instance.GetData("ecosystem/spawnRequests", requestsJson =>
+            {
+                int petCount = 0;
+                int requestCount = 0;
+
+                if (!string.IsNullOrEmpty(petsJson) && petsJson != "null")
+                {
+                    var dict = MiniJSON.Json.Deserialize(petsJson) as Dictionary<string, object>;
+                    if (dict != null) petCount = dict.Count;
+                }
+
+                if (!string.IsNullOrEmpty(requestsJson) && requestsJson != "null")
+                {
+                    var dict = MiniJSON.Json.Deserialize(requestsJson) as Dictionary<string, object>;
+                    if (dict != null) requestCount = dict.Count;
+                }
+
+                int totalCount = petCount + requestCount;
+
+                if (totalCount >= MaxPets)
+                {
+                    // Send back to queue if ecosystem filled up
+                    AddViewerToQueue();
+                    return;
+                }
+
+                // Push spawn request
+                string json = $"{{\"name\":\"{petName}\",\"type\":\"{assignedPet}\"}}";
+                FirebaseREST.Instance.PushData("ecosystem/spawnRequests", json);
+
+                GoToSuccessScreen();
+            });
+        });
     }
 }

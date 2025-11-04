@@ -29,6 +29,7 @@ public class Spawner_Manager : MonoBehaviour
     [SerializeField] List<Transform> spawnPoints = new List<Transform>();
     [SerializeField] GameObject[] petPrefabsArray;
     Dictionary<string, GameObject> petPrefabs;
+    int pendingSpawns = 0;
 
     void Awake()
     {
@@ -46,6 +47,43 @@ public class Spawner_Manager : MonoBehaviour
     }
 
     /// <summary>
+    /// Spawns a pet at a random spawn point and registers it in Firebase.
+    /// Generates unique ID for tracking and assigns pet name.
+    /// </summary>
+    /// <param name="petName">Display name for the pet.</param>
+    /// <param name="petType">Pet prefab type matching prefab name.</param>
+    public void SpawnPet(string petName, string petType)
+    {
+        // Check total count including pending spawns
+        if (Pet_Manager.Instance.Pets.Count + pendingSpawns >= maxPets)
+        {
+            Debug.Log($"Ecosystem full ({maxPets}), cannot spawn {petName}");
+            return;
+        }
+
+        if (petPrefabs == null || !petPrefabs.ContainsKey(petType) || spawnPoints == null)
+        {
+            Debug.LogError($"Missing prefab or spawn point for {petType}");
+            return;
+        }
+
+        pendingSpawns++;
+
+        string petID = System.Guid.NewGuid().ToString();
+
+        // Add to Firebase
+        string json = $"{{\"name\":\"{petName}\",\"type\":\"{petType}\",\"status\":\"active\",\"isZombie\":false}}";    
+        FirebaseREST.Instance.SetData($"ecosystem/pets/{petID}", json);
+
+        // Spawn pet 
+        SpawnPetAtRandomPoint(petName, petType, petID);
+        
+        pendingSpawns--;
+
+        Debug.Log($"Spawned {petType} ({petName}) with ID: {petID}");
+    }
+
+    /// <summary>
     /// Initializes Firebase connection and starts polling for spawn requests.
     /// Clears any leftover ecosystem data from previous sessions.
     /// </summary>
@@ -57,9 +95,8 @@ public class Spawner_Manager : MonoBehaviour
 
         Debug.Log("Spawner connected to Firebase REST");
 
-        // Clear leftover ecosystem data
-        FirebaseREST.Instance.DeleteData("ecosystem");
-
+        // Check database for old pets and spawn them
+        CheckForOldPets();
         // Start polling spawn requests
         StartCoroutine(PollSpawnRequests());
     }
@@ -98,14 +135,6 @@ public class Spawner_Manager : MonoBehaviour
 
                         if (string.IsNullOrEmpty(petName) || string.IsNullOrEmpty(petType)) continue;
 
-                        // Enforce population limit
-                        if (Pet_Manager.Instance.Pets.Count >= maxPets)
-                        {
-                            Debug.Log($"Ecosystem full ({maxPets}), ignoring spawn request {petName}");
-                            FirebaseREST.Instance.DeleteData($"ecosystem/spawnRequests/{key}");
-                            continue;
-                        }
-
                         SpawnPet(petName, petType);
                         FirebaseREST.Instance.DeleteData($"ecosystem/spawnRequests/{key}");
                     }
@@ -116,37 +145,71 @@ public class Spawner_Manager : MonoBehaviour
                 }
             });
             // poll every 2 seconds
-            yield return new WaitForSeconds(2f); 
+            yield return new WaitForSeconds(2f);
         }
     }
 
     /// <summary>
-    /// Spawns a pet at a random spawn point and registers it in Firebase.
-    /// Generates unique ID for tracking and assigns pet name.
+    /// Checks Firebase for existing pets from previous sessions and spawns them.
+    /// Called on ecosystem initialization to restore pet population.
     /// </summary>
-    /// <param name="petName">Display name for the pet.</param>
-    /// <param name="petType">Pet prefab type matching prefab name.</param>
-    public void SpawnPet(string petName, string petType)
+    void CheckForOldPets()
     {
-        if (petPrefabs == null || !petPrefabs.ContainsKey(petType) || spawnPoints == null)
+        FirebaseREST.Instance.GetData("ecosystem/pets", json =>
         {
-            Debug.LogError($"Missing prefab or spawn point for {petType}");
-            return;
+            if (string.IsNullOrEmpty(json) || json == "null") return;
+
+            var dict = Json.Deserialize(json) as Dictionary<string, object>;
+            if (dict == null) return;
+
+            int restored = 0;
+            foreach (var kvp in dict)
+            {
+                if (Pet_Manager.Instance.Pets.Count + pendingSpawns >= maxPets) break;
+
+                var petData = kvp.Value as Dictionary<string, object>;
+                if (petData == null) continue;
+
+                string petName = petData.ContainsKey("name") ? petData["name"] as string : "Unknown";
+                string petType = petData.ContainsKey("type") ? petData["type"] as string : null;
+                bool isZombie = petData.ContainsKey("isZombie") && (bool)petData["isZombie"];
+
+                pendingSpawns++;
+                if (SpawnPetAtRandomPoint(petName, petType, kvp.Key, isZombie) != null)
+                    restored++;
+                pendingSpawns--;
+            }
+
+            Debug.Log($"Restored {restored} pets from Firebase");
+        });
+    }
+
+    GameObject SpawnPetAtRandomPoint(string petName, string petType, string petID, bool isZombie = false)
+    {
+        if (!petPrefabs.ContainsKey(petType) || spawnPoints == null || spawnPoints.Count == 0)
+        {
+            Debug.LogError($"Cannot spawn pet: Missing prefab or spawn point for {petType}");
+            return null;
         }
 
-        string petID = System.Guid.NewGuid().ToString();
-
-        // Add to Firebase
-        string json = $"{{\"name\":\"{petName}\",\"type\":\"{petType}\",\"status\":\"active\"}}";
-        FirebaseREST.Instance.SetData($"ecosystem/pets/{petID}", json);
-
-        // Spawn pet at a random point
         Transform randomPoint = spawnPoints[Random.Range(0, spawnPoints.Count)];
-        GameObject instance = Instantiate(petPrefabs[petType], randomPoint.position, Quaternion.identity);
+        
+        // Add random offset to prevent pets spawning on top of each other
+        Vector2 offset = Random.insideUnitCircle * 2f;
+        Vector3 spawnPosition = randomPoint.position + new Vector3(offset.x, offset.y, 0);
+        
+        GameObject instance = Instantiate(petPrefabs[petType], spawnPosition, Quaternion.identity);
         var animal = instance.GetComponent<BaseAnimal>();
         animal.SetPetName(petName);
         animal.SetPetID(petID);
-
-        Debug.Log($"Spawned {petType} ({petName}) with ID: {petID}");
+        
+        if (isZombie)
+        {
+            animal.IsZombie = true;
+            Pet_Manager.Instance.AddToZombiePopulation();
+            animal.Animator.TurnIntoZombie();
+        }
+        
+        return instance;
     }
 }
