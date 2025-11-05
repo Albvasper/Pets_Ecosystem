@@ -193,8 +193,11 @@ git clone https://github.com/Albvasper/Pets_Ecosystem.git
 ```
 
 ## Play
-[![Play on WebGL (Host)](#)](#)
-[![Play on WebGL (Client)](#)](#)
+
+| Version | Link |
+|---------|------|
+| **Client** | [![Play](https://img.shields.io/badge/Play_on-itch.io-FA5C5C?logo=itchdotio&logoColor=white)](https://albvasper.itch.io/pumpets) |
+| **Host** | [![Play](https://img.shields.io/badge/Play_on-itch.io-FA5C5C?logo=itchdotio&logoColor=white)](https://albvasper.itch.io/pets-ecosystem) |
 
 ## Screenshots
 
