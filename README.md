@@ -1,6 +1,4 @@
-![Pet Ecosystem Banner](.github/Cover.png)
-
-# 🐾 Pet Ecosystem - Multiplayer Pet Simulation
+# Pet Ecosystem - Multiplayer Pet Simulation
 
 [![Unity](https://img.shields.io/badge/Unity-6000.0.59f2%20LTS-black.svg?style=for-the-badge&logo=unity)](https://unity.com/)
 [![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white)](https://docs.microsoft.com/en-us/dotnet/csharp/)
@@ -12,24 +10,31 @@
 
 ## Project Overview
 
-This project demonstrates advanced game programming and backend integration through a real-time pet simulation system. Built for WebGL deployment, it features intelligent pet AI, Firebase database integration for multi-user interaction, and complex state-driven behaviors. The system maintains stable performance with 20+ autonomous entities interacting simultaneously.
+Built for WebGL deployment, it features pet AI, Firebase database integration for multi-user interaction, and complex state-driven behaviors. The system maintains stable performance with 20+ autonomous entities interacting simultaneously.
 
-### Key Technical Achievements
+### Core Highlights
 - **Custom REST API Wrapper** for Firebase Realtime Database (WebGL-compatible)
-- **Advanced State Machine Architecture** with inheritance-based pet behaviors
+- **State Machine Architecture** with inheritance-based pet behaviors
 - **Real-Time Queue System** managing viewer connections and spawn requests
 - **Autonomous AI Behaviors** including breeding, hunting, and pack dynamics
 - **WebGL-Optimized Architecture** with efficient polling and data synchronization
 
-## Technical Stack
+### Stack
 
 | **Category** | **Technology** | **Purpose** |
 |--------------|----------------|-------------|
-| **Engine** | Unity 6000.0.59f2 LTS | Core game development platform |
-| **Language** | C# | Primary programming language |
+| **Engine** | Unity 6000.0.59f2 LTS | Core game engine |
+| **Language** | C# | Unity scripting language |
 | **Backend** | Firebase Realtime Database | Multi-user data synchronization |
 | **API** | Custom REST Wrapper | WebGL-compatible database operations |
 | **AI System** | State Machines | Pet behavior and decision-making |
+
+### Playable Builds
+
+| Version | Link |
+|---------|------|
+| **Client** | [![Play](https://img.shields.io/badge/Play_on-itch.io-FA5C5C?logo=itchdotio&logoColor=white)](https://albvasper.itch.io/pumpets) |
+| **Host** | [![Play](https://img.shields.io/badge/Play_on-itch.io-FA5C5C?logo=itchdotio&logoColor=white)](https://albvasper.itch.io/pets-ecosystem) |
 
 ## Core Systems Architecture
 
@@ -63,7 +68,7 @@ BaseAnimal (Abstract)
 
 ## Game Features
 
-### **Intelligent Pet AI**
+### **Pet AI**
 - **State-Driven Behaviors**: Clean state transitions with virtual methods
 - **Pack Dynamics**: Pets follow pack leaders and coordinate movement
 - **Breeding System**: Autonomous mate finding and reproduction
@@ -83,6 +88,22 @@ BaseAnimal (Abstract)
 - **REST API Operations**: Full CRUD functionality for WebGL
 - **Request Polling**: Efficient 2-second interval updates
 - **Automatic Cleanup**: Dead pets and completed requests removed
+
+
+## Key Scripts
+
+| Script | Description |
+|--------|-------------|
+| [`FirebaseREST.cs`](https://github.com/Albvasper/Pets_Ecosystem/blob/main/Assets/Scripts/Firebase/FirebaseREST.cs) | Custom REST API wrapper for Firebase with GET/SET/PUSH/DELETE operations |
+| [`Spawner_Manager.cs`](https://github.com/Albvasper/Pets_Ecosystem/blob/main/Assets/Scripts/Game%20Logic/Spawner_Manager.cs) | Polls Firebase spawn requests and manages pet instantiation |
+| [`ViewerScreen_UI_Manager.cs`](https://github.com/Albvasper/Pets_Ecosystem/blob/main/Assets/Scripts/Viewer%20Screen/ViewerScreen_UI_Manager.cs) | Handles viewer queue, capacity checks, and spawn flow |
+| [`BaseAnimal.cs`](https://github.com/Albvasper/Pets_Ecosystem/blob/main/Assets/Scripts/Base/Base%20Animal/BaseAnimal.cs) | Core animal class managing health, breeding, and state coordination |
+| [`BaseAnimator.cs`](https://github.com/Albvasper/Pets_Ecosystem/blob/main/Assets/Scripts/Base/Base%20Animal/BaseAnimator.cs) | Animation controller base handling sprite animations and transitions |
+| [`BaseBehavior.cs`](https://github.com/Albvasper/Pets_Ecosystem/blob/main/Assets/Scripts/Base/Base%20Animal/BaseBehavior.cs) | Behavior management base for movement and state machine execution |
+| [`BasePhysics.cs`](https://github.com/Albvasper/Pets_Ecosystem/blob/main/Assets/Scripts/Base/Base%20Animal/BasePhysics.cs) | Physics handling base for collisions and agent interactions |
+| [`State.cs`](https://github.com/Albvasper/Pets_Ecosystem/blob/main/Assets/Scripts/Base/State/State.cs) | State machine base class with enter/tick/exit pattern |
+| [`Pet.cs`](https://github.com/Albvasper/Pets_Ecosystem/blob/main/Assets/Scripts/Animals/Pets/Pet.cs) | Passive animal implementation extending base animal structure |
+| [`HostilePet.cs`](https://github.com/Albvasper/Pets_Ecosystem/blob/main/Assets/Scripts/Animals/Hostile%20Pets/HostilePet.cs) | Predator implementation with hunting and attack behaviors |
 
 ## Project Structure
 ```
@@ -131,25 +152,10 @@ Scripts/
     └── ViewerScreen_UI_Manager.cs      # Viewer UI, queue, and spawn flow
 ```
 
-## Key Scripts
-
-| Script | Description |
-|--------|-------------|
-| [`FirebaseREST.cs`](#) | Custom REST API wrapper for Firebase with GET/SET/PUSH/DELETE operations |
-| [`Spawner_Manager.cs`](#) | Polls Firebase spawn requests and manages pet instantiation |
-| [`ViewerScreen_UI_Manager.cs`](#) | Handles viewer queue, capacity checks, and spawn flow |
-| [`BaseAnimal.cs`](#) | Core animal class managing health, breeding, and state coordination |
-| [`BaseAnimator.cs`](#) | Animation controller base handling sprite animations and transitions |
-| [`BaseBehavior.cs`](#) | Behavior management base for movement and state machine execution |
-| [`BasePhysics.cs`](#) | Physics handling base for collisions and agent interactions |
-| [`State.cs`](#) | State machine base class with enter/tick/exit pattern |
-| [`Pet.cs`](#) | Passive animal implementation extending base animal structure |
-| [`HostilePet.cs`](#) | Predator implementation with hunting and attack behaviors |
-
 ## Performance Metrics
 
 - **Firebase Operations**: REST API calls every 2-3 seconds
-- **Entity Capacity**: 20 concurrent autonomous pets with complex AI
+- **Entity Capacity**: 20 concurrent autonomous pets with AI
 - **Framerate**: Stable 144 FPS during peak activity
 - **Memory**: Efficient resource management with proper cleanup
 - **Response Time**: Real-time spawn request processing (<5s)
@@ -180,25 +186,6 @@ git clone https://github.com/Albvasper/Pets_Ecosystem.git
 # Press Play on both scenes
 ```
 
-### Firebase Database Rules
-```json
-{
-  "rules": {
-    "ecosystem": {
-      ".read": true,
-      ".write": true
-    }
-  }
-}
-```
-
-## Play
-
-| Version | Link |
-|---------|------|
-| **Client** | [![Play](https://img.shields.io/badge/Play_on-itch.io-FA5C5C?logo=itchdotio&logoColor=white)](https://albvasper.itch.io/pumpets) |
-| **Host** | [![Play](https://img.shields.io/badge/Play_on-itch.io-FA5C5C?logo=itchdotio&logoColor=white)](https://albvasper.itch.io/pets-ecosystem) |
-
 ## Screenshots
 
 ![Screenshot 1](.github/Screenshot1.png)
@@ -206,25 +193,6 @@ git clone https://github.com/Albvasper/Pets_Ecosystem.git
 ![Screenshot 2](.github/Screenshot2.png)
 
 ![Screenshot 3](.github/Screenshot3.png)
-
-## Technical Highlights
-
-### Advanced Programming Concepts
-- **Design Patterns**: State, Singleton, Template Method implementations
-- **OOP Principles**: Abstract classes, inheritance hierarchies, polymorphism
-- **Async Operations**: Coroutine-based Firebase polling and request handling
-- **System Architecture**: Modular design with clear separation of concerns
-
-### Unity Expertise
-- **State Machine Framework**: Custom state system with virtual methods
-- **Firebase Integration**: WebGL-compatible REST API wrapper
-- **UI Systems**: Dynamic queue management and real-time feedback
-- **Animation Control**: Runtime animator switching and parameter management
-
-### Problem-Solving Skills
-- **WebGL Compatibility**: Custom REST solution for Firebase SDK limitations
-- **Queue System Design**: Fair and efficient viewer management
-- **State Coordination**: Complex AI behaviors with clean transitions
 
 ## Contact
 
