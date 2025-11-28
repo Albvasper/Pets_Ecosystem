@@ -29,13 +29,6 @@ Built for WebGL deployment, it features pet AI, Firebase database integration fo
 | **API** | Custom REST Wrapper | WebGL-compatible database operations |
 | **AI System** | State Machines | Pet behavior and decision-making |
 
-### Playable Builds
-
-| Version | Link |
-|---------|------|
-| **Client** | [![Play](https://img.shields.io/badge/Play_on-itch.io-FA5C5C?logo=itchdotio&logoColor=white)](https://albvasper.itch.io/pumpets) |
-| **Host** | [![Play](https://img.shields.io/badge/Play_on-itch.io-FA5C5C?logo=itchdotio&logoColor=white)](https://albvasper.itch.io/pets-ecosystem) |
-
 ## Core Systems Architecture
 
 ### Firebase REST Integration
