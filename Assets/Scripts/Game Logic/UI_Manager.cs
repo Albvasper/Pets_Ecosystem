@@ -20,8 +20,10 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI TextPopulationTigers;
     [SerializeField] private TextMeshProUGUI TextPopulationBears;
     [SerializeField] private TextMeshProUGUI TextPopulationZombies;
+    [SerializeField] private TextMeshProUGUI TextPopulationPokemons;
     [SerializeField] private TextMeshProUGUI TextBirthRate;
     [SerializeField] private TextMeshProUGUI TextWeather;
+
     public int Time { get; set; }
 
     void Awake()
@@ -74,6 +76,7 @@ public class UI_Manager : MonoBehaviour
         TextPopulationTigers.text = pet_Manager.PopulationTigers.ToString();
         TextPopulationBears.text = pet_Manager.PopulationBears.ToString();
         TextPopulationZombies.text = pet_Manager.PopulationZombies.ToString();
+        TextPopulationPokemons.text = pet_Manager.PopulationPokemons.ToString();
     }
 
     void UpdateHappinessBar()

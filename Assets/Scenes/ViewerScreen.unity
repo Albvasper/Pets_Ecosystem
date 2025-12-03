@@ -2914,6 +2914,11 @@ MonoBehaviour:
   deerAnimator: {fileID: 9100000, guid: 121ca54f75c3e034491498364f63b956, type: 2}
   bearAnimator: {fileID: 9100000, guid: 09e6b35770f84f64ea279d7af9adf7dd, type: 2}
   tigerAnimator: {fileID: 9100000, guid: 45a071a6b84a4084184a3b252e2475b1, type: 2}
+  pikachuAnimator: {fileID: 9100000, guid: c9fd69cc477b3d948926d9f935d124bd, type: 2}
+  bulbasaurAnimator: {fileID: 9100000, guid: e5ba204274df65a44acb4bb16254c6c1, type: 2}
+  charizardAnimator: {fileID: 9100000, guid: 925e03f3b3e40b045a6cc1af4564ce41, type: 2}
+  squirtleAnimator: {fileID: 9100000, guid: ea2180e561214e44090df2c38e3d1093, type: 2}
+  kabutoAnimator: {fileID: 9100000, guid: 0921c59d3d2973843b2250a23cc6851a, type: 2}
 --- !u!1 &1552191476
 GameObject:
   m_ObjectHideFlags: 0

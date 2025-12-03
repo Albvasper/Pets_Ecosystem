@@ -42,6 +42,7 @@ public class Pet_Manager : MonoBehaviour
     public int PopulationTigers { get; private set; }
     public int PopulationBears { get; private set; }
     public int PopulationZombies { get; private set; }
+    public int PopulationPokemons { get; private set; }
     public float BirthRate { get; private set; }
     float birthTimer = 0f;
     int birthsInWindow = 0;
@@ -66,6 +67,7 @@ public class Pet_Manager : MonoBehaviour
         PopulationBears = 0;
         BirthRate = 0;
         PopulationZombies = 0;
+        PopulationPokemons = 0;
     }
 
     void Update()
@@ -135,6 +137,12 @@ public class Pet_Manager : MonoBehaviour
         OnPopulationChanged?.Invoke();
     }
 
+    public void AddToPokemonPopulation()
+    {
+        PopulationPokemons++;
+        AddToPopulation();
+    }
+
     public void RemoveFromDogPopulation()
     {
         PopulationDogs--;
@@ -175,6 +183,12 @@ public class Pet_Manager : MonoBehaviour
     {
         PopulationZombies--;
         OnPopulationChanged?.Invoke();
+    }
+    
+    public void RemoveFromPokemonPopulation()
+    {
+        PopulationPokemons--;
+        RemoveFromPopulation();
     }
 
     public void NotifyHappinessChanged()

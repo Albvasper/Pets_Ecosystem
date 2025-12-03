@@ -47,7 +47,10 @@ public abstract class BaseAnimator : MonoBehaviour
     
     public void TurnIntoZombie()
     {
-        Animator.runtimeAnimatorController = ZombieAnimator;
+        if (ZombieAnimator != null)
+            Animator.runtimeAnimatorController = ZombieAnimator;
+        else
+            Debug.LogWarning("Zombie animator is null!");
     }
 
     public void DeathAnimation()

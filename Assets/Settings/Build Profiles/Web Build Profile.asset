@@ -20,9 +20,9 @@ MonoBehaviour:
     rid: 6760427066843201537
   m_OverrideGlobalSceneList: 1
   m_Scenes:
-  - m_enabled: 0
-    m_path: Assets/Scenes/SampleScene.unity
   - m_enabled: 1
+    m_path: Assets/Scenes/SampleScene.unity
+  - m_enabled: 0
     m_path: Assets/Scenes/ViewerScreen.unity
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
@@ -74,7 +74,7 @@ MonoBehaviour:
     - line: '|   defaultScreenWidth: 1920'
     - line: '|   defaultScreenHeight: 1080'
     - line: '|   defaultScreenWidthWeb: 960'
-    - line: '|   defaultScreenHeightWeb: 540'
+    - line: '|   defaultScreenHeightWeb: 600'
     - line: '|   m_StereoRenderingPath: 0'
     - line: '|   m_ActiveColorSpace: 1'
     - line: '|   unsupportedMSAAFallback: 0'

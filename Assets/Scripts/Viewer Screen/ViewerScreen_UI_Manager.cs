@@ -32,6 +32,11 @@ public class ViewerScreenUIManager : MonoBehaviour
     public RuntimeAnimatorController deerAnimator;
     public RuntimeAnimatorController bearAnimator;
     public RuntimeAnimatorController tigerAnimator;
+    public RuntimeAnimatorController pikachuAnimator;
+    public RuntimeAnimatorController bulbasaurAnimator;
+    public RuntimeAnimatorController charizardAnimator;
+    public RuntimeAnimatorController squirtleAnimator;
+    public RuntimeAnimatorController kabutoAnimator;
 
     // Unique ID for each viewer.
     string viewerID;
@@ -282,7 +287,20 @@ public class ViewerScreenUIManager : MonoBehaviour
     /// </summary>
     void AssignRandomPet()
     {
-        string[] petTypes = { "Cat", "Dog", "Wolf", "Deer", "Tiger", "Bear" };
+        string[] petTypes = 
+        { 
+            "Cat", 
+            "Dog", 
+            "Wolf", 
+            "Deer", 
+            "Tiger", 
+            "Bear", 
+            "Pikachu", 
+            "Bulbasaur", 
+            "Charizard", 
+            "Kabuto", 
+            "Squirtle" 
+        };
         assignedPet = petTypes[Random.Range(0, petTypes.Length)];
 
         switch (assignedPet)
@@ -293,8 +311,12 @@ public class ViewerScreenUIManager : MonoBehaviour
             case "Deer": petPreviewAnimator.runtimeAnimatorController = deerAnimator; break;
             case "Bear": petPreviewAnimator.runtimeAnimatorController = bearAnimator; break;
             case "Tiger": petPreviewAnimator.runtimeAnimatorController = tigerAnimator; break;
+            case "Pikachu": petPreviewAnimator.runtimeAnimatorController = pikachuAnimator; break;
+            case "Bulbasaur": petPreviewAnimator.runtimeAnimatorController = bulbasaurAnimator; break;
+            case "Charizard": petPreviewAnimator.runtimeAnimatorController = charizardAnimator; break;
+            case "Kabuto": petPreviewAnimator.runtimeAnimatorController = kabutoAnimator; break;
+            case "Squirtle": petPreviewAnimator.runtimeAnimatorController = squirtleAnimator; break;
         }
-
         Debug.Log($"Assigned pet: {assignedPet}");
     }
 

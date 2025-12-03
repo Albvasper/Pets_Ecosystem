@@ -3,7 +3,7 @@ using UnityEngine.AI;
 using TMPro;
 using System.Collections;
 
-public enum TypeOfPet { Cat, Dog, Deer, Wolf, Bear, Tiger }
+public enum TypeOfPet { Cat, Dog, Deer, Wolf, Bear, Tiger, Pikachu, Bulbasaur, Charizard, Kabuto, Squirtle}
 public enum Friendliness { Passive, Hostile }
 public enum Sex { Male, Female }
 
@@ -136,6 +136,7 @@ public abstract class BaseAnimal : MonoBehaviour
             case TypeOfPet.Wolf: Pet_Manager.Instance.AddToWolfPopulation(); break;
             case TypeOfPet.Tiger: Pet_Manager.Instance.AddToTigerPopulation(); break;
             case TypeOfPet.Bear: Pet_Manager.Instance.AddToBearPopulation(); break;
+            default: Pet_Manager.Instance.AddToPokemonPopulation(); break;
         }
         // 1% chance to be zombie on spawn (only if not already a zombie from restore)
         if (!IsZombie && Random.value <= zombieChance)
@@ -244,6 +245,7 @@ public abstract class BaseAnimal : MonoBehaviour
             case TypeOfPet.Wolf: Pet_Manager.Instance.RemoveFromWolfPopulation(); break;
             case TypeOfPet.Tiger: Pet_Manager.Instance.RemoveFromTigerPopulation(); break;
             case TypeOfPet.Bear: Pet_Manager.Instance.RemoveFromBearPopulation(); break;
+            default: Pet_Manager.Instance.RemoveFromPokemonPopulation(); break;
         }
 
         if (string.IsNullOrEmpty(petID)) return;
