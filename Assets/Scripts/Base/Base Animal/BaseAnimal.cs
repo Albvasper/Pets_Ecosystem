@@ -98,10 +98,10 @@ public abstract class BaseAnimal : MonoBehaviour
     /// </summary>
     [SerializeField] protected GameObject Baby;
     protected int maxHp;
-    float minLifetime = 240f;   // Minium time a pet will take a hit because of hunger
-    float maxLifetime = 360f;   // Maximum time a pet will take a hit because of hunger
+    float minLifetime = 600f;   // Minium time a pet will take a hit because of hunger
+    float maxLifetime = 1800f;  // Maximum time a pet will take a hit because of hunger
     float lifetime;             // Stores the time it will take for the pet to take a hit. 
-    float zombieChance = 0.01f; // 1% chance of becoming a zombie.
+    float zombieChance = 0.00f; // 0% chance of becoming a zombie.
     float counter;              // Counter for breeding cooldown.
 
     protected virtual void Awake()
@@ -138,8 +138,8 @@ public abstract class BaseAnimal : MonoBehaviour
             case TypeOfPet.Bear: Pet_Manager.Instance.AddToBearPopulation(); break;
             default: Pet_Manager.Instance.AddToPokemonPopulation(); break;
         }
-        // 1% chance to be zombie on spawn (only if not already a zombie from restore)
-        if (!IsZombie && Random.value <= zombieChance)
+        // 0% chance to be zombie on spawn (only if not already a zombie from restore)
+        if (!IsZombie && Random.value < zombieChance)
         {
             BecomeZombie();
         }
@@ -287,7 +287,7 @@ public abstract class BaseAnimal : MonoBehaviour
 
     protected virtual void SetMaxHP()
     {
-        maxHp = 3;
+        maxHp = 10;
     }
     
     void HandleCorpsePhysics()

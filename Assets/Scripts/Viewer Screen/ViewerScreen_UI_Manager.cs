@@ -283,25 +283,30 @@ public class ViewerScreenUIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Randomly selects a pet type and updates preview animator.
+    /// Selects a pet type based on weighted probabilities and updates preview animator.
+    /// Hostile pets have lower chance of being picked.
     /// </summary>
     void AssignRandomPet()
     {
-        string[] petTypes = 
-        { 
-            "Cat", 
-            "Dog", 
-            "Wolf", 
-            "Deer", 
-            "Tiger", 
-            "Bear", 
-            "Pikachu", 
-            "Bulbasaur", 
-            "Charizard", 
-            "Kabuto", 
-            "Squirtle" 
-        };
-        assignedPet = petTypes[Random.Range(0, petTypes.Length)];
+        // 80% peaceful pet, 20% hostile pet
+        float passivePetProbability = 0.95f;
+        string[] passivePets = { "Cat", "Dog", "Deer" };
+        string[] aggressivePets = { "Wolf", "Bear", "Tiger" };
+        string[] selectedGroup;
+        
+        // Pick a group
+        float groupRoll = Random.value;
+        if (groupRoll < passivePetProbability)
+        {
+            selectedGroup = passivePets;
+        }
+        else
+        {
+            selectedGroup = aggressivePets;
+        }
+
+        // Inside the picked group select a random pet
+        assignedPet = selectedGroup[Random.Range(0, selectedGroup.Length)];
 
         switch (assignedPet)
         {
@@ -311,11 +316,13 @@ public class ViewerScreenUIManager : MonoBehaviour
             case "Deer": petPreviewAnimator.runtimeAnimatorController = deerAnimator; break;
             case "Bear": petPreviewAnimator.runtimeAnimatorController = bearAnimator; break;
             case "Tiger": petPreviewAnimator.runtimeAnimatorController = tigerAnimator; break;
+            /*
             case "Pikachu": petPreviewAnimator.runtimeAnimatorController = pikachuAnimator; break;
             case "Bulbasaur": petPreviewAnimator.runtimeAnimatorController = bulbasaurAnimator; break;
             case "Charizard": petPreviewAnimator.runtimeAnimatorController = charizardAnimator; break;
             case "Kabuto": petPreviewAnimator.runtimeAnimatorController = kabutoAnimator; break;
             case "Squirtle": petPreviewAnimator.runtimeAnimatorController = squirtleAnimator; break;
+            */
         }
         Debug.Log($"Assigned pet: {assignedPet}");
     }

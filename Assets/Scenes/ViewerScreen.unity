@@ -2774,7 +2774,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Enter your public key ...
+  m_text: Enter your wallet address...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 299c5be563d993b4b9654760e8b5cc55, type: 2}
   m_sharedMaterial: {fileID: 8697133014675565505, guid: 299c5be563d993b4b9654760e8b5cc55, type: 2}

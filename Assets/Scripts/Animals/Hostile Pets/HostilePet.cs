@@ -32,6 +32,6 @@ public class HostilePet : Pet
     // Set max hp to 5. Only for hostile pets
     protected override void SetMaxHP()
     {
-        maxHp = 5; 
+        maxHp = 20; 
     }
 }
