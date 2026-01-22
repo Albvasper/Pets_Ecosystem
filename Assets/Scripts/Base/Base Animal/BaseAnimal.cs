@@ -172,7 +172,7 @@ public abstract class BaseAnimal : MonoBehaviour
 
     public void SetPetName(string _name)
     {
-        name = _name;
+        petName = _name;
         nameTag.text = _name;
     }
 
@@ -284,7 +284,7 @@ public abstract class BaseAnimal : MonoBehaviour
             FirebaseREST.Instance.SetData($"ecosystem/pets/{petID}", json);
         }
     }
-
+    
     protected virtual void SetMaxHP()
     {
         maxHp = 10;
