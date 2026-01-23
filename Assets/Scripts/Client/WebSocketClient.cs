@@ -13,8 +13,6 @@ public class WebSocketClient : MonoBehaviour
         {
             string json = System.Text.Encoding.UTF8.GetString(bytes);
 
-            Debug.Log("RAW SNAPSHOT: " + json);
-
             WorldSnapshot snapshot = JsonUtility.FromJson<WorldSnapshot>(json);
 
             Debug.Log("APPLYING SNAPSHOT");

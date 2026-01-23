@@ -30,7 +30,7 @@ public class PetFactory : MonoBehaviour
         var go = Instantiate(
             prefabMap[p.petType],
             new Vector3(p.petX, p.petY, p.petZ),
-            Quaternion.Euler(p.petRotationX, p.petRotationY, p.petRotationZ)
+            Quaternion.identity
         );
 
         var pet = go.GetComponent<RemotePet>();

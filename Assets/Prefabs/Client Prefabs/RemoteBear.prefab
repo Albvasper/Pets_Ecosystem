@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0.41, y: -0.25425}
-  m_SizeDelta: {x: 0, y: 0.5085}
+  m_SizeDelta: {x: 0.82, y: 0.5085}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5468946496378422953
 CanvasRenderer:
@@ -451,6 +451,8 @@ GameObject:
   - component: {fileID: 1854670629688134257}
   - component: {fileID: 7760359988367816911}
   - component: {fileID: 4204108894517298922}
+  - component: {fileID: -2688604035046617902}
+  - component: {fileID: 4914444512705101921}
   m_Layer: 0
   m_Name: RemoteBear
   m_TagString: Untagged
@@ -546,3 +548,37 @@ MonoBehaviour:
   petName: 
   typeOfPet: 4
   nameTag: {fileID: 1462005672733700039}
+--- !u!114 &-2688604035046617902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7736958610476464218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49145d66c7b0bd142ac260d06adafca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &4914444512705101921
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7736958610476464218}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b6782ad0919646a40bd8ef145bb317a6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

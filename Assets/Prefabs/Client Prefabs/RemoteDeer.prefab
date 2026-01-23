@@ -364,6 +364,8 @@ GameObject:
   - component: {fileID: 1854670629688134257}
   - component: {fileID: 7760359988367816911}
   - component: {fileID: 4204108894517298922}
+  - component: {fileID: 5860546415153000471}
+  - component: {fileID: -3295824015911500921}
   m_Layer: 0
   m_Name: RemoteDeer
   m_TagString: Untagged
@@ -459,6 +461,40 @@ MonoBehaviour:
   petName: 
   typeOfPet: 2
   nameTag: {fileID: 9142961972791906910}
+--- !u!114 &5860546415153000471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7736958610476464218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49145d66c7b0bd142ac260d06adafca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &-3295824015911500921
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7736958610476464218}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: daff60f53d79b3e4d93a0a8bac96d2e0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8824535044987778851
 GameObject:
   m_ObjectHideFlags: 0

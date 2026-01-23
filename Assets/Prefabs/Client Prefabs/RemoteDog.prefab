@@ -367,6 +367,8 @@ GameObject:
   - component: {fileID: 1854670629688134257}
   - component: {fileID: 7760359988367816911}
   - component: {fileID: 4204108894517298922}
+  - component: {fileID: -8045849708502139727}
+  - component: {fileID: 4348227699881437731}
   m_Layer: 0
   m_Name: RemoteDog
   m_TagString: Untagged
@@ -462,6 +464,40 @@ MonoBehaviour:
   petName: 
   typeOfPet: 1
   nameTag: {fileID: 3230223627436896833}
+--- !u!114 &-8045849708502139727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7736958610476464218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49145d66c7b0bd142ac260d06adafca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &4348227699881437731
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7736958610476464218}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b38f2154e1811bf42aa67a8b4a74901e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7920036208233449706
 GameObject:
   m_ObjectHideFlags: 0

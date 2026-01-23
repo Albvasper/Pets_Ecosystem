@@ -45,11 +45,9 @@ public class SnapshotBroadcaster : MonoBehaviour
                 petY = t.position.y,
                 petZ = t.position.z,
 
-                petRotationX = t.eulerAngles.x,
-                petRotationY = t.eulerAngles.y,
-                petRotationZ = t.eulerAngles.z,
-
-                //state = (int)a.CurrentState
+                isDead = a.isDead,
+                isStunned = a.Animator.IsBeingBumped
+                //isAttacking = a.Animator.isAtta
             });
         }
 

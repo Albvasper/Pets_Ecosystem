@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Manages viewer UI flow for connecting to ecosystem, queueing, and spawning pets.
@@ -126,6 +127,11 @@ public class ViewerScreenUIManager : MonoBehaviour
 
         isInQueue = false;
         FirebaseREST.Instance.DeleteData($"ecosystem/queue/{viewerID}");
+    }
+
+    public void SpectateEcosystem()
+    {
+        SceneManager.LoadScene("ClientEcosystem");
     }
     
     /// <summary>
