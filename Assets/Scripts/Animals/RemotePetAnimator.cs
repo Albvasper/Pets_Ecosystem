@@ -28,4 +28,11 @@ public class RemotePetAnimator : MonoBehaviour
             animator.SetFloat("LastInputY", lastVelocity.y);
         }
     }
+
+    public void UpdateStateAnimation(bool dead, bool stunned, bool attacking)
+    {
+        animator.SetBool("IsDead", dead);
+        animator.SetBool("IsStunned", stunned);
+        //animator.SetBool("IsAttacking", attacking);
+    }
 }

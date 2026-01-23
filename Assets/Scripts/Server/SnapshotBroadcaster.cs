@@ -28,7 +28,12 @@ public class SnapshotBroadcaster : MonoBehaviour
         WorldSnapshot snapshot = new WorldSnapshot
         {
             serverTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
-            pets = new List<PetSnapshot>(animals.Length)
+            pets = new List<PetSnapshot>(animals.Length),
+            birthRate = Pet_Manager.Instance.BirthRate,
+            populationHappiness = Pet_Manager.Instance.GetAverageHappiness(),
+            populationSentience = Pet_Manager.Instance.GetAverageSentience(),
+            isRaining = Weather_Manager.Instance.Raining,
+            isSnowing = Weather_Manager.Instance.Snowing
         };
 
         foreach (var a in animals)
@@ -47,12 +52,9 @@ public class SnapshotBroadcaster : MonoBehaviour
 
                 isDead = a.isDead,
                 isStunned = a.Animator.IsBeingBumped
-                //isAttacking = a.Animator.isAtta
             });
         }
-
         string json = JsonUtility.ToJson(snapshot);
         EcosystemWebSocketClient.Instance.Send(json);
-        Debug.Log("SERVER SENT SNAPSHOT");
     }
 }

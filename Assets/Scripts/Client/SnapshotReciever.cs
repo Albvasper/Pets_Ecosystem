@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using NUnit.Framework;
 
 public static class SnapshotReceiver
 {
@@ -22,6 +23,7 @@ public static class SnapshotReceiver
             }
 
             animal.ApplySnapshot(new Vector3(p.petX, p.petY, p.petZ));
+            animal.ApplyState(p.isDead, p.isStunned);
         }
         // Despawn pets
         var petsToDespawn = new List<string>();
@@ -34,6 +36,24 @@ public static class SnapshotReceiver
         {
             GameObject.Destroy(pets[id].gameObject);
             pets.Remove(id);
+        }
+        // Update UI
+        ClientEcosystemUiManager.UpdateBirthRate(snapshot.birthRate);
+        ClientEcosystemUiManager.UpdateHappiness(snapshot.populationHappiness);
+        ClientEcosystemUiManager.UpdateSentience(snapshot.populationSentience);
+
+        // Apply weather
+        if (snapshot.isRaining)
+        {
+            ClientEcosystemUiManager.ChangeWeatherText("Raining");
+        }
+        if (snapshot.isSnowing)
+        {
+            ClientEcosystemUiManager.ChangeWeatherText("Snowing");
+        }
+        else
+        {
+            ClientEcosystemUiManager.ChangeWeatherText("Sunny");
         }
     }
 }
