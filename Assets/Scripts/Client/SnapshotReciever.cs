@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 
 public static class SnapshotReceiver
-{
+{   
     static Dictionary<string, RemotePet> pets = new();
 
     public static void Apply(WorldSnapshot snapshot)
@@ -17,7 +17,7 @@ public static class SnapshotReceiver
             // Spawn pets
             if (!pets.TryGetValue(p.petId, out var animal))
             {
-                Debug.Log("SPAWN PET " + p.petId);
+                //Debug.Log("SPAWN PET " + p.petId);
                 animal = PetFactory.Instance.SpawnPet(p);
                 pets[p.petId] = animal;
             }
@@ -41,19 +41,21 @@ public static class SnapshotReceiver
         ClientEcosystemUiManager.UpdateBirthRate(snapshot.birthRate);
         ClientEcosystemUiManager.UpdateHappiness(snapshot.populationHappiness);
         ClientEcosystemUiManager.UpdateSentience(snapshot.populationSentience);
-
         // Apply weather
         if (snapshot.isRaining)
         {
             ClientEcosystemUiManager.ChangeWeatherText("Raining");
+            ClientEcosystemWeatherManager.Instance.SetWeatherRain();
         }
         if (snapshot.isSnowing)
         {
             ClientEcosystemUiManager.ChangeWeatherText("Snowing");
+            ClientEcosystemWeatherManager.Instance.SetWeatherSnowy();
         }
         else
         {
             ClientEcosystemUiManager.ChangeWeatherText("Sunny");
+            ClientEcosystemWeatherManager.Instance.SetWeatherSunny();
         }
     }
 }

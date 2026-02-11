@@ -3784,6 +3784,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091b3d3c919e46b429c53a26e87987fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RainGameObject: {fileID: 1234309655}
+  Light2D: {fileID: 619394801}
+  OverWorld: {fileID: 935145071}
+  SnowyWorld: {fileID: 945118028}
 --- !u!1 &300457643
 GameObject:
   m_ObjectHideFlags: 0
@@ -29655,7 +29659,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!199 &1234309656
 ParticleSystemRenderer:
   serializedVersion: 6

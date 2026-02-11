@@ -5,24 +5,25 @@ using System;
 
 public class SnapshotBroadcaster : MonoBehaviour
 {
-    [SerializeField] float snapshotRate = 0.1f; // ~6–7 Hz
+    [SerializeField] float snapshotRate;
 
     float timer;
 
     void Update()
     {
-#if UNITY_SERVER || !UNITY_WEBGL
+        if (!ServerRole.IsServer) return;
+
         timer += Time.deltaTime;
         if (timer >= snapshotRate)
         {
             timer = 0f;
             BroadcastSnapshot();
         }
-#endif
     }
 
     void BroadcastSnapshot()
     {
+        Debug.Log("Sending Snapshot!");
         BaseAnimal[] animals = FindObjectsByType<BaseAnimal>(FindObjectsSortMode.None);
 
         WorldSnapshot snapshot = new WorldSnapshot
